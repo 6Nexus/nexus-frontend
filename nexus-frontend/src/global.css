@@ -1,4 +1,16 @@
+:root {
+    --bg-color-light: #EDEBEB;
+    --primary-text-color: #001D00;
+    --secondary-text-color: #fff;
+    --primary-green: #3B9D3B;
+    --secondary-green: #245024;
+    --detail-green: #69CA69;
+    --primary-grey: #524E4E;
+    --secondary-grey: #524e4ea8;
+}
+
 body {
     margin: 0;
     padding: 0;
+    background-color: var(--bg-color-light);
 }
