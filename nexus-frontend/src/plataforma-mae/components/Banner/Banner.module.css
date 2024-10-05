@@ -1,0 +1,56 @@
+
+    .banner-container {
+        width: 70%;
+        position: relative;
+        height: 311px;
+        background-image: url('../../../utils/assets/fundo-banner.svg');
+        background-position: center; 
+        background-repeat: no-repeat; 
+        background-size: cover;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-top: 100px;
+        gap: 40px;
+        justify-content: center;
+        border-radius: 20px;
+    }
+
+    .banner-container__text {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        align-items: center;
+        text-align: center;
+        width: 60%;
+    }
+
+    h2 {
+        color: #fff;
+        font-family: 'Inter-Light', sans-serif;
+        font-size: 30px;
+        letter-spacing: 2px;
+    }
+
+    h4 {
+        color: #fff;
+        font-family: 'Inter-Extra-Light', sans-serif;
+        font-size: 20px;
+        letter-spacing: 2px;
+    }
+
+    .banner-container__button button {
+        background-color: transparent;
+        border: 1px solid #fff;
+        color: var(--secondary-text-color);
+        font-family: 'Inter-Regular', sans-serif;
+        font-size: 16px;
+        padding: 16px 32px;
+        border-radius: 8px;
+    }
+
+
+
+
+
+
