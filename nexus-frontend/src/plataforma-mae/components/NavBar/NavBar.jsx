@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useState } from "react";
 import styles from './NavBar.module.css';
 
 import MenuIcon from '@mui/icons-material/Menu';
@@ -11,31 +12,61 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 const NavBar = () => {
+    const [isExpanded, setExpanded] = useState(false);
+
+    const toggleMenu = () => {
+        setExpanded(!isExpanded);
+    }
+
     return (
         <>
-            <nav class="menu" role="navigation" aria-label="Menu de opções da plataforma" className={styles["navbar"]}>
-                <div class="menu__menu-icon" className={styles["menuIcon"]}>
+            <nav className={`${styles.navbar} ${isExpanded ? styles.expanded : ''}`} aria-label="Menu de opções da plataforma">
+                <div class="menu__menu-icon" className={styles["menuIcon"]} onClick={toggleMenu}>
                     <MenuIcon sx={{ fontSize: 32, color: '#fff'}}/>
                 </div>
 
                 <div class="menu__menu-icon-options" className={styles["menuOptions"]}>
                     <div class="menu-icon-options__primary" className={styles["menuOptions__primary"]}>
-                        <HomeIcon sx={{ fontSize: 32, color: '#fff'}}/>
-                        <SchoolIcon sx={{ fontSize: 32, color: '#fff'}}/>
-                        <InfoIcon sx={{ fontSize: 32, color: '#fff'}}/>
-                        <AccountCircleIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                        <div className={styles["menuOptions__item"]}>
+                            <HomeIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Início</span>}
+                        </div>
+
+                        <div className={styles["menuOptions__item"]}>
+                            <SchoolIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Cursos</span>}
+                        </div>
+
+                        <div className={styles["menuOptions__item"]}>
+                            <InfoIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Instruções</span>}
+                        </div>
+
+                        <div className={styles["menuOptions__item"]}>
+                            <AccountCircleIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Seu perfil</span>}
+                        </div>
                     </div>
 
                     <div className={styles["menuOptions__line"]}></div>
                         
                     <div class="menu-icon-options__secondary" className={styles["menuOptions__secondary"]}>
-                        <WorkspacePremiumIcon sx={{ fontSize: 32, color: '#fff'}}/>
-                        <FavoriteIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                        <div className={styles["menuOptions__item"]}>
+                            <WorkspacePremiumIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Certificados</span>}
+                        </div>
+                        <div className={styles["menuOptions__item"]}>
+                            <FavoriteIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Salvos</span>}
+                        </div>
                     </div>
                 </div>
 
                 <div class="menu__menu-icon-logout" className={styles["menuIconLogout"]}>
-                    <LogoutIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                    <div className={styles["menuOptions__item"]}>
+                        <LogoutIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                        {isExpanded && <span className={styles["menuOptions__item__text"]}>Sair</span>}
+                    </div>
                 </div>
             </nav>
         </>

@@ -9,7 +9,12 @@
     border-top-right-radius: 16px;
     border-bottom-right-radius: 16px;
     position: fixed;
-  
+    transition: width 0.3s ease;
+}
+
+
+.navbar.expanded {
+    width: 12%; 
 }
 
 .menuOptions {
@@ -20,6 +25,7 @@
     padding: 24px;
     align-items: center;
     gap: 80px;
+    cursor: pointer;
 
 }
 
@@ -39,4 +45,24 @@
 .menuIcon, .menuIconLogout {
     padding: 24px;
     width: fit-content;
+    cursor: pointer;
 }
+
+
+.menuOptions__item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+.menuOptions__item__text {
+    font-family: 'Inter-Medium', sans-serif;
+    color: #fff;
+    font-size: 18px;
+    white-space: nowrap;
+    
+}
+
+
+
