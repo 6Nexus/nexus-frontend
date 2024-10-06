@@ -9,4 +9,52 @@
     
 }
 
+.container-geral {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 2rem;
+}  
 
+
+.container-info {
+    max-width: 100%;
+    width: 100%;
+    background-color: var(--fundoNeutro);
+    padding: 1.5rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    margin-top: 2rem;
+    margin-right: 3rem;
+    margin-left: 3rem;
+    height: auto;
+}
+
+
+.infos span {
+    display: block;
+    margin-bottom: 0.5rem;
+    margin-top: 1.5rem;
+    font-weight: 400;
+}
+
+.btn-editar-info {
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+}
+
+.btn-editar-info button {
+    padding: 5px;
+    width: 100px;
+    cursor: pointer;
+    background-color: var(--corPrimaria);
+    border-color: var(--corDeContorno);
+    color: white;
+    border-radius: 4px;
+    transition: all 0.3s ease ;
+}
+
+.btn-editar-info:hover button {
+    background-color: #7A0049;
+}
