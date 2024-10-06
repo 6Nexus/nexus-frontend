@@ -4,7 +4,7 @@
     gap: 52px;
     background-color: var(--secondary-text-color);
     height: min-content;
-    width: fit-content;
+    width: 30%;
     border-radius: 30px;
 }
 
@@ -26,27 +26,24 @@
 .card-curso-container__info__content__titles {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: 16px;
 }
 
 
-h2, h4, p {
+.info__content__titles__title, .info__content__titles__subtitle {
     margin: 0px;
     color: var(--secondary-green);
 }
 
-h2 {
-    font-size: 32px;
+.info__content__titles__title {
+    font-family: 'Inter-Medium';
+    font-size: 24px;
 }
 
-h4 {
-    font-size: 20px;
+.info__content__titles__subtitle {
+    font-family: 'Inter-Light';
+    font-size: 16px;
 }
-
-p {
-    font-size: 20px;
-}
-
 
 .card-curso-container__info__content__button button {
     display: flex;
@@ -79,5 +76,11 @@ p {
     height: min-content;
     width: min-content;
     border-radius: 8px;
+}
+
+.button__progress {
+    font-family: 'Inter-Regular';
+    color: var(--secondary-green);
+    margin: 0;
 }
 

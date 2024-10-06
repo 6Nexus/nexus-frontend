@@ -13,8 +13,8 @@ const CardCurso = () => {
                     </div>
                     <div className={styles["card-curso-container__info__content"]}>
                         <div className={styles["card-curso-container__info__content__titles"]}>
-                                <h2>Titulo do curso</h2>
-                                <h4>Subtitulo do curso</h4>
+                                <h2 className={styles["info__content__titles__title"]}>Titulo do curso</h2>
+                                <h4 className={styles["info__content__titles__subtitle"]}>Subtitulo do curso</h4>
                         </div>
 
                         <div className={styles["card-curso-container__info__content__button"]}>
@@ -31,7 +31,7 @@ const CardCurso = () => {
                         Continuar
                     </button>
 
-                    <p>Progresso: 20%</p>
+                    <p className={styles["button__progress"]}>Progresso: 20%</p>
                 </div>
            </div>
         </>
