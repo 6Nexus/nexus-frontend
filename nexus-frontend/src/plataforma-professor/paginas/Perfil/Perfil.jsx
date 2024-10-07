@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UploadImagem from "../../componentes/UploadImagem/UploadImagem";
 
 
-
 function Perfil() {
 
     return (
