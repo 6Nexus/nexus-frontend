@@ -1,0 +1,287 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow-x: hidden;
+    background-color: #ffffff;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: row;
+    padding-top: 5px;
+    width: 100%;
+    height: 60px;
+    position: fixed;
+    backdrop-filter: blur(4px) brightness(0.8); 
+    z-index: +3; 
+}
+
+.logo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-left: 5%;
+}
+
+.navLinks {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: 50%;
+    width: 50%;
+    margin-right: 5%;
+}
+
+.navLinks ul {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    list-style-type: none;
+    width: 100%;
+    margin: 0; 
+    padding: 0; 
+}
+
+.navLinks li a {
+    font-family: 'Inter', sans-serif;
+    text-decoration: none;
+    color: white;
+    cursor: pointer;
+    font-weight: 500;
+    padding: 10px 15px; 
+}
+
+.navLinks a.principal {
+    background-color: #4CAD4C;
+    padding: 5px 30px;
+    border-radius: 40px;
+    transition: background-color 0.3s ease; 
+}
+
+.navLinks a.principal:hover {
+    background-color: #398f39;
+}
+
+.home {
+    width: 100%;
+    height: 100vh; 
+    background-image: url('../../../utils/assets/imgPrincipal.png');
+    background-size: cover; 
+    background-position: center; 
+    position: relative; 
+    display: flex; 
+    align-items: center; 
+    justify-content: baseline; 
+    padding-left: 75px;
+    color: white; 
+}
+
+.container {
+    font-family: 'Open sans', sans-serif;
+    width: 50%;
+    height: 50%;
+}
+
+.buttonContainer {
+    width: 53%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonPlataforma {
+    background-color: #4CAD4C;
+    border: 2px solid #4CAD4C;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+
+.buttonPlataforma:hover {
+    background-color: #398f39;
+    border: 2px solid #398f39;
+}
+
+.buttonLogin {
+    background-color: transparent;
+    border: 2px solid #ffffff;
+    color: white;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    width: 150px;
+    height: 40px;
+    border-radius: 20px;
+    transition: 0.5s;
+}
+
+.buttonLogin:hover {
+    color: #398f39;
+    border: 2px solid #398f39;
+}
+
+.container h1 {
+    font-size: 62px;
+    margin-top: 25px;
+    margin-bottom: 0;;
+}
+
+.container p {
+    margin-left: 3px;
+    margin-bottom: 42px;
+    line-height: 1.5;
+    color: #cfcece;
+    font-family: 'Roboto' sans-serif;
+}
+
+
+
+.fontLuta {
+    color: #4CAD4C;
+}
+
+/* ---------------------------------------------------------------------------------------------------------------- */
+
+.sectionAbout {
+    width: 100%;
+    height: 100vh; 
+    background-image: url('../../../utils/assets/imgBackground.png');
+    background-size: cover; 
+    background-position: center; 
+    position: relative; 
+    display: flex; 
+    align-items: center; 
+    flex-direction: column;
+    color: white; 
+}
+
+.titulo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10%;
+    width: 100%;
+    color: black;
+    font-family: 'Roboto', sans-serif;
+    font-size: 18px;
+}
+
+.titulo h1 {
+    margin-top: 30px;
+    font-weight: 500;
+    border-bottom: 4px solid #98E598;
+}
+
+
+.conteudo {
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    width: 100%;
+}
+
+.infoFundadora {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 50%;
+    width: 100%;
+}
+
+.imagemSobreNos {
+    height: 85%;
+    width: 35%;
+    border-radius: 8px;
+    background-size: cover; 
+    background-position: center; 
+    position: relative; 
+    transition: 0.5s;
+}
+
+.imagemSobreNos01:hover, .imagemSobreNos02:hover {
+    transform: scale(1.1); /* Aumenta a imagem em 10% sem alterar o layout */
+}
+
+.imagemSobreNos01 {
+    background-image: url('../../../utils/assets/imgFundadora.png');
+}
+
+.imagemSobreNos02 {
+    background-image: url('../../../utils/assets/imgOng.png');
+}
+
+.textoSobreNos {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 85%;
+    width: 35%;
+    font-family: 'Roboto', sans-serif;
+    font-size: 19px;
+    line-height: 1.5;
+    color: black;
+    transition: 0.5s;
+}
+
+.textoSobreNos:hover {
+    color: #235223
+}
+
+.subTituloSobreNos h3 {
+    margin-top: 0;
+    margin-bottom: 0; 
+    /* border-bottom: 4px solid #98E598; */
+}
+
+.conteudoSobreNos p {
+    text-align: justify;
+    padding: 10px;
+}
+
+.destaque {
+    color: #98E598;
+    font-weight: bold;
+}
+
+/* ------------------------------------------------------------------------------------------------ */
+
+.sectionParceiros {
+    width: 100%;
+    min-height: 35vh; 
+    background-color: #f7f4f4;
+}
+
+.sectionParceiros .titulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+}
+
+.sectionParceiros .titulo h1 {
+    margin-top: 0;
+    margin-bottom: 0;
+    
+}
+
+.sectionParceiros .conteudo {
+    background-color: #98E598;
+    height: 190px;
+    width: 100%;
+}
