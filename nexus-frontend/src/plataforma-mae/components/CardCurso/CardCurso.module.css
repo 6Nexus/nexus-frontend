@@ -67,6 +67,27 @@
     padding: 24px ;
 }
 
+.card-curso-container__button-secondary {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding: 24px ;
+}
+
+.card-curso-container__button-secondary button {
+    background-color: var(--primary-green);
+    color: var(--secondary-text-color);
+    border: none;
+    padding: 16px;
+    font-size: 20px;
+    height: min-content;
+    width: 100%;
+    border-radius: 8px;
+}
+
+
+
 .card-curso-container__button button {
     background-color: var(--primary-green);
     color: var(--secondary-text-color);

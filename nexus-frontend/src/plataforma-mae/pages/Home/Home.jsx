@@ -40,9 +40,9 @@ const Home = () => {
                     <div className={styles["home-container__content__courseList"]}>
                         <p className={styles["courseList__title"]}>Continue assistindo</p>
                         <div className={styles["courseList__cards"]}>
-                            <CardCurso/>
-                            <CardCurso/>
-                            <CardCurso/>
+                        <CardCurso title="Informática básica" subtitle="Modulo 1: Pacote office" textButton="Continuar" inProgress={true}/>
+                        <CardCurso title="Informática básica" subtitle="Modulo 1: Pacote office" textButton="Continuar" inProgress={true}/>
+                        <CardCurso title="Informática básica" subtitle="Modulo 1: Pacote office" textButton="Continuar" inProgress={true}/>
                         </div>
                     </div>
                 </div>

@@ -3,7 +3,7 @@ import styles from './CardCurso.module.css'
 import imagemTeste from '../../../utils/assets/imagem-card-teste.png'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
-const CardCurso = () => {
+const CardCurso = ({title, subtitle, textButton, inProgress}) => {
     return (
         <>
            <div className={styles["card-curso-container"]}>
@@ -13,8 +13,8 @@ const CardCurso = () => {
                     </div>
                     <div className={styles["card-curso-container__info__content"]}>
                         <div className={styles["card-curso-container__info__content__titles"]}>
-                                <h2 className={styles["info__content__titles__title"]}>Titulo do curso</h2>
-                                <h4 className={styles["info__content__titles__subtitle"]}>Subtitulo do curso</h4>
+                                <h2 className={styles["info__content__titles__title"]}>{title}</h2>
+                                <h4 className={styles["info__content__titles__subtitle"]}>{subtitle}</h4>
                         </div>
 
                         <div className={styles["card-curso-container__info__content__button"]}>
@@ -26,12 +26,12 @@ const CardCurso = () => {
                     </div>
                 </div>
                 
-                <div className={styles["card-curso-container__button"]}>
+                <div className={ inProgress ? styles["card-curso-container__button"] : styles["card-curso-container__button-secondary"]}>
                     <button>
-                        Continuar
+                        {textButton}
                     </button>
 
-                    <p className={styles["button__progress"]}>Progresso: 20%</p>
+                    { inProgress && <p className={styles["button__progress"]}>Progresso: 20%</p>}
                 </div>
            </div>
         </>
