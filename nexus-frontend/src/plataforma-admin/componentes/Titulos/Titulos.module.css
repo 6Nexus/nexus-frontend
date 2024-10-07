@@ -1,0 +1,55 @@
+.selected {
+    color: #66AF53; /* Cor verde para o subtítulo selecionado */
+}
+
+.titulosContainer {
+    display: flex;
+    align-items: flex-start; /* Alinha à esquerda */
+    margin: 20px; /* Espaçamento ao redor */
+    margin-top: 30px; /* Para evitar que o conteúdo fique atrás da navbar */
+}
+
+.titulo {
+    display: flex;
+}
+
+.subTitulo {
+    display: flex;
+}
+
+.subItem {
+    display: flex; /* Alinha os subtítulos e a divVerde em linha */
+    align-items: center; 
+}
+
+.divVerde {
+    background-color: #66AF53;
+    width: 5px;
+    height: 20px;
+}
+
+
+/* Responsividade */
+@media (max-width: 787px) {
+    .titulosContainer {
+        margin-top: 30px;
+        align-items: stretch;
+    }
+
+    .divVerde {
+        background-color: #66AF53;
+        width: 5px;
+        height: 20px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    h3 {
+        margin: 10px 0;
+        font-size: 40px;
+    }
+    
+    p {
+        font-size: 18px;
+    }
+}
