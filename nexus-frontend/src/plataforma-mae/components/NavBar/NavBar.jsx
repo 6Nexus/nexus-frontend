@@ -16,6 +16,7 @@ import { useNavigate } from 'react-router-dom';
 
 const NavBar = () => {
     const [isExpanded, setExpanded] = useState(false);
+    const [activeItem, setActiveItem] = useState('home');
 
     const toggleMenu = () => {
         setExpanded(!isExpanded);
@@ -25,26 +26,32 @@ const NavBar = () => {
     const navigate = useNavigate();
 
     const goToHome = () => {
+        setActiveItem('home'); 
         navigate('/');
     };
 
     const goToCourse = () => {
+        setActiveItem('courses'); 
         navigate('/cursos');
     };
 
     const goToInstructions = () => {
+        setActiveItem('instructions'); 
         navigate('/instrucoes')
     }
 
     const goToProfileSettings = () => {
+        setActiveItem('profileSettings'); 
         navigate('/perfil')
     }
 
     const goToCertificates = () => {
+        setActiveItem('certificates'); 
         navigate('/certificados')
     }
 
     const goToSavedCourses = () => {
+        setActiveItem('saved'); 
         navigate('/cursos-salvos')
     }
 
@@ -58,22 +65,22 @@ const NavBar = () => {
                 <div class="menu__menu-icon-options" className={styles["menuOptions"]}>
                     <div class="menu-icon-options__primary" className={styles["menuOptions__primary"]}>
                         <div className={styles["menuOptions__item"]} onClick={goToHome}>
-                            <HomeIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                            <HomeIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'home' ? styles["active"] : ""}`}/>
                             {isExpanded && <span className={styles["menuOptions__item__text"]}>Início</span>}
                         </div>
 
                         <div className={styles["menuOptions__item"]} onClick={goToCourse}>
-                                <SchoolIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                                <SchoolIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'courses' ? styles["active"] : ""}`}/>
                                 {isExpanded && <span className={styles["menuOptions__item__text"]}>Cursos</span>}
                         </div>
 
                         <div className={styles["menuOptions__item"]} onClick={goToInstructions}>
-                            <InfoIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                            <InfoIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'instructions' ? styles["active"] : ""}`}/>
                             {isExpanded && <span className={styles["menuOptions__item__text"]}>Instruções</span>}
                         </div>
 
                         <div className={styles["menuOptions__item"]} onClick={goToProfileSettings}>
-                            <AccountCircleIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                            <AccountCircleIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'profileSettings' ? styles["active"] : ""}`}/>
                             {isExpanded && <span className={styles["menuOptions__item__text"]}>Seu perfil</span>}
                         </div>
                     </div>
@@ -82,11 +89,11 @@ const NavBar = () => {
                         
                     <div class="menu-icon-options__secondary" className={styles["menuOptions__secondary"]}>
                         <div className={styles["menuOptions__item"]} onClick={goToCertificates}>
-                            <WorkspacePremiumIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                            <WorkspacePremiumIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'certificates' ? styles["active"] : ""}`}/>
                             {isExpanded && <span className={styles["menuOptions__item__text"]}>Certificados</span>}
                         </div>
                         <div className={styles["menuOptions__item"]} onClick={goToSavedCourses}>
-                            <FavoriteIcon sx={{ fontSize: 32, color: '#fff'}}/>
+                            <FavoriteIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'saved' ? styles["active"] : ""}`}/>
                             {isExpanded && <span className={styles["menuOptions__item__text"]}>Salvos</span>}
                         </div>
                     </div>

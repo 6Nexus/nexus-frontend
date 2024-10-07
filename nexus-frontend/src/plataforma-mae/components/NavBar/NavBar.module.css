@@ -12,9 +12,9 @@
     transition: width 0.5s ease;
 }
 
-
 .navbar.expanded {
     width: 12%; 
+    align-items: flex-start;
 }
 
 .menuOptions {
@@ -27,11 +27,13 @@
     gap: 80px;
     cursor: pointer;
 
+
 }
 
 .menuOptions__primary, .menuOptions__secondary {
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 48px;
 }
 
@@ -44,8 +46,13 @@
 
 .menuIcon, .menuIconLogout {
     padding: 24px;
-    width: fit-content;
+    /* width: 100%; */
     cursor: pointer;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
 }
 
 
@@ -62,6 +69,17 @@
     font-size: 18px;
     white-space: nowrap;
     
+}
+
+.active {
+    background-color: #ffffff85;
+    padding: 8px;
+    border-radius: 8px;
+}
+
+
+.navbar.expanded .menuOptions .menuOptions__item {
+   width: 100%;
 }
 
 
