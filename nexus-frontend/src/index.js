@@ -1,14 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './App';
-import './global.css'
-
-import Home from './plataforma-mae/pages/Home/Home';
+import Rotas from './routes'; 
+import './global.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Home />
+    <Rotas /> 
   </React.StrictMode>
 );
 
