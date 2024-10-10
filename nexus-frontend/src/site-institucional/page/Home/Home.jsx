@@ -26,16 +26,16 @@ const Home = () => {
             <section id="home" className={styles.home}>
                 <div className={styles.container}>
                     <h1>MÃES EM <span className={styles.fontLuta}>LUTA</span></h1>
-                    <p>A expressão Lorem ipsum em design gráfico e editoração é um texto<br></br>
-                        padrão em latim utilizado na produção gráfica para preencher<br></br>
+                    <p>A expressão Lorem ipsum em design gráfico e editoração é um texto padrão em latim<br></br>
+                        padrão em latim utilizado na produção gráfica para preencher padrão em latim utilizado<br></br>
                         os espaços de texto testar e ajustar aspectos real. <br></br>
 
                     </p>
 
                     <div className={styles.buttonContainer}>
                         <a href="plataforma"> <button className={styles.buttonPlataforma}> Plataforma</button></a>
-                        <a href="login" target="_blank"><button className={styles.buttonLogin} >Login</button>
-                        </a>
+                        {/* <a href="login" target="_blank"><button className={styles.buttonLogin} >Login</button>
+                        </a> */}
                     </div>
                 </div>
 

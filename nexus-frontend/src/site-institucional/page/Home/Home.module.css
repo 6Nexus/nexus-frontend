@@ -84,13 +84,14 @@ html, body {
 }
 
 .container {
-    font-family: 'Open sans', sans-serif;
+    margin-top: 60px;
+    font-family: 'Roboto', sans-serif;
     width: 50%;
     height: 50%;
 }
 
 .buttonContainer {
-    width: 53%;
+    width: 50%;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -104,9 +105,9 @@ html, body {
     cursor: pointer;
     font-family: 'Inter', sans-serif;
     font-weight: 700;
-    width: 150px;
-    height: 40px;
-    border-radius: 20px;
+    width: 180px;
+    height: 35px;
+    border-radius: 9px;
     transition: 0.5s;
 }
 
@@ -115,7 +116,7 @@ html, body {
     border: 2px solid #398f39;
 }
 
-.buttonLogin {
+/* .buttonLogin {
     background-color: transparent;
     border: 2px solid #ffffff;
     color: white;
@@ -132,10 +133,10 @@ html, body {
 .buttonLogin:hover {
     color: #398f39;
     border: 2px solid #398f39;
-}
+} */
 
 .container h1 {
-    font-size: 62px;
+    font-size: 50px;
     margin-top: 25px;
     margin-bottom: 0;;
 }
@@ -145,7 +146,7 @@ html, body {
     margin-bottom: 42px;
     line-height: 1.5;
     color: #cfcece;
-    font-family: 'Roboto' sans-serif;
+    font-family: 'Roboto', sans-serif;
 }
 
 
@@ -233,7 +234,7 @@ html, body {
     height: 85%;
     width: 35%;
     font-family: 'Roboto', sans-serif;
-    font-size: 19px;
+    font-size: 17px;
     line-height: 1.5;
     color: black;
     transition: 0.5s;
