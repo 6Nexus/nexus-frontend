@@ -29,6 +29,7 @@
     gap: 24px;
     padding: 16px;
     border-radius: 20px;
+    cursor: pointer;
 }
 
 .options__option__text {
@@ -41,12 +42,24 @@
     background-color: var(--detail-green);
 }
 
+.course:hover {
+    background-color: var(--detail-green-hover);
+}
+
 .instructions {
     background-color: var(--primary-green);
 }
 
+.instructions:hover {
+    background-color: var(--primary-green-hover);
+}
+
 .profile {
     background-color: var(--secondary-green);
+}
+
+.profile:hover {
+    background-color: var(--secondary-green-hover);
 }
 
 .home-container__content__courseList {
@@ -66,7 +79,6 @@
 
 
 .courseList__cards {
-  
     display: flex;
     flex-direction: row;
     justify-content: space-between;

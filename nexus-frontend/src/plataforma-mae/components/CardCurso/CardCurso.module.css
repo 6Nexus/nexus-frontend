@@ -6,6 +6,7 @@
     height: min-content;
     width: 30%;
     border-radius: 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
 }
 
 .card-curso-container__info__content {
@@ -53,6 +54,7 @@
     gap: 4px;
     background-color: var(--secondary-text-color);
     color: var(--secondary-green);
+    cursor: pointer;
 }
 
 .content__button__icon {
@@ -84,6 +86,11 @@
     height: min-content;
     width: 100%;
     border-radius: 8px;
+    cursor: pointer;
+}
+
+.card-curso-container__button-secondary button:hover {
+    background-color: var(--primary-green-hover);
 }
 
 
@@ -97,6 +104,11 @@
     height: min-content;
     width: min-content;
     border-radius: 8px;
+    cursor: pointer;
+}
+
+.card-curso-container__button button:hover {
+    background-color: var(--primary-green-hover);
 }
 
 .button__progress {

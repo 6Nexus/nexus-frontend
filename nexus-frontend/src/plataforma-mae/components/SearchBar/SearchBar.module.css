@@ -11,6 +11,7 @@
     align-items: center;
     justify-content: center;
     width: 10%;
+    cursor: pointer;
 }
 
 .search-bar-container__search {
@@ -31,7 +32,7 @@
     gap: 8px;
     padding: 16px 24px;
     border-radius: 100px;
-    background-color: var(--secondary-text-color);
+    background-color: #EDEBEB;
 }
 
 
@@ -59,8 +60,9 @@ input:focus {
     width: 48px; 
     height: 48px;
     border: none;
-    background-color: var(--secondary-text-color);
+    background-color: #EDEBEB;
     border-radius: 50%;
+    cursor: pointer;
 }
 
 .search__voice__icon {
@@ -81,4 +83,9 @@ input:focus {
 
 .icon-preference{
     color: var(--secondary-green);
+    cursor: pointer;
+}
+
+.icon-preference:hover {
+    color: var(--primary-green);
 }
