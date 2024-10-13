@@ -93,8 +93,6 @@
     background-color: var(--primary-green-hover);
 }
 
-
-
 .card-curso-container__button button {
     background-color: var(--primary-green);
     color: var(--secondary-text-color);
