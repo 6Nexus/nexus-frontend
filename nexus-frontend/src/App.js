@@ -1,9 +1,15 @@
-import Rotas from "./routes";
+import { BrowserRouter } from 'react-router-dom';
+import Home from './Home';
 
-function App() {
-  return (
-    <Rotas />
-  );
+const App = () => {
+    return (
+        <BrowserRouter>
+            <Home />
+        </BrowserRouter>
+    );
 }
 
 export default App;
+
+
+
