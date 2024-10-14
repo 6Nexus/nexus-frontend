@@ -1,0 +1,21 @@
+.tag-category-container {
+    background-color: #fff;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.tag-category-container__category {
+    margin: 0px;
+    color: var(--secondary-grey);
+    font-family: 'Inter-Medium', sans-serif;
+}
+
+.active {
+    background-color: var(--primary-green);
+}
+
+.active .tag-category-container__category {
+    color: #fff;
+}
+
