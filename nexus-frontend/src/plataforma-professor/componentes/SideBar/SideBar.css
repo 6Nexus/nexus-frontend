@@ -1,0 +1,22 @@
+* {
+    font-family: 'Exo 2', sans-serif;
+}
+
+:root {
+    --corPrimaria: #94065E;
+    --fundoNeutro: #F7F3F5;
+    --corDeContorno: #FE5D9F;
+    
+}
+
+.div1 {
+    background-color: var(--corPrimaria);
+    width: 200px;
+    height: 100vh;
+    border-radius:  0px 20px 20px 0px
+}
+
+.logo-mae img {
+    height: 100px;
+    background-color: transparent;
+}

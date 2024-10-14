@@ -7,8 +7,14 @@ import { faBars } from "@fortawesome/free-solid-svg-icons";
 function SideBar() {
     return (
         <>
-          
+            <div className="minha-div">
+                    <div className="div1">
+                            <div className="logo-mae">
+                                <img src={logoMaesEmLuta}/>
+                            </div>
+                    </div>
+            </div>
         </>
     )
 }
-export default SideBar;
+export default SideBar; 

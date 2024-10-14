@@ -12,8 +12,8 @@ root.render(
   <React.StrictMode>
     {/* <Login /> */}
     {/* <Cadastro/> */}
-    <Perfil/>
-    {/* <SideBar/> */}
+    {/* <Perfil/>  */}
+    <SideBar/>
   </React.StrictMode>
 );
 
