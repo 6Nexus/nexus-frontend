@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import styles from './NavBar.module.css';
+import styles from './SideBar.module.css';
 
 import MenuIcon from '@mui/icons-material/Menu';
 import HomeIcon from '@mui/icons-material/Home';
@@ -14,7 +14,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
 
-const NavBar = () => {
+const SideBar = ({backgroundColor}) => {
     const [isExpanded, setExpanded] = useState(false);
     const [activeItem, setActiveItem] = useState('');
     const navigate = useNavigate();
@@ -58,7 +58,7 @@ const NavBar = () => {
 
     return (
         <>
-            <nav className={`${styles.navbar} ${isExpanded ? styles.expanded : ''}`} aria-label="Menu de opções da plataforma">
+            <nav className={`${styles.SideBar} ${isExpanded ? styles.expanded : ''}`} style={{ backgroundColor }} aria-label="Menu de opções da plataforma">
                 <div className={styles["menuIcon"]} onClick={toggleMenu}>
                     <MenuIcon sx={{ fontSize: 32, color: '#fff'}}/>
                 </div>
@@ -112,4 +112,4 @@ const NavBar = () => {
     );
 };
 
-export default NavBar;
+export default SideBar;

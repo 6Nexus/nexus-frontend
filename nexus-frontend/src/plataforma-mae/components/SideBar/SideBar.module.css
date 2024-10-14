@@ -1,17 +1,17 @@
-.navbar {
+.SideBar {
     height: 100vh;
     width: 6%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    background-color: var(--secondary-green);
+    /* background-color: var(--secondary-green); */
     border-bottom-right-radius: 16px;
     position: fixed;
     transition: width 0.5s ease;
 }
 
-.navbar.expanded {
+.SideBar.expanded {
     width: 12%; 
     align-items: flex-start;
 }
@@ -71,7 +71,7 @@
 }
 
 
-.navbar.expanded .menuOptions .menuOptions__item {
+.SideBar.expanded .menuOptions .menuOptions__item {
    width: 100%;
 }
 
