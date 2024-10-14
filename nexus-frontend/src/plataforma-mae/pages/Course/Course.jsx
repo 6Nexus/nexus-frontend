@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from './Course.module.css'
-import NavBar from "../../components/NavBar/NavBar";
+import SideBar from "../../components/SideBar/SideBar";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import CardCurso from "../../components/CardCurso/CardCurso";
 import TagCategory from "../../components/TagCategory/TagCategory";
@@ -16,7 +16,7 @@ const Course = () => {
     return (
         <>
             <div className={styles["course-container"]}>
-                <NavBar />
+                <SideBar backgroundColor={'#245024'}/>
 
                 <div className={styles["course-container__content"]}>
                     <SearchBar />

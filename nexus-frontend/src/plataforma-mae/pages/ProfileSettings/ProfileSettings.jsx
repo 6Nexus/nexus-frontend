@@ -1,11 +1,11 @@
 import React from "react";
 import styles from './ProfileSettings.module.css'
-import NavBar from '../../components/NavBar/NavBar'
+import SideBar from '../../components/SideBar/SideBar'
 
 const ProfileSettings = () => {
     return (
         <>
-            <NavBar/>
+            <SideBar backgroundColor={'#245024'}/>
             Hello World, essa é a tela de configurações do perfil
         </>
     );

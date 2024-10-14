@@ -1,11 +1,11 @@
 import React from "react";
 import styles from './Certificates.module.css'
-import NavBar from "../../components/NavBar/NavBar";
+import SideBar from "../../components/SideBar/SideBar";
 
 const Certificates = () => {
     return (
         <>
-            <NavBar />
+             <SideBar backgroundColor={'#245024'}/>
             Hello World, essa é a tela de listagem dos certificados
         </>
     );

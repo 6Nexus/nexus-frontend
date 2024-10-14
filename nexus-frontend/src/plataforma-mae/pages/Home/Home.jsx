@@ -1,6 +1,6 @@
 import React from "react";
 import styles from './Home.module.css'
-import NavBar from "../../components/NavBar/NavBar.jsx";
+import SideBar from "../../components/SideBar/SideBar.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import CardCurso from '../../components/CardCurso/CardCurso.jsx';
 import Banner from '../../components/Banner/Banner.jsx'
@@ -13,7 +13,7 @@ const Home = () => {
     return (
         <>
             <div className={styles["home-container"]}>
-                <NavBar />
+                <SideBar backgroundColor={'#245024'}/>
 
                 <div className={styles["home-container__content"]}>
                     <SearchBar />

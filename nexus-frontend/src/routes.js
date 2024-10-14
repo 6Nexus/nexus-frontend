@@ -7,12 +7,12 @@ import Instructions from "./plataforma-mae/pages/Instructions/Instructions";
 import ProfileSettings from "./plataforma-mae/pages/ProfileSettings/ProfileSettings";
 import Certificates from "./plataforma-mae/pages/Certificates/Certificates";
 import SavedCourses from "./plataforma-mae/pages/SavedCourses/SavedCourses";
-import NavBar from './plataforma-mae/components/NavBar/NavBar'; // Componente NavBar que usa useNavigate
+import SideBar from './plataforma-mae/components/SideBar/SideBar'; // Componente SideBar que usa useNavigate
 
 function Rotas() {
     return (
         <BrowserRouter>
-            {/* <NavBar /> */}
+            {/* <SideBar /> */}
             <Routes>
                 <Route path="/" element={<Home />} />
                 <Route path="/cursos" element={<Course />} />
