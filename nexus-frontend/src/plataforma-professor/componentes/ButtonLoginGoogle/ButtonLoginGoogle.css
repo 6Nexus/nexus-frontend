@@ -4,9 +4,9 @@
     --corDeContorno: #FE5D9F;
 }
 
-* {
+/* * {
     background-color: var(--fundoNeutro);
-}
+} */
 
 
 .bt-google-login {
