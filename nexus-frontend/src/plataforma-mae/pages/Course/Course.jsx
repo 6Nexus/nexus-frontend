@@ -5,6 +5,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import CardCurso from "../../components/CardCurso/CardCurso";
 import TagCategory from "../../components/TagCategory/TagCategory";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
+import HeaderCategory from "../../components/HeaderCategory/HeaderCategory";
 
 const Course = () => {
     const [activeCategory, setActiveCategory] = useState("Todos"); 
@@ -21,20 +22,7 @@ const Course = () => {
                 <div className={styles["course-container__content"]}>
                     <SearchBar />
                     
-                    <div className={styles["course-container__content__category"]}>
-                        <p className={styles["category__title"]}>Categorias de cursos</p>
-                        <div className={styles["category__cards"]}>
-                            {categories.map((category) => (
-                                <TagCategory
-                                    key={category}
-                                    category={category}
-                                    isActive={category === activeCategory}  
-                                    onClick={() => setActiveCategory(category)} 
-                                />
-                            ))}
-                            <AddCircleOutlineIcon className={styles["category__card__button"]}/>
-                        </div>
-                    </div>
+                    <HeaderCategory/>
                 
                     <div className={styles["course-container__content__courseList"]}>
                         <p className={styles["courseList__title"]}>Cursos encontrados</p>

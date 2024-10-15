@@ -1,0 +1,29 @@
+.course-container__content__category {
+    width: 80%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.category__cards {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: fit-content;
+}
+
+.category__card__button {
+    color: var(--secondary-green);
+    font-size: 40px;
+}
+
+.category__title {
+    font-family: 'Inter-Medium', sans-serif;
+    color: var(--secondary-green);
+    font-size: 24px;
+    border-left: 5px solid var(--primary-green);
+    padding: 0px 8px;
+    margin: 0px;
+}

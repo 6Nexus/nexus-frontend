@@ -1,7 +1,6 @@
 .course-container {
     display: flex;
     flex-direction: row;
-   
 }
 
 .course-container__content {
@@ -14,7 +13,7 @@
     padding: 32px;
 }
 
-.course-container__content__category, .course-container__content__courseList {
+.course-container__content__courseList {
     width: 80%;
     height: max-content;
     display: flex;
@@ -22,21 +21,7 @@
     gap: 48px;
 }
 
-
-.category__cards {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    height: fit-content;
-}
-
-.category__card__button {
-    color: var(--secondary-green);
-    font-size: 40px;
-}
-
-.courseList__title, .category__title  {
+.courseList__title {
     font-family: 'Inter-Medium', sans-serif;
     color: var(--secondary-green);
     font-size: 24px;
@@ -44,7 +29,6 @@
     padding: 0px 8px;
     margin: 0px;  
 }
-
 
 .courseList__cards {
     display: flex;
