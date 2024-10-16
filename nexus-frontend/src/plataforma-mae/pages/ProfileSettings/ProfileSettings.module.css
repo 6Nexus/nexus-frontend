@@ -1,0 +1,118 @@
+.profileSettings-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.profileSettings-container__content {
+    width: 94%; 
+    margin-left: 6%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+    padding: 32px;
+}
+
+.profileSettings-container__content__sectionData {
+    width: 80%;
+    background-color: #fff;
+    padding: 32px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.sectionData__title {
+    font-size: 24px;
+    font-family: 'Inter-Regular';
+    color: var(--secondary-green);
+    letter-spacing: 4%;
+    margin: 0px;
+}
+
+.sectionData__input {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    align-items: end;
+}
+
+.sectionData__input__nestedField {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+    gap: 8px;
+}
+
+.sectionData__input__nestedField label {
+    font-family: 'Inter-Medium', 'sans-serif';
+    color: var(--primary-green);
+    font-size: 16px;
+}
+
+.sectionData__input__nestedField input {
+    border: none;
+    background-color: var(--bg-color-light);
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 16px;
+}
+
+
+.sectionData__buttonSave {
+    width: 20%;
+    align-self: end;
+    border: none;
+    padding: 16px;
+    background-color: var(--primary-green);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.sectionData__buttonSave:hover {
+    background-color: var(--primary-green-hover);
+}
+
+.sectionData__buttonTerm {
+    width: 90%;
+    border: none;
+    padding: 16px;
+    background-color: var(--primary-green);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    margin: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+}
+
+.sectionData__buttonTerm:hover {
+    background-color: var(--primary-green-hover);
+}
+
+.sectionData__buttonDelete {
+    border: none;
+    background-color: #AA0769;
+    padding: 16px;
+    height: fit-content;
+    width: 10%;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    align-self: end;
+    cursor: pointer;
+}
+
+.sectionData__buttonDelete:hover {
+    background-color: #aa0769dc;
+}
+
