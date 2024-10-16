@@ -7,10 +7,12 @@
     align-items: flex-start; /* Alinha à esquerda */
     margin: 20px; /* Espaçamento ao redor */
     margin-top: 30px; /* Para evitar que o conteúdo fique atrás da navbar */
+    font-size: 24px;
 }
 
 .titulo {
     display: flex;
+    font-size: 40px;
 }
 
 .subTitulo {

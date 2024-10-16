@@ -2,20 +2,22 @@
     width: 100%;
 }
 
-.card-container {
+
+.cardContainer{
+    width: 100%;
     display: flex;
     flex-wrap: wrap;
-    align-items: flex-start; /* Alinha os cards ao topo */
-    width: 100%; /* Garante que ocupe toda a largura disponível */
 }
 
+
 .card {
-    background-color: #e5e5e5;
+    background-color: #fff;
+    border-radius: 30px;
     margin: 10px;
     padding: 15px;
-    width: 345px;
-    height: 382px;
-    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.4);
+    width: 327px;
+    height: 387px;
+    box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
     text-align: center;
     transition: transform 0.3s;
     display: flex;
@@ -25,9 +27,23 @@
     position: relative;
 }
 
+
 .card:hover {
     transform: scale(1.05);
 }
+
+
+.card .fotoCanto {
+    width: 40px; /* Ajuste para o tamanho desejado */
+    height: auto; /* Mantém a proporção */
+    color: #AB1D27;
+    border-radius: 50%;
+    position: absolute; /* Faz com que a imagem fique dentro do card */
+    top: 10px; /* Distância do topo do card */
+    right: 10px; /* Distância do lado direito do card */
+    z-index: 1; /* Garante que fique acima de outros elementos dentro do card */
+}
+
 
 .card img.foto {
     width: 85px;
@@ -36,35 +52,36 @@
     margin-bottom: 10px;
 }
 
-.card .fotoCanto {
-    width: 40px; /* Ajuste para o tamanho desejado */
-    height: auto; /* Mantém a proporção */
-    border-radius: 50%;
-    position: absolute; /* Faz com que a imagem fique dentro do card */
-    top: 10px; /* Distância do topo do card */
-    right: 10px; /* Distância do lado direito do card */
-    z-index: 1; /* Garante que fique acima de outros elementos dentro do card */
-}
 
-.card .nome {
-    font-size: 21px;
+.nome{
+    font-size: 20px;
     margin: 1px 0;
     margin-bottom: 20px; /* Margem acima e abaixo do nome */
     color: #333; /* Cor do texto */
 }
 
+
+.card .p-title{
+    font-size: 11px;
+}
+
+
+.card .p-dados{
+    font-size: 15px;
+}
+
+
 .card p {
     display: flex;
-    font-size: 15px; /* Tamanho da fonte dos parágrafos */
-    color: #0c0c0c; /* Cor do texto */
-    margin: 0px 0px 10px 0px; /* Margem acima e abaixo dos parágrafos */
+    color: #0c0c0c;
+    margin: 0px 0px 10px 0px;
     width: 70%;
 }
 
-.card .p-title {
-    font-size: 12px;
-    margin: 3px 0px 3px 0px;
-}
+
+
+
+
 
 .card .div-btn {
     display: flex;

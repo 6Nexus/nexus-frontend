@@ -1,2 +1,30 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 10;
+  }
+  
+  .content {
+    margin: 110px 0px 0px 200px; 
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .titulo {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
 
-
+  @media (max-width: 768px) {
+    .titulo {
+        font-size: 24px; 
+    }
+}

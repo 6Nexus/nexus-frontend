@@ -1,14 +1,22 @@
+.container {
+    display: flex; /* Usar Flexbox para o layout */
+}
+
+
+/* Nav horizontal */
+
+
 .navbar-top {
-    background-color: #66AF53;
-    color: white;
+    background-color: #F6F6F6;
+    color: #66AF53;
     padding: 10px;
     display: flex;
-    justify-content: space-between;
+    justify-content:center;
     align-items: center;
-    position: fixed; /* Fixa a navbar superior */
-    width: 100%; /* Ocupa a largura total */
-    top: 0; /* Posiciona no topo */
-    z-index: 10; /* Mantém acima de outros elementos */
+    position: fixed;
+    width: 100%; 
+    height: 50px;
+    top: 0;
 }
 
 #toggle-btn {
@@ -19,67 +27,127 @@
     cursor: pointer;
 }
 
+.elementos-navtop{
+    width: 15px auto;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    width: 90%;
+}
+
+
+.logo {
+    padding: 80px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    height: 50px;
+}
+
+
+.admin-title {
+    font-size: 36px;
+    font-weight: bolder;
+}
+
+
+
+
+/* Nav Vertical */
 .navbar-side {
-    background-color: #66AF53;
-    color: white;
-    width: 200px;
+    background-color: #245024;
+    color: #fff;
+    width: 110px;
     height: 100vh;
+    border-radius: 0px 30px 30px 0px;
+    display: flex;
+    flex-direction: column;
     position: fixed;
-    left: -200px; /* escondido inicialmente */
-    transition: left 0.3s;
+    top: 0;
+    transition: width 0.3s ease;
     z-index: 5;
-    font-size: 24px;
+    font-size: 20px;
+}
+
+
+.navbar-side.open {
+    width: 256px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar-side.closed {
+    width: 110px; 
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.icones-titulos {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
 
 .navbar-side.open {
     left: 0; /* mostra a navbar lateral */
 }
 
-.logo {
-    padding: 20px;
-    text-align: center;
-    font-size: 30px;
-    font-weight: bold;
+
+.logout-container {
+    padding: 40px;
 }
 
-.nav-item {
-    padding: 15px;
+.nav-items {
+    padding: 40px;
     cursor: pointer;
     text-align: center;
 }
 
-.nav-item:hover {
-    background-color: #66AF53;
+.nav-item {
+    margin-left: 25px;
+    cursor: pointer;
+    text-align: center;
+    font-weight: bolder;
 }
 
-.nav-item.active {
-    background-color: #66AF53;
-}
 
 
 @media (max-width: 768px) {
+    .logo {
+        text-align: center;
+        font-size: 30px;
+        font-weight: bold;
+        height: 30px;
+    }
+    
+
+
+
+
     .navbar-side {
-        width: 250px; /* Defina a largura da navbar lateral */
-        left: -250px; /* escondido inicialmente */
+        width: 100px; /* Defina a largura da navbar lateral */
     }
 
     .navbar-side.open {
-        left: 0; /* mostra a navbar lateral */
-    }
-
-    .content {
-        margin-left: 0; /* remove a margem esquerda no mobile */
-        padding-top: 70px;
-    }
-
-    .navbar-top {
+        width: 200px;
         display: flex;
         justify-content: space-between;
     }
-
-    #toggle-btn {
-        font-size: 25px; /* Aumenta o tamanho do botão */
+    
+    .navbar-side.closed {
+        width: 60px; 
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
+
+    .admin-title {
+        font-size: 18px;
+        font-weight: bolder;
+    }
+
+    
 }
 
 @media (min-width: 769px) {
