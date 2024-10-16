@@ -1,19 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import styles from './Course.module.css'
 import SideBar from "../../components/SideBar/SideBar";
 import SearchBar from "../../components/SearchBar/SearchBar";
 import CardCurso from "../../components/CardCurso/CardCurso";
-import TagCategory from "../../components/TagCategory/TagCategory";
-import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline';
 import HeaderCategory from "../../components/HeaderCategory/HeaderCategory";
 
 const Course = () => {
-    const [activeCategory, setActiveCategory] = useState("Todos"); 
-
-    const categories = [
-        "Todos", "Cidadania", "Autocuidado", "Culinária", "Tecnologia", "Idiomas", "Artes", "Empreendedorismo"
-    ];
-
     return (
         <>
             <div className={styles["course-container"]}>
