@@ -54,7 +54,7 @@
 }
 
 .sectionData__input__nestedField input {
-    border: none;
+    border: 1px solid #cacaca;
     background-color: var(--bg-color-light);
     border-radius: 8px;
     padding: 16px;
@@ -63,8 +63,8 @@
 
 
 .sectionData__buttonSave {
-    width: 20%;
-    align-self: end;
+    width: 30%;
+    align-self: flex-start;
     border: none;
     padding: 16px;
     background-color: var(--primary-green);
@@ -79,14 +79,14 @@
 }
 
 .sectionData__buttonTerm {
-    width: 90%;
+    width: 30%;
     border: none;
     padding: 16px;
     background-color: var(--primary-green);
     border-radius: 8px;
     color: #fff;
     font-size: 16px;
-    margin: auto;
+    /* margin: auto; */
 
     display: flex;
     align-items: center;
