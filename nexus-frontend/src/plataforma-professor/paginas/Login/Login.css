@@ -44,8 +44,8 @@
     position: relative;
     background-color: #FFFAFD;
 }
-
-input::placeholder {
+    
+.input-login input::placeholder {
     color: var(--corPrimaria);
 }
 

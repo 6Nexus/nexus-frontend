@@ -8,10 +8,17 @@ import ProfileSettings from "./plataforma-mae/pages/ProfileSettings/ProfileSetti
 import Certificates from "./plataforma-mae/pages/Certificates/Certificates";
 import SavedCourses from "./plataforma-mae/pages/SavedCourses/SavedCourses";
 import SideBar from './plataforma-mae/components/SideBar/SideBar'; // Componente SideBar que usa useNavigate
+
 import Perfil from "./plataforma-professor/paginas/Perfil/Perfil";
 import Login from './plataforma-professor/paginas/Login/Login';
+import Cadastro from "./plataforma-professor/paginas/Cadastro/Cadastro";
+import CursoSetup from "./plataforma-professor/paginas/CursoSetup/CursoSetup";
+
 
 function Rotas() {
+
+    
+
     return (
         <BrowserRouter>
             {/* <SideBar /> */}
@@ -26,6 +33,10 @@ function Rotas() {
                 {/* rotas plataforma-professor */}
                 <Route path="/perfil-professor" element={<Perfil/>}/>
                 <Route path="/login-professor" element={<Login/>}/>
+                <Route path="/cadastro-professor" element={<Cadastro/>}/>
+                <Route path="/curso-setup" element={<CursoSetup/>}/>
+                
+
             </Routes>
         </BrowserRouter>
     );

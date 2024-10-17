@@ -1,0 +1,108 @@
+
+:root {
+    --corPrimaria: #94065E;
+    --fundoNeutro: #F7F3F5;
+    --corDeContorno: #FE5D9F;
+}
+
+.sidebar {
+    height: 100vh;
+    width: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    align-items: center;
+    border-bottom-right-radius: 16px;
+    position: fixed;
+    transition: width 0.5s ease;
+    background-color: var(--corPrimaria);
+    border-top-right-radius: 16px;
+}
+
+.sidebar.expanded {
+    width: 12%;
+    align-items: flex-start;
+}
+
+.toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 16px 0;
+}
+
+.menu {
+    height: auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    align-items: center;
+    gap: 48px;
+    flex-grow: 1; 
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+    width: 100%; 
+}
+
+.menu-item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.active {
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    color: antiquewhite;
+    
+}
+
+.icon-logout {
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 8px; 
+    width: 100%; 
+    padding: 10px; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+    border-radius: 8px;
+}
+
+.icon-logout:hover {
+    background-color: rgba(255, 255, 255, 0.1); 
+}
+
+.item-name {
+    font-family: 'Inter-Medium', sans-serif; 
+    color: #fff; 
+    font-size: 18px; 
+    white-space: nowrap; 
+}
+
+.menu-icon {
+    cursor: pointer; 
+    display: flex; 
+    border-radius: 8px; 
+    margin-bottom: 20px; 
+    transform: scale(1.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.sidebar.expanded .menu-icon {
+    margin-left: 2.9rem;
+}
