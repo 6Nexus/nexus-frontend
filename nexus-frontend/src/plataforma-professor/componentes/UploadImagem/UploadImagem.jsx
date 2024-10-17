@@ -16,7 +16,7 @@ function UploadImagem (){
                     {/* <img src={fotoPerfil} alt="foto de perfil" /> */}
                 </div>
                 <button className="btn-selecionar-img"> 
-                    Selecione uma imagem
+                    Selecione uma imagem 
                 </button>
             </div>
         </>

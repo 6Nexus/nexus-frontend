@@ -7,6 +7,10 @@ function CursoSetup(){
     return (
         <>
            <SideBar/>
+
+           <span style={{display: 'flex', justifyContent: 'center', alignItems: 'center'}}>
+                    tela de criar os cursos 
+           </span>
         </>
     )
 }

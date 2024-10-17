@@ -1,15 +1,17 @@
 import React from "react";
 import './Perfil.css';
 import NavBar from "../../componentes/NavBar/NavBar";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import UploadImagem from "../../componentes/UploadImagem/UploadImagem";
+import SideBar from "../../componentes/SideBar/SideBar";
 
 
 function Perfil() {
 
     return (
+        <>
+        
+        <SideBar backgroundColor={'#94065E'}/>
         <div>
-            <NavBar />
             <div className="container-geral">
                 <div className="upload-imagem">
                     <UploadImagem />
@@ -27,6 +29,7 @@ function Perfil() {
                 </div>
             </div>
         </div>
+        </>
 
     )
 }

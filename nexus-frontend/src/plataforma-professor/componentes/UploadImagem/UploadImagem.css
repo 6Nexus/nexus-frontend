@@ -54,7 +54,7 @@
     font-weight: 500;
     background: var(--corPrimaria);
     border-color: var(--corDeContorno);
-    color: white;
+    color: white; 
     border-radius: 4px;
     font-size: 14px; 
     transition: all 0.3s ease;

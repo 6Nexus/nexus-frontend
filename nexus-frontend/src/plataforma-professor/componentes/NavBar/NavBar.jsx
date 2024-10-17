@@ -4,6 +4,7 @@ import './NavBar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { faHome } from "@fortawesome/free-solid-svg-icons";
+import SideBar from "../SideBar/SideBar"
 
 
 
