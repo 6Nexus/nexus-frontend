@@ -1,12 +1,13 @@
 /* estilização parte de selecionar imagem de perfil */
+
 .container-imagem {
     max-width: 310px;
     width: 100%;
     background-color: var(--fundoNeutro);
-    padding: 1rem;
+    padding: 1.5rem;
     margin-top: 2rem;
     margin-left: 2.5rem;
-    border-radius: 8px;
+    border-radius: 20px;
     border: 1px solid #ccc;;
 }
 
@@ -46,6 +47,10 @@
     object-position: center;
 }
 
+input[type="file"]{
+    width: 200px;
+}
+
 .btn-selecionar-img {
     display: block;
     width: 100%;
@@ -54,8 +59,8 @@
     font-weight: 500;
     background: var(--corPrimaria);
     border-color: var(--corDeContorno);
-    color: white; 
-    border-radius: 4px;
+    color: white;
+    border-radius: 8px;
     font-size: 14px; 
     transition: all 0.3s ease;
 }

@@ -9,26 +9,26 @@ function Perfil() {
 
     return (
         <>
-        
-        <SideBar backgroundColor={'#94065E'}/>
-        <div>
-            <div className="container-geral">
-                <div className="upload-imagem">
-                    <UploadImagem />
-                </div>
-                <div className="container-info">
-                    <div className="infos">
-                        <h4>Minha Informações</h4>
-                        <span>Nome</span>
-                        <span>Sobrenome</span>
-                        <span>Email</span>
-                    </div>
-                    <div className="btn-editar-info">
-                        <button>Editar</button>
+
+            <SideBar backgroundColor={'#94065E'} />
+            <div>
+                <div className="container-geral">
+                        <div className="upload-imagem">
+                            <UploadImagem />
+                        </div>
+                    <div className="container-info">
+                        <div className="infos">
+                            <h4>Minhas Informações</h4>
+                            <span>Nome</span>
+                            <span>Sobrenome</span>
+                            <span>Email</span>
+                        </div>
+                        <div className="btn-editar-info">
+                            <button>Editar</button>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
         </>
 
     )

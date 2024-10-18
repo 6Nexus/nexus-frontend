@@ -8,6 +8,7 @@ function UploadImagem (){
 
     return (
         <>
+            
             <div class="container-imagem">
                 <input type="file" id="file-imagem" accept="image/*" />
                 <div className="select-img">

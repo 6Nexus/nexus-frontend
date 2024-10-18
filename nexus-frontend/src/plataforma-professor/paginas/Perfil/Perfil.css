@@ -11,25 +11,28 @@
 
 .container-geral {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-top: 2rem;
-}  
-
+    align-items: normal;
+    margin-top: 1rem;
+    margin-left: 12%;
+    position: relative; 
+}   
 
 .container-info {
-    max-width: 100%;
-    width: 100%;
+    max-width: 90%;
+    width: 90%;
     background-color: var(--fundoNeutro);
     padding: 1.5rem;
-    border-radius: 8px;
+    border-radius: 20px;
     border: 1px solid #c0c0c0;
     margin-top: 2rem;
     margin-right: 3rem;
-    margin-left: 3rem;
+    margin-left: 5rem;
     height: auto;
 }
 
+.infos h4 {
+    color: var(--corPrimaria);
+}
 
 .infos span {
     display: block;
@@ -39,9 +42,12 @@
 }
 
 .btn-editar-info {
+    position: absolute;
+    bottom: 26px; 
+    /* right: 20px;  */
     display: flex;
-    justify-content: flex-end;
-    align-items: end;
+    justify-content: flex-end;  
+    
 }
 
 .btn-editar-info button {
@@ -51,7 +57,7 @@
     background-color: var(--corPrimaria);
     border-color: var(--corDeContorno);
     color: white;
-    border-radius: 4px;
+    border-radius: 8px;
     transition: all 0.3s ease ;
 }
 
@@ -59,18 +65,11 @@
     background-color: #7A0049;
 }
 
-
-.container-geral {
-    margin-left: 12%; 
-    padding: 20px;
-    transition: margin-left 0.3s ease;
-}
-
 .sidebar.collapsed + .container-geral {
     margin-left: 5%; 
 }
 
-/* ajuste para sidebar na tela de perfil */
+
 .sidebar {
     height: 100vh;
     width: 5%; 
@@ -83,7 +82,7 @@
     left: 0;
     background-color: var(--corPrimaria);
     transition: width 0.5s ease;
-    z-index: 1000; 
+    z-index: 1000;
     border-top-right-radius: 16px;
     border-bottom-right-radius: 16px;
 }
