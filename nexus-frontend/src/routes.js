@@ -13,6 +13,8 @@ import Perfil from "./plataforma-professor/paginas/Perfil/Perfil";
 import Login from './plataforma-professor/paginas/Login/Login';
 import Cadastro from "./plataforma-professor/paginas/Cadastro/Cadastro";
 import CursoSetup from "./plataforma-professor/paginas/CursoSetup/CursoSetup";
+import MeusCursos from "./plataforma-professor/paginas/MeusCursos/MeusCursos";
+import Ajuda from "./plataforma-professor/paginas/Ajuda/Ajuda";
 
 
 function Rotas() {
@@ -35,6 +37,8 @@ function Rotas() {
                 <Route path="/login-professor" element={<Login/>}/>
                 <Route path="/cadastro-professor" element={<Cadastro/>}/>
                 <Route path="/curso-setup" element={<CursoSetup/>}/>
+                <Route path="/meus-cursos" element={<MeusCursos/>}/>
+                <Route path="/ajuda" element={<Ajuda/>}/>
                 
 
             </Routes>
