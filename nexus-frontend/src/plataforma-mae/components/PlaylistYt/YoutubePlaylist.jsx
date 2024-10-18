@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styles from './YoutubePlaylist.module.css';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
-import IconCourse from '../../../utils/assets/course.svg'
+import IconCourse from '../../../utils/assets/course.svg';
+import ButtonMaterial from '../ButtonMaterial/ButtonMaterial';
 
-const YoutubePlaylist = ({ playlistId }) => {
+const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails}) => {
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -12,13 +13,14 @@ const YoutubePlaylist = ({ playlistId }) => {
 
   useEffect(() => {
     const fetchVideos = async () => {
+      console.log(playlistId)
       try {
         const res = await axios.get(
           `https://www.googleapis.com/youtube/v3/playlistItems`,
           {
             params: {
               part: 'snippet',
-              playlistId: 'PLK3f8RSHTlntYR_EmxFqxY_nz9mn8erSc',
+              playlistId: playlistId,
               maxResults: 50,
               key: API_KEY,
             }
@@ -57,11 +59,17 @@ const YoutubePlaylist = ({ playlistId }) => {
             title={selectedVideo.snippet.title}
             style={{ objectFit: 'cover' }}
           ></iframe>
+          {
+            isCursoDetails &&
+            <ButtonMaterial/>
+          }
         </div>
       )}
 
+    
+
       <div className={styles['playlist-container__videos']}>
-        <h2 className={styles['videos__title']}>Outras instruções</h2>
+        <h2 className={styles['videos__title']}>{ titlePlaylist }</h2>
         <div className={styles['videos__container']}>
           {videos.map((video) => {
             const thumbnailUrl = video.snippet.thumbnails?.medium?.url;

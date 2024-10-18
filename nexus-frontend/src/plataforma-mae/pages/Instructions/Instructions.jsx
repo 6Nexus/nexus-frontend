@@ -12,7 +12,7 @@ const Instructions = () => {
                 <SideBar backgroundColor={'#245024'}/>
                 <div className={styles["instructions-container__content"]}>
                     <SearchBar/>
-                    <YoutubePlaylist playlistId="PLcIvMDtKQxKjOjrulFBUppJQxvP6duWNZ" />
+                    <YoutubePlaylist titlePlaylist="Outras instruções" playlistId="PLWXw8Gu52TRL3sY3esdsH2PxYiRdXwfvX" isCursoDetails={false} />
                 </div>
             </div>
         </>
