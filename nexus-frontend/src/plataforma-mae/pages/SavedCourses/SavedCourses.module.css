@@ -31,7 +31,7 @@
 }
 
 .savedCoursesList__cards {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 64px;
 }
