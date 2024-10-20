@@ -1,0 +1,25 @@
+.certificates-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.certificates-container__content {
+    width: 94%; 
+    margin-left: 6%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 96px;
+    padding: 32px;
+}
+
+.certificates-container__content__cardCertificateList{
+    width: 80%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+    /* background-color: aquamarine; */
+}
+
+

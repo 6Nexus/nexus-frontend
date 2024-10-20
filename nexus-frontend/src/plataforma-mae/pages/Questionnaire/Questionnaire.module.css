@@ -1,0 +1,117 @@
+.questionnaire-container {
+    display: flex;
+    flex-direction: row;
+}
+
+.questionnaire-container__content {
+    width: 94%; 
+    margin-left: 6%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+    padding: 32px;
+}
+
+
+.content__return {
+    display: flex;
+    flex-direction: row;
+    width: 80%;
+    align-items: center;
+    gap: 8px;
+}
+
+.return__icon {
+    color: var(--primary-green);
+    font-size: 32px;
+}
+
+.return__text {
+    color: var(--secondary-green);
+    font-family: 'Inter-Medium';
+    font-size: 24px;
+}
+
+.content__info {
+    width: 80%;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    border-left: 4px solid var(--primary-green);
+    border-top: 4px solid var(--primary-green);
+}
+
+.content__info h2, .content__review h2, .content__question h2 {
+    margin: 0px;
+    font-family: 'Inter-Regular';
+    font-size: 24px;
+    color: var(--secondary-green);
+}
+
+.content__info p, .review__item p {
+    margin: 0px;
+    font-family: 'Inter-Regular';
+    font-size: 16px;
+    color: var(--primary-grey);
+}
+
+
+.review__item {
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.content__question, .content__review {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 32px;
+    background-color: #fff;
+    padding: 24px;
+    border-radius: 20px;
+}
+
+.question__line {
+    border: 0.5px solid #EDEBEB;
+}
+
+.content__buttons {
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 24px;
+}
+
+.content__buttons button {
+    width: 40%;
+    border: none;
+    padding: 16px;
+    border-radius: 8px;
+    font-family: 'Inter-Regular';
+    font-size: 16px;
+}
+
+.buttons__back {
+    background-color: #EDEBEB;
+    color: var(--primary-grey);
+}
+
+.buttons__foward {
+    background-color: var(--primary-green);
+    color: #fff;
+}
+
+
+
+
+
