@@ -52,7 +52,7 @@ const SavedCourses = () => {
                             {currentCards && currentCards.map((data, _) => (
 
                                 <CardCurso
-                                    key={data.idModulo}
+                                    id={data.idModulo}
                                     title={data.titulo}
                                     subtitle={data.descricao}
                                     category={data.categoria}

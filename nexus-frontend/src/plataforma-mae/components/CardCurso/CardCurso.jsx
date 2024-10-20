@@ -2,9 +2,18 @@ import * as React from "react";
 import styles from './CardCurso.module.css'
 import imagemTeste from '../../../utils/assets/imagem-card-teste.png'
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 
-const CardCurso = ({title, subtitle, inProgress, progress, category, liked, imageUrl}) => {
+const CardCurso = ({id, title, subtitle, inProgress, progress, category, liked, imageUrl}) => {
+    const navigate = useNavigate();
+    const location = useLocation();  
+
+    const handleNavigation = (route) => {
+        navigate(route);
+    };
+
     return (
         <>
            <div className={styles["card-curso-container"]}>
@@ -29,11 +38,11 @@ const CardCurso = ({title, subtitle, inProgress, progress, category, liked, imag
                 </div>
                 
                 <div className={ inProgress ? styles["card-curso-container__button"] : styles["card-curso-container__button-secondary"]}>
-                    <button>
+                    <button onClick={() => handleNavigation(`/cursos/${id}`)}>
                         { inProgress ? "Continuar" : "Ver curso"}
                     </button>
 
-                    { inProgress && <p className={styles["button__progress"]}>Progresso: 20%</p>}
+                    { inProgress && <p className={styles["button__progress"]}>Progresso: {progress}%</p>}
                 </div>
            </div>
         </>
