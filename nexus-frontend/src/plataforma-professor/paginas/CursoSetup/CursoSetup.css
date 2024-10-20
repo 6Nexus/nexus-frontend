@@ -1,1 +1,45 @@
+:root {
+    --corPrimaria: #94065E;
+    --fundoNeutro: #F7F3F5;
+    --corDeContorno: #FE5D9F;
+    
+}
+
+.container-criar-curso {
+    display: flex;
+    justify-content: center;
+    margin-left: 5rem;
+  }
+
+
+.container-curso {
+    max-width: 90%;
+    width: 90%;
+    padding: 1.5rem;
+    border: 1px solid #ccc;
+    background-color: #faf9f9;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    margin-top: 2rem;
+    margin-right: 3rem;
+    margin-left: 5rem;
+    height: 90vh;
+}  
+
+
  
+.btn-novo-curso {
+    display: block;
+    margin-top: 10px;
+    padding: 10px;
+    background-color: var(--corPrimaria);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.btn-novo-curso:hover {
+    background-color: #5d033a;
+}
+

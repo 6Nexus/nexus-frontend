@@ -7,7 +7,7 @@
 
 .sidebar {
     height: 100vh;
-    width: 5%;
+    width: 6%;
     display: flex;
     flex-direction: column;
     justify-content: space-between; 
@@ -40,7 +40,7 @@
     flex-direction: column;
     padding: 24px;
     align-items: center;
-    gap: 48px;
+    gap: 30px;
     flex-grow: 1; 
 }
 
@@ -48,7 +48,7 @@
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 16px;
+    gap: 10px;
     padding: 10px 20px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -122,15 +122,21 @@
 
 .sidebar-logo {
     display: flex;
-    justify-content: center;
+    justify-content:center;
     width: 100%;
 }
 
 .sidebar-logo img {
-    width: 80%;
+    width: 85%;
     max-width: 120px; 
     height: auto;
     transition: opacity 0.5s ease;
+    /* margin-top: -30px; */
 }
 
 
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
+}
