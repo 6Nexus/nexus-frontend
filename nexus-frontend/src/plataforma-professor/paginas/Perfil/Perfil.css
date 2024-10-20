@@ -1,4 +1,4 @@
-* {
+*{
     font-family: 'Inter-Medium', sans-serif;
 }
 
@@ -20,10 +20,11 @@
 .container-info {
     max-width: 90%;
     width: 90%;
-    background-color: var(--fundoNeutro);
     padding: 1.5rem;
     border-radius: 20px;
-    border: 1px solid #c0c0c0;
+    border: 1px solid #e1dede;
+    background-color: #faf9f9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin-top: 2rem;
     margin-right: 3rem;
     margin-left: 5rem;
@@ -32,6 +33,8 @@
 
 .infos h4 {
     color: var(--corPrimaria);
+    font-family: 'Inter-Medium', sans-serif;
+    font-size: 20px;
 }
 
 .infos span {
@@ -39,6 +42,7 @@
     margin-bottom: 0.5rem;
     margin-top: 1.5rem;
     font-weight: 400;
+    font-family: 'Inter-Medium', sans-serif;
 }
 
 .btn-editar-info {

@@ -18,7 +18,7 @@ function Perfil() {
                         </div>
                     <div className="container-info">
                         <div className="infos">
-                            <h4>Minhas Informações</h4>
+                            <h4>Informações Pessoais</h4>
                             <span>Nome</span>
                             <span>Sobrenome</span>
                             <span>Email</span>
