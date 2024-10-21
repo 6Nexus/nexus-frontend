@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import styles from './HeaderCategory.module.css';
 import TagCategory from "../TagCategory/TagCategory";
 import AddCircleOutlineIcon from '@mui/icons-material/AddCircleOutline'; 
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
 const HeaderCategory = () => {
     const [activeCategory, setActiveCategory] = useState("Todos");
@@ -23,7 +24,7 @@ const HeaderCategory = () => {
                             onClick={() => setActiveCategory(category)}
                         />
                     ))}
-                    <AddCircleOutlineIcon className={styles["category__card__button"]} />
+                    <ArrowForwardIosIcon className={styles["category__card__button"]} />
                 </div>
             </div>
         </>
