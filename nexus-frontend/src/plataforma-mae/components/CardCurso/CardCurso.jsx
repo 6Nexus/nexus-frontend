@@ -3,8 +3,6 @@ import styles from './CardCurso.module.css'
 import imagemTeste from '../../../utils/assets/imagem-card-teste.png'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { useEffect } from 'react';
-
 
 const CardCurso = ({id, title, subtitle, inProgress, progress, category, liked, imageUrl}) => {
     const navigate = useNavigate();
