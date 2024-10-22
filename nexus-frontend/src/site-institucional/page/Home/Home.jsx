@@ -1,9 +1,22 @@
-import React from "react";
+import React from "react"; // Adicione 'useState' na importação
 import styles from "./Home.module.css";
 import imgPrincipal from '../../../utils/assets/imgPrincipal.png';
 import logo from "../../../utils/assets/logotipo.svg";
+import parceiro1 from "../../../utils/assets/imgCruzVermelha.png"; // Substitua pelo caminho correto das suas imagens
+import parceiro2 from "../../../utils/assets/imgSosDesaparecidos.png";
+import parceiro3 from "../../../utils/assets/imgMaesDaSe.png";
+import parceiro4 from "../../../utils/assets/imgNexus.png";
+import MarkunreadIcon from '@mui/icons-material/Markunread';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import XIcon from '@mui/icons-material/X';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
+import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import HandshakeIcon from '@mui/icons-material/Handshake';
+import GroupsIcon from '@mui/icons-material/Groups';
 
 const Home = () => {
+
     return (
         <>
             {/* NavBar */}
@@ -20,7 +33,7 @@ const Home = () => {
                         <li><a href="#contato">Contate-nos</a></li>
                     </ul>
                 </div>
-            </nav> 
+            </nav>
 
             {/* Seção Home */}
             <section id="home" className={styles.home}>
@@ -84,25 +97,119 @@ const Home = () => {
             </section>
 
             {/* Seção Beneficios */}
-            <section id="beneficios" className={styles}>
-                <h2>Beneficios</h2>
-                <p>Aqui vai ser os beneficios</p>
+            <section id="beneficios" className={styles.sectionBeneficios}>
+                <div className={styles.titulo}>
+                    <h1>Beneficios</h1>
+                </div>
+
+                <div className={styles.containerBeneficios}>
+                    <div className={styles.conteudoBeneficios}>
+                        <div className={styles.cardBeneficios}>
+                            <div className={styles.imgBeneficios01}></div>
+                            <div className={styles.plataformaDeCursos}>
+                                <div className={styles.icone}> <SchoolOutlinedIcon fontSize="large" className={styles.customIcon} />  </div>
+                                <div className={styles.textoBeneficios + " " + styles.textoBeneficios01}>
+                                    <p>
+                                        Plataforma<br></br>
+                                        De Cursos.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles.cardBeneficios}>
+                            <div className={styles.forumParaAjuda}>
+                                <div className={styles.textoBeneficios + " " + styles.textoBeneficios02}>
+                                    <p>
+                                        Fórum<br></br>
+                                        Para Ajuda.
+                                    </p>
+                                </div>
+                                <div className={styles.icone}>  <GroupsIcon fontSize="large" className={styles.customIcon2} /> </div>
+                            </div>
+                            <div className={styles.professor}>
+                                <div className={styles.icone}> <FavoriteBorderRoundedIcon fontSize="large" className={styles.customIcon} /> </div>
+                                <div className={styles.textoBeneficios + " " + styles.textoBeneficios03}>
+                                    <p>
+                                        Torne-se<br></br>
+                                        Um Professor<br></br>
+                                        Voluntário.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        <div className={styles.cardBeneficios}>
+                            <div className={styles.desaparecidos}></div>
+                        </div>
+                        <div className={styles.cardBeneficios}>
+                            <div className={styles.sejaParceiro}>
+                                <div className={styles.icone}> <HandshakeIcon fontSize="large" className={styles.customIcon} /> </div>
+                                <div className={styles.textoBeneficios + " " + styles.textoBeneficios01}>
+                                    <p>
+                                        Seja Nosso<br></br>
+                                        Parceiro.
+                                    </p>
+                                </div>
+                            </div>
+                            <div className={styles.imgBeneficios02}></div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             {/* Seção Parceiros */}
             <section id="parceiros" className={styles.sectionParceiros}>
-            <div className={styles.titulo}>
+                <div className={styles.titulo}>
                     <h1>Parceiros</h1>
-            </div>
-            <div className={styles.conteudo}>
+                </div>
 
-            </div>
+                <div className={styles.conteudo}>
+                    <div className={styles.teste01}></div>
+                    <div className={styles.teste02}></div>
+                    <div className={styles.teste03}></div>
+                    <div className={styles.teste04}></div>
+                </div>
             </section>
 
             {/* Seção Contato */}
-            <section id="contato" className={styles}>
-                <h2>Contate-nos</h2>
-                <p>Aqui vai o conteúdo de contato...</p>
+            <section id="contato" className={styles.footer}>
+                <div className={styles.containerFooter}>
+                    {/* Redes Sociais */}
+                    <div className={styles.footerRedes}>
+                        <h4>Mães em Luta</h4>
+                        <p>Acesse nossas redes:</p>
+
+                        <div className={styles.Redes}>
+                            <div className={styles.instagram}> <InstagramIcon fontSize="small" /> </div>
+                            <div className={styles.twitter}> <XIcon fontSize="small" /> </div>
+                            <div className={styles.facebook}> <FacebookIcon fontSize="small" /> </div>
+                        </div>
+
+                    </div>
+
+                    {/* Endereço e contato */}
+                    <div className={styles.footerInfo}>
+                        <h4>Contatos</h4>
+                        <p>Rua Exemplo, 1234, Bairro Centro<br /> São Paulo, SP, Brasil</p>
+                        <p>Email: contato@maesemluta.org</p>
+                        <p>Telefone: +55 (11) 1234-5678</p>
+
+                    </div>
+
+                    {/* Formulário de contato ou simples caixa de mensagem */}
+                    <div className={styles.footerFaleConosco}>
+                        <h4>Fale Conosco</h4>
+                        <button className={styles.buttonContato}>Envie sua mensagem <MarkunreadIcon /> </button>
+
+                    </div>
+
+                </div>
+
+                <hr />
+
+                <div className={styles.DiretrizesFooter}>
+                    <h4>Copyright © 2024 Mel Inc. Todos os direitos reservados. Mulheres em Luta Ltda. CNPJ: 00.000.000/0000-00</h4>
+                </div>
+
             </section>
         </>
     );

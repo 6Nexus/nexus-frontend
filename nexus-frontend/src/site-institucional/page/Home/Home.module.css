@@ -1,5 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap');
 
 html, body {
     margin: 0;
@@ -215,7 +215,7 @@ html, body {
 }
 
 .imagemSobreNos01:hover, .imagemSobreNos02:hover {
-    transform: scale(1.1); /* Aumenta a imagem em 10% sem alterar o layout */
+    transform: scale(1.1); 
 }
 
 .imagemSobreNos01 {
@@ -260,12 +260,214 @@ html, body {
     font-weight: bold;
 }
 
+/* ------------------------------------------------------------------------------------------------- */
+
+.sectionBeneficios {
+    width: 100%;
+    height: 100vh; 
+    background-image: url('../../../utils/assets/imgBackgrundBeneficios.png');
+    background-size: cover; 
+    background-position: center; 
+    position: relative; 
+    display: flex; 
+    align-items: center; 
+    flex-direction: column;
+}
+
+.containerBeneficios {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 100%;
+}
+
+.conteudoBeneficios {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 80%;
+    width: 80%;
+}
+
+.cardBeneficios {
+    height: 100%;
+    width: 24%;
+}
+
+.imgBeneficios01 {
+    background-image: url('../../../utils/assets/imgBeneficios01.png');
+    background-size: cover; 
+    background-position: center; 
+    position: relative; 
+    height: 40%;
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.plataformaDeCursos {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #4CAD4C;
+    height: 57%;
+    width: 100%;
+    border-radius: 8px;
+    color: white;
+    font-family: 'Open-sans', sans-serif;
+    font-size: 19px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.textoBeneficios01 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.plataformaDeCursos p {
+    padding-bottom: 12px;
+    padding-left: 12px;
+    color: white;
+    font-family: 'Open-sans', sans-serif;
+    font-size: 22px;
+}
+
+
+.forumParaAjuda {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #245024;
+    height: 50%;
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.textoBeneficios02 {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.forumParaAjuda p {
+    padding-top: 12px;
+    padding-left: 12px;
+    color: white;
+    font-family: 'Open-sans', sans-serif;
+    font-size: 22px;
+}
+
+.professor {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #98E598;
+    height: 47%;
+    width: 100%;
+    border-radius: 8px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.textoBeneficios03 {
+    display: flex;
+    flex-direction: column;
+    text-align: end;
+}
+
+.professor p {
+    padding-bottom: 12px;
+    padding-right: 12px;
+    color: white;
+    font-family: 'Open-sans', sans-serif;
+    font-size: 22px;
+}
+
+
+.desaparecidos {
+    background-color: #1E1E1E;
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.sejaParceiro {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #4CAD4C;
+    height: 45%;
+    width: 100%;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.sejaParceiro p {
+    padding-bottom: 12px;
+    padding-left: 12px;
+    color: white;
+    font-family: 'Open-sans', sans-serif;
+    font-size: 22px;
+}
+
+
+.imgBeneficios02 {
+    background-image: url('../../../utils/assets/imgBeneficios02.png');
+    background-size: cover; 
+    background-position: center; 
+    position: relative; 
+    height: 52%;
+    width: 100%;
+    border-radius: 8px;
+    transition: 0.5s;
+    cursor: pointer;
+}
+
+.icone {
+    text-align: end;
+    height: 20%;
+    width: 100%;
+}
+
+.textoBeneficios {
+    height: 60%;
+    width: 100%;
+}
+
+.customIcon {
+    padding-top: 12px;
+    padding-right: 12px;
+    color: white;
+}
+
+.customIcon2 {
+    padding-bottom: 12px;
+    padding-right: 13px;
+    color: white;
+}
+
+.imgBeneficios01:hover, .plataformaDeCursos:hover, .forumParaAjuda:hover, .professor:hover, .desaparecidos:hover, .imgBeneficios02:hover, .sejaParceiro:hover {
+    transform: scale(1.1);  
+}
+
 /* ------------------------------------------------------------------------------------------------ */
 
 .sectionParceiros {
     width: 100%;
-    min-height: 35vh; 
-    background-color: #f7f4f4;
+    min-height: 30vh; 
+    background-color: #f1f1f1ab;
 }
 
 .sectionParceiros .titulo {
@@ -282,7 +484,153 @@ html, body {
 }
 
 .sectionParceiros .conteudo {
-    background-color: #98E598;
-    height: 190px;
+    display: flex;
+    flex-direction: row;    
+    justify-content: space-around; 
+    align-items: center; 
+    height: 170px; 
+    width: 100%; 
+}
+
+.teste01, .teste02, .teste03, .teste04 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20%; 
+    height: 35%; 
+    background-size: cover; 
+    background-position: center; 
+    background-size: contain; 
+    background-repeat: no-repeat; 
+    margin-bottom: 10px;
+}
+
+.teste01 {
+    background-image: url('../../../utils/assets/imgCruzVermelha.png');
+
+}
+
+.teste02 {
+    background-image: url('../../../utils/assets/imgSosDesaparecidos.png');
+
+}
+
+.teste03 {
+    background-image: url('../../../utils/assets/imgMaesDaSe.png');
+    
+}
+
+.teste04 {
+    background-image: url('../../../utils/assets/imgNexus.png');
+}
+
+/* ------------------------------------------------------------------------------- */
+
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    min-height: 42vh;
+    width: 100%;
+    background-color: #4CAF50; 
+}
+
+.DiretrizesFooter {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: 30%;
+}
+
+.DiretrizesFooter h4 {
+    font-weight: 100;
+    font-size: 10px;
+    color: #e9e7e7e5;
+    font-family: 'Open-sans', sans-serif;
+}
+
+hr {
+    border: none;
+    height: 1px;
+    background: #e9e7e786;
     width: 100%;
 }
+
+.containerFooter {
+   display: flex;
+   justify-content: space-around;
+   flex-direction: row;
+   width: 100%;
+   height: 32vh;
+   color: white;
+
+}
+
+.footerRedes, .footerInfo, .footerFaleConosco {
+    margin-top: 30px;
+    width: 20%;
+    height: 70%;
+}
+
+.footerRedes h4, .footerInfo h4, .footerFaleConosco h4 {
+    font-family: "Inter", sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+}
+
+.footerRedes p, .footerInfo p, .footerFaleConosco p {
+    font-family: "Open-sans", sans-serif;
+    font-size: 13px;
+    color: #e9e7e7;
+}
+
+.footerRedes {
+    margin-left: 140px;
+}
+
+.footerInfo {
+    margin-left: 140px;
+}
+
+.footerFaleConosco {
+    padding-left: 140px;
+}
+
+.Redes {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 46%;
+    height: 50%;
+}
+
+.instagram, .twitter, .facebook {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.404);
+    width: 20%;
+    height: 33%;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.buttonContato {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.404);
+    border: none;
+    width: 180px;
+    height: 35px;
+    border-radius: 4px;
+    text-transform: uppercase;
+    cursor: pointer;
+    color: white;
+    font-family: 'Open-sans', sans-serif;
+    font-weight: 100;
+    font-size: 11px;
+}
+
+/* ---------------------------------------------------------------- */
+
