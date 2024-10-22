@@ -1,11 +1,6 @@
-import React from "react"; // Adicione 'useState' na importação
+import React from "react"; 
 import styles from "./Home.module.css";
-import imgPrincipal from '../../../utils/assets/imgPrincipal.png';
 import logo from "../../../utils/assets/logotipo.svg";
-import parceiro1 from "../../../utils/assets/imgCruzVermelha.png"; // Substitua pelo caminho correto das suas imagens
-import parceiro2 from "../../../utils/assets/imgSosDesaparecidos.png";
-import parceiro3 from "../../../utils/assets/imgMaesDaSe.png";
-import parceiro4 from "../../../utils/assets/imgNexus.png";
 import MarkunreadIcon from '@mui/icons-material/Markunread';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import XIcon from '@mui/icons-material/X';
