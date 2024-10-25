@@ -2,45 +2,66 @@ import React, { useState } from "react";
 import './ButtonNovoCurso.css';
 import SideBar from "../../componentes/SideBar/SideBar";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import AdicionarModulos from "../Modulos/AdicionarModulos";
 
-// esse componente é o inicio da criação do curso 
+// esse componente é o início da criação do curso 
 function ButtonNovoCurso({ onClose }) {
 
-    const [titulo, setTitulo] = useState('');
-    const [descricao, setDescricao] = useState('');
-    const [imagem, setImagem] = useState(null);
-    const [categoria, setCategoria] = useState('');
+    const [curso, setCurso] = useState({
+        titulo: '',
+        descricao: '',
+        imagem: null,
+        modulos: []
+    });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setCurso((prevCurso) => ({
+            ...prevCurso,
+            [name]: value,
+        }));
+    };
+
+    const handleFileChange = (e) => {
+        setCurso((prevCurso) => ({
+            ...prevCurso,
+            imagem: e.target.files[0],
+        }));
+    };
+
+    const handleAddModulo = (modulo) => { 
+        setCurso((prevCurso) => ({
+            ...prevCurso,
+            modulos: [...prevCurso.modulos, modulo],
+        }));
+    };
 
     const handleSubmit = (e) => {
         e.preventDefault();
+
+        const { titulo, descricao, categoria } = curso;
 
         if (!titulo || !descricao || !categoria) {
             alert('Por favor, preencha todos os campos obrigatórios!');
             return;
         }
 
-        
-        const curso = {
-            titulo,
-            descricao,
-            imagem,
-            categoria,
-            // incluir módulos e aulas
-        };
 
-        console.log(curso); 
+        console.log(curso);
         alert('Curso criado com sucesso!');
-        
-        
+
         resetForm();
     };
 
-    
     const resetForm = () => {
-        setTitulo('');
-        setDescricao('');
-        setImagem(null);
-        setCategoria('');
+        setCurso({
+            titulo: '',
+            descricao: '',
+            imagem: null,
+            categoria: '',
+            modulos: []
+
+        });
     };
 
     return (
@@ -49,37 +70,43 @@ function ButtonNovoCurso({ onClose }) {
             <div className="form-container">
                 <div className="form-header">
                     <h2>Criar Curso</h2>
-                    <button className="btn-fechar" onClick={onClose}><CloseRoundedIcon/></button> {/* Botão "X" para fechar */}
+                    <button className="btn-fechar" onClick={onClose}>
+                        <CloseRoundedIcon />
+                    </button>
                 </div>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} className="form-cuso-criacao" >
                     <label>Título do Curso:</label>
                     <input
                         type="text"
-                        value={titulo}
-                        onChange={(e) => setTitulo(e.target.value)}
+                        name="titulo"
+                        value={curso.titulo}
+                        onChange={handleInputChange}
                         placeholder="Digite o título do curso"
                         required
+                        style={{width: '40%'}}
                     />
-                  
+
                     <label>Descrição do Curso:</label>
                     <textarea
-                        value={descricao}
-                        onChange={(e) => setDescricao(e.target.value)}
+                        name="descricao"
+                        value={curso.descricao}
+                        onChange={handleInputChange}
                         placeholder="Digite a descrição do curso"
                         required
                     />
 
-                    <label>Imagem de Capa</label>
+                    <label>Imagem de Capa:</label>
                     <input
                         type="file"
-                        onChange={(e) => setImagem(e.target.files[0])}
+                        onChange={handleFileChange}
                         accept="image/*"
                     />
 
                     <label>Categoria:</label>
                     <select
-                        value={categoria}
-                        onChange={(e) => setCategoria(e.target.value)}
+                        name="categoria"
+                        value={curso.categoria}
+                        onChange={handleInputChange}
                         required
                     >
                         <option value="">Selecione uma categoria</option>
@@ -92,8 +119,31 @@ function ButtonNovoCurso({ onClose }) {
                         <option value="Empreendedorismo">Empreendedorismo</option>
                     </select>
 
+
+                    <button
+                        className="btn-add-modulo"
+                        onClick={() => handleAddModulo({titulo: '', descricao: ''})}
+                    >
+                        + Módulo
+                    </button>
+
+                    {curso.modulos.map((modulo, index) => (
+                        <AdicionarModulos
+                            key={index}
+                            moduloIndex={index + 1}
+                            AdicionarModulo={(novoModulo) => {
+                                const modulosAtualizados = curso.modulos.map((m, i) =>
+                                    i === index ? novoModulo : m
+                                );
+                                setCurso((prevCurso) => ({
+                                    ...prevCurso,
+                                    modulos: modulosAtualizados,
+                                }));
+                            }}
+                        />
+                    ))}
+
                     <button type="submit" className="btn-submit">Criar Curso</button>
-                    {/* esse botao vai ser removido e adicionado no componente pai CursoSetup para garantir que salve o curso com módulos e aulas*/}
                 </form>
             </div>
         </>

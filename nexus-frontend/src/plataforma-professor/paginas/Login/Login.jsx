@@ -2,6 +2,7 @@ import React from "react";
 import './Login.css'
 import logo from '../../../utils/assets/logo-nexus-com-texto2.png'
 import ButtonLoginGoogle from "../../componentes/ButtonLoginGoogle/ButtonLoginGoogle.jsx"
+import { Link } from "react-router-dom";
 
 
 function Login() {
@@ -28,9 +29,9 @@ function Login() {
                     <button className='acessar' type='submit'>Acessar</button>
                     <ButtonLoginGoogle />
 
-                    <div className='registre-se'>
-                        <p>Não tem uma conta? <a href="https://www.example.com">Registre-se</a></p>
-                    </div> 
+                        <div className='registre-se'>
+                        <p>Não tem uma conta? <Link to="/cadastro-professor">Registre-se</Link></p>
+                        </div> 
 
                 </form>
 

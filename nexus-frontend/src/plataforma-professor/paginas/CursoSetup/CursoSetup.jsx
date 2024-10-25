@@ -14,7 +14,7 @@ function CursoSetup() {
         aulas : []
     });
 
-    const abrirCriadorCurso = () => {
+    const abrirCriadorCurso = () => {   
         setMostrarCriarCurso(true);
     };
 
@@ -23,7 +23,7 @@ function CursoSetup() {
     };
 
    
-    const atualizarCurso = (novosDados) => {
+    const atualizarCurso = (novosDados) => { 
         setCurso((cursoAtual) => ({
             ...cursoAtual,
             ...novosDados

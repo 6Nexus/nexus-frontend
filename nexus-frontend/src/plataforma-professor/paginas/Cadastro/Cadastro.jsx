@@ -3,6 +3,7 @@ import './Cadastro.css';
 import flatDesing from '../../../utils/assets/img-flat1.png';
 import logoBranca from '../../../utils/assets/logo-nexus-branca.png';
 import ButtonLoginGoogle from "../../componentes/ButtonLoginGoogle/ButtonLoginGoogle.jsx";
+import { Link } from "react-router-dom";
 
  
 function Cadastro() {
@@ -18,7 +19,7 @@ function Cadastro() {
             <div className="container-cadastro">
                 <div className="container-form">
                     <h1>Crie sua conta</h1>
-                    <form action="" method="">
+                    <form action="" method=""> 
                         <div className="input-cadastro">
                             <input type="text" placeholder="Nome" required />
                             <input type="text" placeholder="Sobrenome" required />
@@ -30,7 +31,7 @@ function Cadastro() {
                             <ButtonLoginGoogle />
                         </div>
                         <div className='link-logar'>
-                            <p>Já tem uma conta? <a href="">Login</a></p>
+                            <p>Já tem uma conta?<Link to="/login-professor"> Login</Link></p>
                         </div>
                     </form>
                 </div>

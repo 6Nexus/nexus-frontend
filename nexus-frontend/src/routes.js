@@ -24,7 +24,7 @@ function Rotas() {
 
     return (
         <BrowserRouter>
-            <Routes>
+            <Routes> 
                 <Route path="/" element={<Home />} />
                 <Route path="/cursos" element={<Course />} />
                 <Route path="/cursos/:idCurso" element={<CourseDetails />} />

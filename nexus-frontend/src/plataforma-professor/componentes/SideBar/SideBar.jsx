@@ -44,7 +44,7 @@ const SideBar = ({ backgroundColor }) => {
             setActiveItem('Cursos');
         }
         else if (currentPath === '/perfil-professor') {
-            setActiveItem('Perfil');
+            setActiveItem('Perfil'); 
         }
         else if (currentPath === '/ajuda') {
             setActiveItem('Ajuda');
