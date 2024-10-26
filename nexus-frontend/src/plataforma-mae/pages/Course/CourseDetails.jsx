@@ -6,6 +6,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import YoutubePlaylist from "../../components/PlaylistYt/YoutubePlaylist";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import BannerInfoCourse from '../../components/BannerInfoCourse/BannerInfoCourse'
 
 import { useNavigate } from 'react-router-dom';
 
@@ -30,16 +31,16 @@ const CourseDetails = () => {
                             <ArrowBackIcon className={styles['return__icon']} onClick={() => handleNavigation(`/cursos`)}/>
                             <p className={styles['return__text']}>Voltar</p>
                         </div>
-                        {/* <BannerInfoCourse
-                            backgroundImage={ImagemTeste}
+                        <BannerInfoCourse
+                           
                             titleCourse="Curso de React para iniciante"
                             descriptionCourse="Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam! Aut impedit assumenda rem odio quibusdam id nulla doloribus quo reprehenderit nisi in distinctio amet qui consequuntur sequi sit natus dolorem."
                             duration="10"
 
-                        /> */}
+                        />
                     </div>
 
-                    <YoutubePlaylist titlePlaylist="Próximas aulas" playlistId="PLx4x_zx8csUh752BVDGZkxYpY9lS40fyC" isCursoDetails={true} />
+                    <YoutubePlaylist titlePlaylist="Próximas aulas" playlistId="PL29TaWXah3iaqOejItvW--TaFr9NcruyQ" isCursoDetails={true} />
 
 
                     <div className={styles['courseDetails-container__content__questionnaire']}>

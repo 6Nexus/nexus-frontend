@@ -1,39 +1,22 @@
 .bannerInfoCourse-container {
     width: 100%;
-    position: relative;
-    height: 500px;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
+    height: 250px;
+    background-color: var(--primary-green);
+    padding: 24px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    gap: 32px;
+    gap: 8px;
     justify-content: center;
     border-radius: 20px;
     overflow: hidden;
 }
 
-.bannerInfoCourse-container::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: rgba(0, 0, 0, 0.70);
-    z-index: 1;
-}
-
-.bannerInfoCourse-container>* {
-    position: relative;
-    z-index: 2;
-}
 
 .bannerInfoCourse-container__text {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+    gap: 16px;
     align-items: center;
     text-align: center;
     width: 60%;
@@ -42,7 +25,7 @@
 .bannerInfoCourse-container-text__title {
     color: #fff;
     font-family: 'Inter-Light', sans-serif;
-    font-size: 30px;
+    font-size: 24px;
     letter-spacing: 2px;
     margin: 0px;
 }
@@ -56,22 +39,27 @@
 }
 
 .bannerInfoCourse-container__line {
-    width: 60%;
+    width: 8%;
     border: 0.2px solid #fff;
+    transform: rotate(90deg);
 }
 
-.bannerInfoCourse-container__infoDuration {
+.bannerInfoCourse-container__infoDuration, .bannerInfoCourse-container__infoDate {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 60%;
-    gap: 16px;
+    width: 20%;
+    gap: 24px;
     color: #fff;
-    font-size: 24px;
+    font-size: 16px;
     font-family: 'Inter-Medium', sans-serif;
 }
 
-.bannerInfoCourse-container__infoDuration p {
+.infoDuration__icon, .infoDate__icon {
+    font-size: 52px;
+}
+
+.bannerInfoCourse-container__infoDuration p, .bannerInfoCourse-container__infoDate p {
     margin: 0px;
 }
