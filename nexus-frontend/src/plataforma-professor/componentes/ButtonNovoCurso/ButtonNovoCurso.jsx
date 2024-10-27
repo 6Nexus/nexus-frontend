@@ -35,15 +35,37 @@ function ButtonNovoCurso({ onClose }) {
         }));
     };
 
-    const handleSubmit = (e) => {
+    const handleSalvarCurso = (e) => {
         e.preventDefault();
         const { titulo, descricao, categoria } = curso;
 
         if (!titulo || !descricao || !categoria) {
-            alert('Por favor, preencha todos os campos obrigatórios!');
+            alert('Por favor, preencha todos os campos obrigatórios!')
             return;
         }
 
+        if(curso.modulos.length === 0){
+            alert('Por favor, adicione pelo menos um módulo ao curso!')
+            return;
+        }
+
+        let arrayModulos = curso.modulos
+        
+        for (let i = 0; i < arrayModulos.length; i++) {
+           
+            if (arrayModulos[i].aulas.length === 0) {
+                alert(`O módulo ${i + 1} não possui aulas. Por favor, adicione pelo menos uma aula.`);
+                return; 
+            }
+            
+            
+            if (!arrayModulos[i].titulo || !arrayModulos[i].descricao) {
+                alert(`Por favor, preencha todos os campos do módulo ${i + 1}.`);
+                return; 
+            }
+        }
+        
+        
         console.log(curso);
         alert('Curso criado com sucesso!');
         resetForm();
@@ -69,7 +91,7 @@ function ButtonNovoCurso({ onClose }) {
                         <CloseRoundedIcon />
                     </button>
                 </div>
-                <form onSubmit={handleSubmit} className="form-curso-criacao">
+                <form onSubmit={handleSalvarCurso} className="form-curso-criacao">
                     <label>Título do Curso:</label>
                     <input
                         type="text"
@@ -121,7 +143,7 @@ function ButtonNovoCurso({ onClose }) {
                     >
                         + Módulo
                     </button>
-
+                    
                     {curso.modulos.map((modulo, index) => (
                         <AdicionarModulos
                             key={index}

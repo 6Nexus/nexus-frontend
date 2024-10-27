@@ -12,11 +12,15 @@ function AdicionarModulos({ moduloIndex, AdicionarModulo, removerModulo }) {
 
   const handleChangeModulo = (e) => {
     const { name, value } = e.target;
-    setModulo((prevModulo) => ({
-      ...prevModulo,
-      [name]: value
-    }));
-  };
+    setModulo((prevModulo) => {
+        const updatedModulo = {
+            ...prevModulo,
+            [name]: value
+        };
+        AdicionarModulo(updatedModulo); 
+        return updatedModulo;
+    });
+};
 
   const handleAddAula = () => {
     const novaAula = { titulo: '', descricao: '' };
@@ -25,22 +29,22 @@ function AdicionarModulos({ moduloIndex, AdicionarModulo, removerModulo }) {
         ...prevModulo,
         aulas: [...prevModulo.aulas, novaAula]
       };
-      AdicionarModulo(updatedModulo);
+      AdicionarModulo(updatedModulo); 
       return updatedModulo;
     });
   };
 
   const handleRemoveModulo = () => {
     removerModulo(moduloIndex);
-    console.log('Módulo removido')
+    console.log('Módulo removido');
   };
 
   return (
     <div className="container-modulo">
       <div className='container-header'>
         <h3>Módulo {moduloIndex}</h3>
-        <button className='btn-remover-modulo' onClick={handleRemoveModulo}>
-          <CloseRoundedIcon /> {/* icone de remover modulo */}
+        <button className='btn-remover' onClick={handleRemoveModulo}>
+          <CloseRoundedIcon />
         </button>
       </div>
 
@@ -53,7 +57,6 @@ function AdicionarModulos({ moduloIndex, AdicionarModulo, removerModulo }) {
           value={modulo.titulo}
           onChange={handleChangeModulo}
           placeholder="Digite o título do módulo"
-          // required
           className="input-field"
           style={{ width: '40%' }}
         />
@@ -67,47 +70,47 @@ function AdicionarModulos({ moduloIndex, AdicionarModulo, removerModulo }) {
           value={modulo.descricao}
           onChange={handleChangeModulo}
           placeholder="Digite a descrição do módulo"
-          // required
           className="textarea-field"
         />
       </div>
 
-      <button className='btn-add-aula' onClick={handleAddAula}>
+      <button type="button" className='btn-add-aula' onClick={handleAddAula}>
         + Aula
       </button>
 
-
-      {modulo.aulas.map((aula, index) => (
-        <AdicionarAula
-          key={index}
-          aulaIndex={index + 1}
-          aula={aula}
-          AdicionarAula={(novaAula) => {
-            const aulasAtualizadas = modulo.aulas.map((a, i) =>
-              i === index ? novaAula : a
-            );
-            setModulo((prevModulo) => {
-              const updatedModulo = {
-                ...prevModulo,
-                aulas: aulasAtualizadas
-              };
-              AdicionarModulo(updatedModulo);
-              return updatedModulo;
-            });
-          }}
-          removerAula={() => {
-            const aulasAtualizadas = modulo.aulas.filter((_, i) => i !== index);
-            setModulo((prevModulo) => {
-              const updatedModulo = {
-                ...prevModulo,
-                aulas: aulasAtualizadas
-              };
-              AdicionarModulo(updatedModulo);
-              return updatedModulo;
-            });
-          }}
-        />
-      ))}
+      <div className='container-add-aulas'>
+        {modulo.aulas.map((aula, index) => (
+          <AdicionarAula
+            key={index}
+            aulaIndex={index + 1}
+            aula={aula}
+            AdicionarAula={(novaAula) => {
+              const aulasAtualizadas = modulo.aulas.map((a, i) =>
+                i === index ? novaAula : a
+              );
+              setModulo((prevModulo) => {
+                const updatedModulo = {
+                  ...prevModulo,
+                  aulas: aulasAtualizadas
+                };
+                AdicionarModulo(updatedModulo); // Atualiza o módulo, mas não salva o curso
+                return updatedModulo;
+              });
+            }}
+            removerAula={() => {
+              const aulasAtualizadas = modulo.aulas.filter((_, i) => i !== index);
+              setModulo((prevModulo) => {
+                const updatedModulo = {
+                  ...prevModulo,
+                  aulas: aulasAtualizadas
+                };
+                AdicionarModulo(updatedModulo);
+                return updatedModulo;
+              });
+            }}
+          />
+        ))}
+      </div>
     </div>
   );
 }

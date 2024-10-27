@@ -15,15 +15,16 @@
 .container-curso {
     max-width: 90%;
     width: 90%;
-    padding: 1.5rem;
+    padding: 1.8rem;
     border: 1px solid #ccc;
-    background-color: #faf9f9;
+    /* background-color: #F3F3F3; */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
     margin-top: 2rem;
     margin-right: 3rem;
     margin-left: 5rem;
-    height: 90vh;
+    margin-bottom: 2rem;
+    /* height: 90vh; */
 }  
 
 

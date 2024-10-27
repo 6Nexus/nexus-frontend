@@ -3,6 +3,7 @@ import './CursoSetup.css';
 import SideBar from "../../componentes/SideBar/SideBar";
 import ButtonNovoCurso from "../../componentes/ButtonNovoCurso/ButtonNovoCurso";
 
+
 function CursoSetup() {
     const [mostrarCriarCurso, setMostrarCriarCurso] = useState(false);
     const [curso, setCurso] = useState({
@@ -11,10 +12,10 @@ function CursoSetup() {
         imagem: null,
         categoria: '',
         modulos: [],
-       
+
     });
 
-    const abrirCriadorCurso = () => {   
+    const abrirCriadorCurso = () => {
         setMostrarCriarCurso(true);
     };
 
@@ -22,8 +23,8 @@ function CursoSetup() {
         setMostrarCriarCurso(false);
     };
 
-   
-    const atualizarCurso = (novosDados) => { 
+
+    const atualizarCurso = (novosDados) => {
         setCurso((cursoAtual) => ({
             ...cursoAtual,
             ...novosDados
@@ -42,7 +43,7 @@ function CursoSetup() {
         // implementar a lógica pro back aqui
         alert('Curso criado com sucesso!');
 
-        
+
         setCurso({
             titulo: '',
             descricao: '',
@@ -50,9 +51,9 @@ function CursoSetup() {
             categoria: '',
             modulos: [],
             aulas: []
-            // ainda vai ser criado os compenentes de módulos e aula
+
         });
-        setMostrarCriarCurso(false);  
+        setMostrarCriarCurso(false);
     };
 
     return (
@@ -65,11 +66,11 @@ function CursoSetup() {
                     </button>
 
                     {mostrarCriarCurso && (
-                        <ButtonNovoCurso 
-                            curso={curso} 
-                            atualizarCurso={atualizarCurso} 
+                        <ButtonNovoCurso
+                            curso={curso}
+                            atualizarCurso={atualizarCurso}
                             onClose={fecharCriadorCurso}
-                            onSave={salvarCurso} 
+                            onSave={salvarCurso}
                         />
                     )}
                 </div>
