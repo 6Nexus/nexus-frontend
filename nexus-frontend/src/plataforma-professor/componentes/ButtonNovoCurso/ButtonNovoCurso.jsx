@@ -111,7 +111,7 @@ function ButtonNovoCurso({ onClose }) {
                         value={curso.titulo}
                         onChange={handleInputChange}
                         placeholder="Digite o título do curso"
-                        // required
+                        required
                         style={{ width: '40%' }}
                     />
 
@@ -121,7 +121,7 @@ function ButtonNovoCurso({ onClose }) {
                         value={curso.descricao}
                         onChange={handleInputChange}
                         placeholder="Digite a descrição do curso"
-                    // required
+                    required
                     />
 
                     <label>Imagem de Capa:</label>
@@ -136,7 +136,7 @@ function ButtonNovoCurso({ onClose }) {
                         name="categoria"
                         value={curso.categoria}
                         onChange={handleInputChange}
-                    // required
+                    required
                     >
                         <option value="">Selecione uma categoria</option>
                         <option value="Cidadania">Cidadania</option>

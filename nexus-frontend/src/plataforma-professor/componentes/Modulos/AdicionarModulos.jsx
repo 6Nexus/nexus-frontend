@@ -59,6 +59,7 @@ function AdicionarModulos({ moduloIndex, AdicionarModulo, removerModulo }) {
           placeholder="Digite o título do módulo"
           className="input-field"
           style={{ width: '40%' }}
+          required
         />
       </div>
 
@@ -71,6 +72,7 @@ function AdicionarModulos({ moduloIndex, AdicionarModulo, removerModulo }) {
           onChange={handleChangeModulo}
           placeholder="Digite a descrição do módulo"
           className="textarea-field"
+          required
         />
       </div>
 
