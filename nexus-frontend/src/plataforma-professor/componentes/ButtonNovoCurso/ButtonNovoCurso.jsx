@@ -44,28 +44,40 @@ function ButtonNovoCurso({ onClose }) {
             return;
         }
 
-        if(curso.modulos.length === 0){
+        if (curso.modulos.length === 0) {
             alert('Por favor, adicione pelo menos um módulo ao curso!')
             return;
         }
 
         let arrayModulos = curso.modulos
-        
+
         for (let i = 0; i < arrayModulos.length; i++) {
-           
+
             if (arrayModulos[i].aulas.length === 0) {
-                alert(`O módulo ${i + 1} não possui aulas. Por favor, adicione pelo menos uma aula.`);
-                return; 
+                alert(`O módulo ${i + 1} não possui aulas. Por favor, adicione pelo menos uma aula!`);
+                return;
             }
-            
-            
+
+
             if (!arrayModulos[i].titulo || !arrayModulos[i].descricao) {
-                alert(`Por favor, preencha todos os campos do módulo ${i + 1}.`);
-                return; 
+                alert(`Por favor, preencha todos os campos do módulo ${i + 1}`);
+                return;
             }
+
+            for (let j = 0; j < arrayModulos[i].aulas.length; j++) {
+                if(!arrayModulos[i].aulas[j].titulo || !arrayModulos[i].aulas[j].descricao){
+                    alert(`Por favor, preencha todos os campos da aula ${i + 1}`);
+                    return
+                }
+            }
+
         }
         
         
+        
+
+
+
         console.log(curso);
         alert('Curso criado com sucesso!');
         resetForm();
@@ -109,7 +121,7 @@ function ButtonNovoCurso({ onClose }) {
                         value={curso.descricao}
                         onChange={handleInputChange}
                         placeholder="Digite a descrição do curso"
-                        // required
+                    // required
                     />
 
                     <label>Imagem de Capa:</label>
@@ -124,7 +136,7 @@ function ButtonNovoCurso({ onClose }) {
                         name="categoria"
                         value={curso.categoria}
                         onChange={handleInputChange}
-                        // required
+                    // required
                     >
                         <option value="">Selecione uma categoria</option>
                         <option value="Cidadania">Cidadania</option>
@@ -143,7 +155,7 @@ function ButtonNovoCurso({ onClose }) {
                     >
                         + Módulo
                     </button>
-                    
+
                     {curso.modulos.map((modulo, index) => (
                         <AdicionarModulos
                             key={index}

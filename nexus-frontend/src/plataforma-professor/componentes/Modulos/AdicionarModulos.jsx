@@ -13,14 +13,14 @@ function AdicionarModulos({ moduloIndex, AdicionarModulo, removerModulo }) {
   const handleChangeModulo = (e) => {
     const { name, value } = e.target;
     setModulo((prevModulo) => {
-        const updatedModulo = {
-            ...prevModulo,
-            [name]: value
-        };
-        AdicionarModulo(updatedModulo); 
-        return updatedModulo;
+      const updatedModulo = {
+        ...prevModulo,
+        [name]: value
+      };
+      AdicionarModulo(updatedModulo);
+      return updatedModulo;
     });
-};
+  };
 
   const handleAddAula = () => {
     const novaAula = { titulo: '', descricao: '' };
@@ -29,12 +29,12 @@ function AdicionarModulos({ moduloIndex, AdicionarModulo, removerModulo }) {
         ...prevModulo,
         aulas: [...prevModulo.aulas, novaAula]
       };
-      AdicionarModulo(updatedModulo); 
+      AdicionarModulo(updatedModulo);
       return updatedModulo;
     });
   };
 
-  const handleRemoveModulo = () => {
+  const handleRemoverModulo = () => {
     removerModulo(moduloIndex);
     console.log('Módulo removido');
   };
@@ -43,7 +43,7 @@ function AdicionarModulos({ moduloIndex, AdicionarModulo, removerModulo }) {
     <div className="container-modulo">
       <div className='container-header'>
         <h3>Módulo {moduloIndex}</h3>
-        <button className='btn-remover' onClick={handleRemoveModulo}>
+        <button className='btn-remover' onClick={handleRemoverModulo}>
           <CloseRoundedIcon />
         </button>
       </div>
