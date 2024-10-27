@@ -6,12 +6,12 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import YoutubePlaylist from "../../components/PlaylistYt/YoutubePlaylist";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-import BannerInfoCourse from '../../components/BannerInfoCourse/BannerInfoCourse'
-
+import BannerInfoModule from "../../components/BannerInfoModule/BannerInfoModule";
 import { useNavigate } from 'react-router-dom';
 
 const CourseDetails = () => {
-    const idCurso  = useParams();
+    const {idCurso}  = useParams();
+    const {idModulo} = useParams();
 
     const navigate = useNavigate();
     const handleNavigation = (route) => {
@@ -28,16 +28,10 @@ const CourseDetails = () => {
 
                     <div className={styles['courseDetails-container__content__info']}>
                         <div className={styles['info__return']}>
-                            <ArrowBackIcon className={styles['return__icon']} onClick={() => handleNavigation(`/cursos`)}/>
+                            <ArrowBackIcon className={styles['return__icon']} onClick={() => handleNavigation(`/cursos/${idCurso}/modulos`)}/>
                             <p className={styles['return__text']}>Voltar</p>
                         </div>
-                        <BannerInfoCourse
-                           
-                            titleCourse="Curso de React para iniciante"
-                            descriptionCourse="Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam! Aut impedit assumenda rem odio quibusdam id nulla doloribus quo reprehenderit nisi in distinctio amet qui consequuntur sequi sit natus dolorem."
-                            duration="10"
-
-                        />
+                        <BannerInfoModule titleModule="Modulo 1" descriptionModule="Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam! Aut impedit assumenda rem odio quibusdam id nulla doloribus quo reprehenderit nisi in distinctio amet qui consequuntur sequi sit natus dolorem." duration="20" date="24/09/2023"/>
                     </div>
 
                     <YoutubePlaylist titlePlaylist="Próximas aulas" playlistId="PL29TaWXah3iaqOejItvW--TaFr9NcruyQ" isCursoDetails={true} />

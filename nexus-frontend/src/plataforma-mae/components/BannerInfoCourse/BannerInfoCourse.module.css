@@ -1,25 +1,19 @@
 .bannerInfoCourse-container {
-    width: 100%;
-    height: 250px;
     background-color: var(--primary-green);
-    padding: 24px;
+    padding: 32px;
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 8px;
-    justify-content: center;
+    gap: 32px;
+    justify-content: start;
     border-radius: 20px;
-    overflow: hidden;
 }
-
 
 .bannerInfoCourse-container__text {
     display: flex;
     flex-direction: column;
     gap: 16px;
-    align-items: center;
-    text-align: center;
-    width: 60%;
+    width: 80%;
 }
 
 .bannerInfoCourse-container-text__title {
@@ -38,28 +32,3 @@
     margin: 0px;
 }
 
-.bannerInfoCourse-container__line {
-    width: 8%;
-    border: 0.2px solid #fff;
-    transform: rotate(90deg);
-}
-
-.bannerInfoCourse-container__infoDuration, .bannerInfoCourse-container__infoDate {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    width: 20%;
-    gap: 24px;
-    color: #fff;
-    font-size: 16px;
-    font-family: 'Inter-Medium', sans-serif;
-}
-
-.infoDuration__icon, .infoDate__icon {
-    font-size: 52px;
-}
-
-.bannerInfoCourse-container__infoDuration p, .bannerInfoCourse-container__infoDate p {
-    margin: 0px;
-}

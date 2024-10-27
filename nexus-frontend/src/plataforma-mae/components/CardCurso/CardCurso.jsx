@@ -2,11 +2,10 @@ import * as React from "react";
 import styles from './CardCurso.module.css'
 import imagemTeste from '../../../utils/assets/imagem-card-teste.png'
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 
 const CardCurso = ({id, title, subtitle, inProgress, progress, category, liked, imageUrl}) => {
     const navigate = useNavigate();
-    const location = useLocation();  
 
     const handleNavigation = (route) => {
         navigate(route);
@@ -36,7 +35,7 @@ const CardCurso = ({id, title, subtitle, inProgress, progress, category, liked, 
                 </div>
                 
                 <div className={ inProgress ? styles["card-curso-container__button"] : styles["card-curso-container__button-secondary"]}>
-                    <button onClick={() => handleNavigation(`/cursos/${id}`)}>
+                    <button onClick={() => handleNavigation(`/cursos/${id}/modulos`)}>
                         { inProgress ? "Continuar" : "Ver curso"}
                     </button>
 

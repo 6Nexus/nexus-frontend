@@ -1,28 +1,17 @@
 import * as React from "react";
 import styles from './BannerInfoCourse.module.css';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
-import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import IconCourse from '../../../utils/assets/course.svg'
 
-const BannerInfoCourse = ({ backgroundImage, titleCourse, descriptionCourse, duration }) => {
-    const bannerStyle = {
-        backgroundImage: `url(${backgroundImage})`,
-    };
+const BannerInfoCourse = ({ courseName, teacherName, teacherEmail }) => {
     return (
         <>
-            <div className={styles["bannerInfoCourse-container"]} style={bannerStyle}>
-                <div className={styles["bannerInfoCourse-container__infoDuration"]}>
-                    <AccessTimeIcon className={styles['infoDuration__icon']}/>
-                    <p>Duração: {duration} horas</p>
+            <div className={styles["bannerInfoCourse-container"]}>
+                <div className={styles["bannerInfoCourse-container__icon"]}>
+                    <img src={IconCourse} alt="" />
                 </div>
-                <div className={styles["bannerInfoCourse-container__line"]}></div>
                 <div className={styles["bannerInfoCourse-container__text"]}>
-                    <h2 className={styles["bannerInfoCourse-container-text__title"]}>{titleCourse}</h2>
-                    <h4 className={styles["bannerInfoCourse-container-text__description"]}>{descriptionCourse}</h4>
-                </div>
-                <div className={styles["bannerInfoCourse-container__line"]}></div>
-                <div className={styles["bannerInfoCourse-container__infoDate"]}>
-                    <CalendarMonthIcon className={styles['infoDate__icon']}/>
-                    <p>Criação: 20/07/2024</p>
+                    <h2 className={styles["bannerInfoCourse-container-text__title"]}>Curso: {courseName}</h2>
+                    <h4 className={styles["bannerInfoCourse-container-text__description"]}>Professor(a): {teacherName} | Email: {teacherEmail}</h4>
                 </div>
             </div>
         </>
