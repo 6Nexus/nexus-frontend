@@ -104,7 +104,7 @@ function ButtonNovoCurso({ onClose }) {
                     </button>
                 </div>
                 <form onSubmit={handleSalvarCurso} className="form-curso-criacao">
-                    <label>Título do Curso:</label>
+                    <label>Título do Curso<span style={{color: 'red'}}>*</span></label>
                     <input
                         type="text"
                         name="titulo"
@@ -115,7 +115,7 @@ function ButtonNovoCurso({ onClose }) {
                         style={{ width: '40%' }}
                     />
 
-                    <label>Descrição do Curso:</label>
+                    <label>Descrição do Curso<span style={{color: 'red'}}>*</span></label>
                     <textarea
                         name="descricao"
                         value={curso.descricao}
@@ -131,7 +131,7 @@ function ButtonNovoCurso({ onClose }) {
                         accept="image/*"
                     />
 
-                    <label>Categoria:</label>
+                    <label>Categoria<span style={{color: 'red'}}>*</span></label>
                     <select
                         name="categoria"
                         value={curso.categoria}

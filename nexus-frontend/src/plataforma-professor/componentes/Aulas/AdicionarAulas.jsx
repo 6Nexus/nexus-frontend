@@ -38,7 +38,7 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
 
 
             <div className="form-group">
-                <label htmlFor="titulo">Título da Aula:</label>
+                <label htmlFor="titulo">Título da Aula<span style={{color: 'red'}}>*</span></label>
                 <input
                     type="text"
                     id="titulo"
@@ -53,7 +53,7 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
             </div>
 
             <div className="form-group">
-                <label htmlFor="descricao">Descrição da Aula:</label>
+                <label htmlFor="descricao">Descrição da Aula<span style={{color: 'red'}}>*</span></label>
                 <textarea
                     id="descricao"
                     name='descricao'
@@ -64,13 +64,9 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
                     className="textarea-field"
                 />
             </div>
-            <div>
-                conteudos
-                <input type="file" className='video' />
-                <input type="file" className='video' />
-                <input type="file" className='video' />
+            <div className='conteudos'>
+               
             </div>
-            <hr />
         </div>
     );
 }

@@ -49,7 +49,7 @@ function AdicionarModulos({ moduloIndex, AdicionarModulo, removerModulo }) {
       </div>
 
       <div className="form-group">
-        <label htmlFor="titulo">Título do Módulo:</label>
+        <label htmlFor="titulo">Título do Módulo<span style={{color: 'red'}}>*</span></label>
         <input
           type="text"
           id="titulo"
@@ -64,7 +64,7 @@ function AdicionarModulos({ moduloIndex, AdicionarModulo, removerModulo }) {
       </div>
 
       <div className="form-group">
-        <label htmlFor="descricao">Descrição do Módulo:</label>
+        <label htmlFor="descricao">Descrição do Módulo<span style={{color: 'red'}}>*</span></label>
         <textarea
           id="descricao"
           name='descricao'
