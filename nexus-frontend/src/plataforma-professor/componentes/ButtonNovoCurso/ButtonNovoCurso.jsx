@@ -4,13 +4,12 @@ import SideBar from "../../componentes/SideBar/SideBar";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AdicionarModulos from "../Modulos/AdicionarModulos";
 
-// esse componente é o início da criação do curso 
 function ButtonNovoCurso({ onClose }) {
-
     const [curso, setCurso] = useState({
         titulo: '',
         descricao: '',
         imagem: null,
+        categoria: '',
         modulos: []
     });
 
@@ -29,16 +28,15 @@ function ButtonNovoCurso({ onClose }) {
         }));
     };
 
-    const handleAddModulo = (modulo) => { 
+    const handleAddModulo = () => {
         setCurso((prevCurso) => ({
             ...prevCurso,
-            modulos: [...prevCurso.modulos, modulo],
+            modulos: [...prevCurso.modulos, { titulo: '', descricao: '', aulas: [] }],
         }));
     };
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
         const { titulo, descricao, categoria } = curso;
 
         if (!titulo || !descricao || !categoria) {
@@ -46,10 +44,8 @@ function ButtonNovoCurso({ onClose }) {
             return;
         }
 
-
         console.log(curso);
         alert('Curso criado com sucesso!');
-
         resetForm();
     };
 
@@ -60,7 +56,6 @@ function ButtonNovoCurso({ onClose }) {
             imagem: null,
             categoria: '',
             modulos: []
-
         });
     };
 
@@ -74,7 +69,7 @@ function ButtonNovoCurso({ onClose }) {
                         <CloseRoundedIcon />
                     </button>
                 </div>
-                <form onSubmit={handleSubmit} className="form-cuso-criacao" >
+                <form onSubmit={handleSubmit} className="form-curso-criacao">
                     <label>Título do Curso:</label>
                     <input
                         type="text"
@@ -82,8 +77,8 @@ function ButtonNovoCurso({ onClose }) {
                         value={curso.titulo}
                         onChange={handleInputChange}
                         placeholder="Digite o título do curso"
-                        required
-                        style={{width: '40%'}}
+                        // required
+                        style={{ width: '40%' }}
                     />
 
                     <label>Descrição do Curso:</label>
@@ -92,7 +87,7 @@ function ButtonNovoCurso({ onClose }) {
                         value={curso.descricao}
                         onChange={handleInputChange}
                         placeholder="Digite a descrição do curso"
-                        required
+                        // required
                     />
 
                     <label>Imagem de Capa:</label>
@@ -107,7 +102,7 @@ function ButtonNovoCurso({ onClose }) {
                         name="categoria"
                         value={curso.categoria}
                         onChange={handleInputChange}
-                        required
+                        // required
                     >
                         <option value="">Selecione uma categoria</option>
                         <option value="Cidadania">Cidadania</option>
@@ -119,10 +114,10 @@ function ButtonNovoCurso({ onClose }) {
                         <option value="Empreendedorismo">Empreendedorismo</option>
                     </select>
 
-
                     <button
+                        type="button"
                         className="btn-add-modulo"
-                        onClick={() => handleAddModulo({titulo: '', descricao: ''})}
+                        onClick={handleAddModulo}
                     >
                         + Módulo
                     </button>
@@ -140,10 +135,17 @@ function ButtonNovoCurso({ onClose }) {
                                     modulos: modulosAtualizados,
                                 }));
                             }}
+                            removerModulo={() => {
+                                const modulosAtualizados = curso.modulos.filter((_, i) => i !== index);
+                                setCurso((prevCurso) => ({
+                                    ...prevCurso,
+                                    modulos: modulosAtualizados,
+                                }));
+                            }}
                         />
                     ))}
 
-                    <button type="submit" className="btn-submit">Criar Curso</button>
+                    <button type="submit" className="btn-submit">Salvar Curso</button>
                 </form>
             </div>
         </>

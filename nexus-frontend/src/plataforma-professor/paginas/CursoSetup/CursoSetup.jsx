@@ -11,7 +11,7 @@ function CursoSetup() {
         imagem: null,
         categoria: '',
         modulos: [],
-        aulas : []
+       
     });
 
     const abrirCriadorCurso = () => {   
