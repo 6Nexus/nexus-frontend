@@ -5,6 +5,10 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import HomeIcon from '@mui/icons-material/Home';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import api from "../../../api";
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
+
 
 const Login = () => {
     const [senhaVisivel, setSenhaVisivel] = useState(false);
@@ -12,6 +16,44 @@ const Login = () => {
     const toggleSenhaVisivel = () => {
         setSenhaVisivel(!senhaVisivel);
     };
+
+    
+    const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+  
+    const handleSubmit = (e) => {
+      e.preventDefault();
+  
+      api.post('/associados/login', {
+        email: email,
+        senha: password
+      }, {
+        headers: {
+          'Content-Type': 'application/json'
+        }
+      })
+        .then(response => {
+          if (response.status === 200 && response.data?.token) {
+            sessionStorage.setItem('authToken', response.data.token);
+            sessionStorage.setItem('usuario', response.data.nome);
+            sessionStorage.setItem('userId',response.data.userId)
+  
+            // alert("Login sucess")
+            toast.success('Login realizado com sucesso!');
+            navigate('/home');
+          } else {
+            // alert("Falhou")
+            throw new Error('Ops! Ocorreu um erro interno.');
+          }
+        })
+        .catch(error => {
+          toast.error(error.message);
+        // alert(error.message)
+
+        });
+    };
+  
 
     return (
         <section className={styles.login}>
@@ -31,12 +73,14 @@ const Login = () => {
                     <h2 className={styles.titulo}>Faça seu Login</h2>
 
                     {/* Formulário */}
-                    <form className={styles.form}>
+                    <form className={styles.form} onSubmit={handleSubmit}>
                         <label htmlFor="email" className={styles.label}>Email</label>
                         <input
                             type="email"
                             id="email"
                             className={styles.input}
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                             placeholder="exemplo@gmail.com"
                         />
 
@@ -46,6 +90,8 @@ const Login = () => {
                                 type={senhaVisivel ? "text" : "password"}
                                 id="senha"
                                 className={styles.input}
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
                                 placeholder="**********"
                             />
                             <span
