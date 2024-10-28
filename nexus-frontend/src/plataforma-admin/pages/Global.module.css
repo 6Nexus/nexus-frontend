@@ -13,7 +13,7 @@
   }
   
   .content {
-    margin: 110px 0px 0px 200px; 
+    margin: 110px 0px 0px 13%; 
     flex: 1;
     overflow-y: auto;
   }
@@ -25,6 +25,12 @@
 
   @media (max-width: 768px) {
     .titulo {
-        font-size: 24px; 
+        font-size: 32px; 
     }
+
+    .content {
+      margin: 90px 0px 0px 13%; 
+    }
+    
 }
+
