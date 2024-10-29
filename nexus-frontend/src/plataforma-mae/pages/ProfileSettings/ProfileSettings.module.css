@@ -13,7 +13,7 @@
     padding: 32px;
 }
 
-.profileSettings-container__content__sectionData {
+.profileSettings-container__content__sectionData  {
     width: 80%;
     background-color: #fff;
     padding: 32px;
@@ -32,19 +32,26 @@
     margin: 0px;
 }
 
+.sectionData__form {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
 .sectionData__input {
     width: 100%;
     display: flex;
     flex-direction: row;
     gap: 32px;
-    align-items: end;
 }
 
 .sectionData__input__nestedField {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
     width: 45%;
     gap: 8px;
+    height: fit-content;
 }
 
 .sectionData__input__nestedField label {
@@ -61,6 +68,12 @@
     font-size: 16px;
 }
 
+.sectionData__input__error {
+    color: #AA0769; 
+    font-size: 14px;
+    height: 20px; 
+    font-family: 'Inter-Regular';
+}
 
 .sectionData__buttonSave {
     width: 30%;
@@ -86,8 +99,6 @@
     border-radius: 8px;
     color: #fff;
     font-size: 16px;
-    /* margin: auto; */
-
     display: flex;
     align-items: center;
     justify-content: center;
