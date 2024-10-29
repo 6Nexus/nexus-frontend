@@ -74,7 +74,7 @@ input:focus {
 
 
 .search-bar-container__preferences {
-    width: 10%;
+    width: 12%;
     display: flex;
     align-items: center;
     justify-content: flex-end;
@@ -86,11 +86,12 @@ input:focus {
     align-items: center;
     justify-content: center;
     border: none;
-    padding: 8px;
-    gap: 4px;
-    width: fit-content;
+    padding: 12px;
+    gap: 8px;
+    width: 100%;
     background-color: var(--secondary-green);
     color: #fff;
+    font-size: 16px;
     border-radius: 8px;
 }
 
