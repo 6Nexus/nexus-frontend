@@ -42,7 +42,8 @@
 .btn-add-aula {
     margin-top: 10px;
     padding: 7px;
-    background-color: var(--corPrimaria);
+    /* background-color: var(--corPrimaria); */
+    background-color: #3B9D3B;
     color: white;
     border: none;
     border-radius: 8px;
@@ -51,7 +52,8 @@
 }
 
 .btn-add-aula:hover {
-    background-color: #5d033a;
+    /* background-color: #5d033a; */
+    background-color: #386641;
 }
 
 .container-header {

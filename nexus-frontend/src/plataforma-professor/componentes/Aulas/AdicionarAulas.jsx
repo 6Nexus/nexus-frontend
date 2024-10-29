@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import './AdicionarAulas.css';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import PictureAsPdfRoundedIcon from '@mui/icons-material/PictureAsPdfRounded';
+import PlayCircleFilledWhiteRoundedIcon from '@mui/icons-material/PlayCircleFilledRounded';
 
 function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
     const [aula, setAula] = useState({
         titulo: '',
-        descricao: ''
+        descricao: '',
+        conteudos: { video: null, pdfs: [] }
     });
 
     const handleChangeAula = (e) => {
@@ -15,12 +18,66 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
                 ...prevAula,
                 [name]: value
             };
-            
             AdicionarAula(updatedAula); 
             return updatedAula; 
         });
     };
 
+    const handleVideoChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setAula((prevAula) => {
+                const updatedAula = {
+                    ...prevAula,
+                    conteudos: { ...prevAula.conteudos, video: file }
+                };
+                AdicionarAula(updatedAula);
+                return updatedAula;
+            });
+        }
+    };
+
+    const handleRemoveVideo = () => {
+        setAula((prevAula) => {
+            const updatedAula = {
+                ...prevAula,
+                conteudos: { ...prevAula.conteudos, video: null }
+            };
+            AdicionarAula(updatedAula);
+            return updatedAula;
+        });
+    };
+
+    const handleAddPdf = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setAula((prevAula) => {
+                const updatedAula = {
+                    ...prevAula,
+                    conteudos: {
+                        ...prevAula.conteudos,
+                        pdfs: [...prevAula.conteudos.pdfs, file]
+                    }
+                };
+                AdicionarAula(updatedAula);
+                return updatedAula;
+            });
+        }
+    };
+
+    const handleRemovePdf = (index) => {
+        setAula((prevAula) => {
+            const updatedAula = {
+                ...prevAula,
+                conteudos: {
+                    ...prevAula.conteudos,
+                    pdfs: prevAula.conteudos.pdfs.filter((_, i) => i !== index)
+                }
+            };
+            AdicionarAula(updatedAula);
+            return updatedAula;
+        });
+    };
 
     const handleRemoverAula = () => {
         removerAula(aulaIndex);
@@ -35,7 +92,6 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
                     <CloseRoundedIcon />
                 </button>
             </div>
-
 
             <div className="form-group">
                 <label htmlFor="titulo">Título da Aula<span style={{color: 'red'}}>*</span></label>
@@ -64,8 +120,38 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
                     className="textarea-field"
                 />
             </div>
-            <div className='conteudos'>
-               
+
+            <div className="form-group">
+                <label>Adicionar Vídeo</label>
+                <input
+                    type="file"
+                    accept="video/*"
+                    onChange={handleVideoChange}
+                    disabled={!!aula.conteudos.video}
+                />
+                {aula.conteudos.video && (
+                    <div className="file-item">
+                        <PlayCircleFilledWhiteRoundedIcon />
+                        <span>{aula.conteudos.video.name}</span>
+                        <button onClick={handleRemoveVideo} className="btn-remover-video">
+                            <CloseRoundedIcon fontSize="small" />
+                        </button>
+                    </div>
+                )}
+            </div>
+
+            <div className="form-group">
+                <label>Adicionar PDFs</label>
+                <input type="file" accept="application/pdf" onChange={handleAddPdf} />
+                {aula.conteudos.pdfs.map((pdf, index) => (
+                    <div key={index} className="file-item">
+                        <PictureAsPdfRoundedIcon />
+                        <span>{pdf.name}</span>
+                        <button onClick={() => handleRemovePdf(index)} className="btn-remover-pdf">
+                            <CloseRoundedIcon fontSize="small" />
+                        </button>
+                    </div>
+                ))}
             </div>
         </div>
     );
