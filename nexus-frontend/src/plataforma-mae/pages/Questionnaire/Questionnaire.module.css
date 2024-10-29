@@ -80,8 +80,39 @@
     border-radius: 20px;
 }
 
+.review__itens {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+    justify-content: start;
+    align-items: center;
+}
+
 .question__line {
     border: 0.5px solid #EDEBEB;
+}
+
+.question__form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.question__form h2 {
+    font-size: 18px;
+    padding-left: 16px;
+    width: 80%;
+}
+
+.alternatives__alternative {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+.alternatives__alternative p {
+    font-family: 'Inter-Regular';
+    font-size: 16px;
 }
 
 .content__buttons {

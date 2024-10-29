@@ -3,7 +3,7 @@ import styles from './Questionnaire.module.css'
 import SideBar from "../../components/SideBar/SideBar.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import { Checkbox } from "@mui/material";
+import { Checkbox, Radio } from "@mui/material";
 
 const Questionnaire = () => {
     return (
@@ -31,6 +31,14 @@ const Questionnaire = () => {
                                 <Checkbox/>
                                 <p>1</p>
                             </div>
+                            <div className={styles['review__item']}>
+                                <Checkbox/>
+                                <p>2</p>
+                            </div>
+                            <div className={styles['review__item']}>
+                                <Checkbox/>
+                                <p>3</p>
+                            </div>
                         </div>
                     </div>
 
@@ -38,7 +46,25 @@ const Questionnaire = () => {
                       <h2>Pergunta 1 de 1</h2>
                       <div  className={styles['question__line']}></div>
                       <div className={styles['question__form']}>
-                                
+                        <h2>1 - Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam</h2>
+                        <div className={styles['form__alternatives']}>
+                            <div className={styles['alternatives__alternative']}>
+                                <Radio/>
+                                <p>Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam</p>
+                            </div>
+                            <div className={styles['alternatives__alternative']}>
+                                <Radio/>
+                                <p>Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam</p>
+                            </div>
+                            <div className={styles['alternatives__alternative']}>
+                                <Radio/>
+                                <p>Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam</p>
+                            </div>
+                            <div className={styles['alternatives__alternative']}>
+                                <Radio/>
+                                <p>Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam</p>
+                            </div>
+                        </div>
                       </div>
                     </div>
 

@@ -1,6 +1,7 @@
 .course-container {
     display: flex;
     flex-direction: row;
+    overflow: hidden;
 }
 
 .course-container__content {
