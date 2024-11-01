@@ -99,7 +99,7 @@ function ButtonNovoCurso({ onClose }) {
             <div className="form-container">
                 <div className="form-header">
                     <h2>Criar Curso</h2>
-                    <button className="btn-fechar" onClick={onClose}>
+                    <button className="btn-remover" onClick={onClose}>
                         <CloseRoundedIcon />
                     </button>
                 </div>
@@ -116,12 +116,13 @@ function ButtonNovoCurso({ onClose }) {
                     />
 
                     <label>Descrição do Curso<span style={{color: 'red'}}>*</span></label>
-                    <textarea
+                    <input
                         name="descricao"
                         value={curso.descricao}
                         onChange={handleInputChange}
                         placeholder="Digite a descrição do curso"
                     required
+                    className="input-descricao"
                     />
 
                     <label>Imagem de Capa:</label>
@@ -129,6 +130,7 @@ function ButtonNovoCurso({ onClose }) {
                         type="file"
                         onChange={handleFileChange}
                         accept="image/*"
+                        className="file-imagem-capa"
                     />
 
                     <label>Categoria<span style={{color: 'red'}}>*</span></label>

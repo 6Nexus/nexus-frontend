@@ -18,8 +18,8 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
                 ...prevAula,
                 [name]: value
             };
-            AdicionarAula(updatedAula); 
-            return updatedAula; 
+            AdicionarAula(updatedAula);
+            return updatedAula;
         });
     };
 
@@ -92,9 +92,8 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
                     <CloseRoundedIcon />
                 </button>
             </div>
-
             <div className="form-group">
-                <label htmlFor="titulo">Título da Aula<span style={{color: 'red'}}>*</span></label>
+                <label htmlFor="titulo">Título da Aula<span style={{ color: 'red' }}>*</span></label>
                 <input
                     type="text"
                     id="titulo"
@@ -109,15 +108,15 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
             </div>
 
             <div className="form-group">
-                <label htmlFor="descricao">Descrição da Aula<span style={{color: 'red'}}>*</span></label>
-                <textarea
+                <label htmlFor="descricao">Descrição da Aula<span style={{ color: 'red' }}>*</span></label>
+                <input
                     id="descricao"
                     name='descricao'
                     value={aula.descricao}
                     onChange={handleChangeAula}
                     placeholder="Digite a descrição da aula"
                     required
-                    className="textarea-field"
+                    className="input-descricao"
                 />
             </div>
 
@@ -131,9 +130,9 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
                 />
                 {aula.conteudos.video && (
                     <div className="file-item">
-                        <PlayCircleFilledWhiteRoundedIcon />
+                        <PlayCircleFilledWhiteRoundedIcon className='icon-play' />
                         <span>{aula.conteudos.video.name}</span>
-                        <button onClick={handleRemoveVideo} className="btn-remover-video">
+                        <button onClick={handleRemoveVideo} className="btn-remover">
                             <CloseRoundedIcon fontSize="small" />
                         </button>
                     </div>
@@ -141,13 +140,13 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
             </div>
 
             <div className="form-group">
-                <label>Adicionar PDFs</label>
+                <label>Adicionar Material de Aula (PDF)</label>
                 <input type="file" accept="application/pdf" onChange={handleAddPdf} />
                 {aula.conteudos.pdfs.map((pdf, index) => (
                     <div key={index} className="file-item">
-                        <PictureAsPdfRoundedIcon />
+                        <PictureAsPdfRoundedIcon className='icon-pdf' />
                         <span>{pdf.name}</span>
-                        <button onClick={() => handleRemovePdf(index)} className="btn-remover-pdf">
+                        <button onClick={() => handleRemovePdf(index)} className="btn-remover">
                             <CloseRoundedIcon fontSize="small" />
                         </button>
                     </div>

@@ -65,13 +65,13 @@ function AdicionarModulos({ moduloIndex, AdicionarModulo, removerModulo }) {
 
       <div className="form-group">
         <label htmlFor="descricao">Descrição do Módulo<span style={{color: 'red'}}>*</span></label>
-        <textarea
+        <input 
           id="descricao"
           name='descricao'
           value={modulo.descricao}
           onChange={handleChangeModulo}
           placeholder="Digite a descrição do módulo"
-          className="textarea-field"
+          className="input-descricao"
           required
         />
       </div>
@@ -81,6 +81,7 @@ function AdicionarModulos({ moduloIndex, AdicionarModulo, removerModulo }) {
       </button>
 
       <div className='container-add-aulas'>
+        <h3>Aulas</h3>
         {modulo.aulas.map((aula, index) => (
           <AdicionarAula
             key={index}

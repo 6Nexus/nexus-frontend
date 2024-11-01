@@ -15,8 +15,8 @@
 .container-curso {
     max-width: 90%;
     width: 90%;
-    padding: 1.8rem;
-    border: 1px solid #ccc;
+    padding: 3rem;
+    /* border: 1px solid #ccc; */
     /* background-color: #F3F3F3; */
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
