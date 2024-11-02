@@ -41,7 +41,7 @@ const Login = () => {
   
             // alert("Login sucess")
             toast.success('Login realizado com sucesso!');
-            navigate('/home');
+            navigate('/');
           } else {
             // alert("Falhou")
             throw new Error('Ops! Ocorreu um erro interno.');
