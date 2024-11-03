@@ -1,0 +1,51 @@
+.card-curso-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+}
+
+.card-curso-container__informations {
+    display: flex;
+    flex-direction: row;
+    gap: 32px;
+}
+
+.informations__description {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.description__title {
+    font-family: 'Inter-Regular';
+    font-size: 24px;
+    color: var(--secondary-green);
+    margin: 0px;
+}
+
+.main__text, .description__date {
+    font-family: 'Inter-Regular';
+    color: var(--primary-grey);
+    margin: 0px;
+}
+
+.card-curso-container__button {
+    height: fit-content;
+    border: none;
+    padding: 16px;
+    background-color: var(--primary-green);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    align-self: flex-end;
+}
