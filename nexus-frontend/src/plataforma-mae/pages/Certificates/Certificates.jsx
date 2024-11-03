@@ -6,7 +6,7 @@ import HeaderCategory from "../../components/HeaderCategory/HeaderCategory";
 import CardCertificate from "../../components/CardCertificate/CardCertificate";
 import Pagination from '@mui/material/Pagination';
 
-import api from "../../../api";
+import apiCurso from "../../../apiCursos";
 
 const Certificates = () => {
     const [cardsData, setCardsData] = useState([]);
@@ -14,7 +14,7 @@ const Certificates = () => {
     const cardsPerPage = 5;
 
     function buscarCertificados() {
-        api.get().then((response) => {
+        apiCurso.get().then((response) => {
             const { data } = response;
             console.log(data);
             setCardsData(data)

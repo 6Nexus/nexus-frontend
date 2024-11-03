@@ -15,7 +15,7 @@ const SearchBar = () => {
     const navigate = useNavigate();
     const goToHome = () => {
         setActiveItem('home'); 
-        navigate('/');
+        navigate('/aluno/inicio');
     };
 
     return (
