@@ -1,52 +1,43 @@
 import React from "react";
-import './MeusCursos.css'
+import './MeusCursos.css';
 import SideBar from "../../componentes/SideBar/SideBar";
-import CardCurso from "../../../plataforma-mae/components/CardCurso/CardCurso"
-import { display } from "@mui/system";
+import imagemCapa from '../../../utils/assets/imagem-card-teste.png';
 
+function MeusCursos() {
 
-
-function MeusCursos(){
+    const cursos = [
+        { titulo: 'Curso 1', subtitulo: 'Subtítulo 1', categoria: 'Categoria 1' },
+        { titulo: 'Curso 2', subtitulo: 'Subtítulo 2', categoria: 'Categoria 2' },
+        { titulo: 'Curso 3', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
+        { titulo: 'Curso 4', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
+        { titulo: 'Curso 5', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
+        { titulo: 'Curso 6', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
+        { titulo: 'Curso 7', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
+        { titulo: 'Curso 8', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
+    ];
 
     return (
         <>
             <SideBar backgroundColor={'#94065E'} />
-            <div style={{backgroundColor: '#F3F3F3'}}>
-
-            <div 
-                className="meus-cursos-criados" 
-                style={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    marginTop: '10px',
-                    gap: '10px',
-                    marginLeft: '5rem',
-                    height: 'auto'
-                }}
-            >
-                {[...Array(8)].map((_, index) => (
-                    <div 
-                        key={index} 
-                        className="card-cursos-criados"
-                        style={{
-                            width: '300px', 
-                            height: '300px',
-                            marginTop: '10rem',
-                            
-                        }}
-                    >
-                        <CardCurso  inProgress={{display: 'block'}} />
+            <div className="cursos-criados">
+                {cursos.map((curso, index) => (
+                    <div className="curso-criados-info" key={index}>
+                        <div className="img-capa">
+                            <img src={imagemCapa} alt={`Imagem do ${curso.titulo}`} />
+                        </div>
+                        <div className="info-cards">
+                            <h2>{curso.titulo}</h2>
+                            {/* <h4>{curso.subtitulo}</h4> */}
+                            {/* <p>{curso.categoria}</p> */}
+                        </div>
+                        <div className="button-editar-curso">
+                            <button>Editar</button>
+                        </div>
                     </div>
                 ))}
             </div>
-
-            </div>
         </>
-    )
-    
-    
-
+    );
 }
+
 export default MeusCursos;

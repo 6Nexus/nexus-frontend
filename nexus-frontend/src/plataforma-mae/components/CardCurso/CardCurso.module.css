@@ -1,6 +1,6 @@
 .card-curso-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     justify-content: space-between;
     background-color: var(--secondary-text-color);
     height: auto;

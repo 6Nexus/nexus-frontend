@@ -10,6 +10,9 @@
     --detail-green-hover: #69ca69da;
     --primary-grey: #524E4E;
     --secondary-grey: #524e4ea8;
+    --corPrimaria: #94065E;
+    --fundoNeutro: #F7F3F5;
+    --corDeContorno: #FE5D9F;
 }
 
 @font-face {
