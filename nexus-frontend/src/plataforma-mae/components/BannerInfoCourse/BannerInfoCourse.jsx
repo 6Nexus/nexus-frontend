@@ -1,0 +1,20 @@
+import * as React from "react";
+import styles from './BannerInfoCourse.module.css';
+import IconCourse from '../../../utils/assets/course.svg'
+
+const BannerInfoCourse = ({ courseName, teacherName, teacherEmail }) => {
+    return (
+        <>
+            <div className={styles["bannerInfoCourse-container"]}>
+                <div className={styles["bannerInfoCourse-container__icon"]}>
+                    <img src={IconCourse} alt="" />
+                </div>
+                <div className={styles["bannerInfoCourse-container__text"]}>
+                    <h2 className={styles["bannerInfoCourse-container-text__title"]}>Curso: {courseName}</h2>
+                    <h4 className={styles["bannerInfoCourse-container-text__description"]}>Professor(a): {teacherName} | Email: {teacherEmail}</h4>
+                </div>
+            </div>
+        </>
+    );
+};
+export default BannerInfoCourse;
