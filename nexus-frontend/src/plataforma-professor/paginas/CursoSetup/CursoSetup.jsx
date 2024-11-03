@@ -47,7 +47,7 @@ function CursoSetup() {
         setCurso({
             titulo: '',
             descricao: '',
-            imagem: null,
+            imagem: null, 
             categoria: '',
             modulos: [],
             aulas: []

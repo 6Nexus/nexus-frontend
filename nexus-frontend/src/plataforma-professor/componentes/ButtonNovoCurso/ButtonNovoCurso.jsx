@@ -14,11 +14,11 @@ function ButtonNovoCurso({ onClose }) {
     });
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setCurso((prevCurso) => ({
-            ...prevCurso,
-            [name]: value,
-        }));
+         const { name, value } = e.target;
+         setCurso((prevCurso) => ({ 
+            ...prevCurso, 
+            [name]: value 
+        })); 
     };
 
     const handleFileChange = (e) => {
@@ -31,54 +31,70 @@ function ButtonNovoCurso({ onClose }) {
     const handleAddModulo = () => {
         setCurso((prevCurso) => ({
             ...prevCurso,
-            modulos: [...prevCurso.modulos, { titulo: '', descricao: '', aulas: [] }],
+            modulos: [...prevCurso.modulos, { titulo: '', descricao: '', aulas: [], questionario: [] }],
         }));
     };
 
     const handleSalvarCurso = (e) => {
         e.preventDefault();
-        const { titulo, descricao, categoria } = curso;
+        const { titulo, descricao, categoria, modulos } = curso;
 
+        // Verificações iniciais
         if (!titulo || !descricao || !categoria) {
-            alert('Por favor, preencha todos os campos obrigatórios!')
+            alert('Por favor, preencha todos os campos obrigatórios!');
             return;
         }
 
-        if (curso.modulos.length === 0) {
-            alert('Por favor, adicione pelo menos um módulo ao curso!')
+        if (modulos.length === 0) {
+            alert('Por favor, adicione pelo menos um módulo ao curso!');
             return;
         }
 
-        let arrayModulos = curso.modulos
+        // Log para verificar o estado dos módulos
+        console.log("Módulos no momento da validação:", modulos);
 
-        for (let i = 0; i < arrayModulos.length; i++) {
-
-            if (arrayModulos[i].aulas.length === 0) {
-                alert(`O módulo ${i + 1} não possui aulas. Por favor, adicione pelo menos uma aula!`);
-                return;
-            }
-
-
-            if (!arrayModulos[i].titulo || !arrayModulos[i].descricao) {
+        // Validação dos módulos
+        for (let i = 0; i < modulos.length; i++) {
+            console.log("Validando módulo:", modulos[i]); // Log do módulo atual
+            if (!modulos[i].titulo || !modulos[i].descricao) {
                 alert(`Por favor, preencha todos os campos do módulo ${i + 1}`);
                 return;
             }
 
-            for (let j = 0; j < arrayModulos[i].aulas.length; j++) {
-                if(!arrayModulos[i].aulas[j].titulo || !arrayModulos[i].aulas[j].descricao){
-                    alert(`Por favor, preencha todos os campos da aula ${i + 1}`);
-                    return
+            // Verificação das aulas
+            if (modulos[i].aulas.length === 0) {
+                alert(`O módulo ${i + 1} não possui aulas. Por favor, adicione pelo menos uma aula!`);
+                return;
+            }
+
+            for (let j = 0; j < modulos[i].aulas.length; j++) {
+                console.log("Validando aula:", modulos[i].aulas[j]); // Log da aula atual
+                if (!modulos[i].aulas[j].titulo || !modulos[i].aulas[j].descricao) {
+                    alert(`Por favor, preencha todos os campos da aula ${j + 1} no módulo ${i + 1}`);
+                    return;
                 }
             }
 
+            // Verificação do questionário
+            if (modulos[i].questionario.length === 0) {
+                alert(`O módulo ${i + 1} não possui questões no questionário. Por favor, adicione pelo menos uma questão!`);
+                return;
+            }
+
+            for (const questao of modulos[i].questionario) {
+                if (!questao.texto || questao.alternativas.length === 0) {
+                    alert(`A questão "${questao.texto}" do módulo ${i + 1} precisa de pelo menos uma alternativa!`);
+                    return;
+                }
+                const alternativaCorreta = questao.alternativas.find(alt => alt.correta);
+                if (!alternativaCorreta) {
+                    alert(`A questão "${questao.texto}" do módulo ${i + 1} precisa de uma alternativa correta!`);
+                    return;
+                }
+            }
         }
-        
-        
-        
 
-
-
-        console.log(curso);
+        console.log('Curso Criado', curso); // Aqui você pode implementar a lógica de envio do curso para o backend
         alert('Curso criado com sucesso!');
         resetForm();
     };
@@ -121,8 +137,8 @@ function ButtonNovoCurso({ onClose }) {
                         value={curso.descricao}
                         onChange={handleInputChange}
                         placeholder="Digite a descrição do curso"
-                    required
-                    className="input-descricao"
+                        required
+                        className="input-descricao"
                     />
 
                     <label>Imagem de Capa:</label>
@@ -138,7 +154,7 @@ function ButtonNovoCurso({ onClose }) {
                         name="categoria"
                         value={curso.categoria}
                         onChange={handleInputChange}
-                    required
+                        required
                     >
                         <option value="">Selecione uma categoria</option>
                         <option value="Cidadania">Cidadania</option>
@@ -160,25 +176,25 @@ function ButtonNovoCurso({ onClose }) {
 
                     {curso.modulos.map((modulo, index) => (
                         <AdicionarModulos
-                            key={index}
-                            moduloIndex={index + 1}
-                            AdicionarModulo={(novoModulo) => {
-                                const modulosAtualizados = curso.modulos.map((m, i) =>
-                                    i === index ? novoModulo : m
-                                );
-                                setCurso((prevCurso) => ({
-                                    ...prevCurso,
-                                    modulos: modulosAtualizados,
-                                }));
-                            }}
-                            removerModulo={() => {
-                                const modulosAtualizados = curso.modulos.filter((_, i) => i !== index);
-                                setCurso((prevCurso) => ({
-                                    ...prevCurso,
-                                    modulos: modulosAtualizados,
-                                }));
-                            }}
-                        />
+                        key={index}
+                        moduloIndex={index}
+                        atualizarModulo={(moduloIndex, updatedModulo) => {
+                            const modulosAtualizados = curso.modulos.map((m, i) =>
+                                i === moduloIndex ? updatedModulo : m
+                            );
+                            setCurso((prevCurso) => ({
+                                ...prevCurso,
+                                modulos: modulosAtualizados,
+                            }));
+                        }}
+                        removerModulo={() => {
+                            const modulosAtualizados = curso.modulos.filter((_, i) => i !== index);
+                            setCurso((prevCurso) => ({
+                                ...prevCurso,
+                                modulos: modulosAtualizados,
+                            }));
+                        }}
+                    />                    
                     ))}
 
                     <button type="submit" className="btn-submit">Salvar Curso</button>
