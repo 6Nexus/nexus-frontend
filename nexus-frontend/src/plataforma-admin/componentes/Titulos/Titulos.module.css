@@ -1,0 +1,41 @@
+.selected {
+    color: #66AF53;
+}
+
+
+.titulos{
+    display: flex;
+}
+
+.subItem {
+    display: flex; /* Alinha os subtítulos e a divVerde em linha */
+    align-items: center; 
+    cursor: pointer; 
+    margin-left: 2rem;
+    font-size: 24px;
+}
+
+.divVerde {
+    background-color: #66AF53;
+    width: 5px;
+    height: 20px;
+    margin-left: 2rem;
+}
+
+
+/* Responsividade */
+@media (max-width: 787px) {
+    .titulos{
+        display: flex;
+    }
+    
+    .subItem {
+        margin-left: 1rem;
+        font-size: 16px;
+    }
+    
+    .divVerde {
+        margin-left: 1rem;
+    }
+    
+}

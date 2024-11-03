@@ -54,17 +54,17 @@ const Home = () => {
                     <Banner />
 
                     <div className={styles["home-container__content__options"]}>
-                        <div className={`${styles["content__options__option"]} ${styles["course"]}`} onClick={() => handleNavigation(`/cursos`)}>
+                        <div className={`${styles["content__options__option"]} ${styles["course"]}`} onClick={() => handleNavigation(`/aluno/cursos`)}>
                             <img src={IconCourse} alt="" />
                             <p className={styles["options__option__text"]}>Ver cursos</p>
                         </div>
 
-                        <div className={`${styles["content__options__option"]} ${styles["instructions"]}`} onClick={() => handleNavigation(`/instrucoes`)}>
+                        <div className={`${styles["content__options__option"]} ${styles["instructions"]}`} onClick={() => handleNavigation(`/aluno/instrucoes`)}>
                             <img src={IconInstructions} alt="" />
                             <p className={styles["options__option__text"]}>Instruções</p>
                         </div>
 
-                        <div className={`${styles["content__options__option"]} ${styles["profile"]}`} onClick={() => handleNavigation(`/perfil`)}>
+                        <div className={`${styles["content__options__option"]} ${styles["profile"]}`} onClick={() => handleNavigation(`/aluno/perfil`)}>
                             <img src={IconProfile} alt="" />
                             <p className={styles["options__option__text"]}>Meu perfil</p>
                         </div>

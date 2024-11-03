@@ -35,7 +35,7 @@ const CardCurso = ({id, title, subtitle, inProgress, progress, category, liked, 
                 </div>
                 
                 <div className={ inProgress ? styles["card-curso-container__button"] : styles["card-curso-container__button-secondary"]}>
-                    <button onClick={() => handleNavigation(`/cursos/${id}/modulos`)}>
+                    <button onClick={() => handleNavigation(`/aluno/cursos/${id}/modulos`)}>
                         { inProgress ? "Continuar" : "Ver curso"}
                     </button>
 

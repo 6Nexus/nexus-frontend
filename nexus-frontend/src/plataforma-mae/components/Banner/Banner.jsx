@@ -16,7 +16,7 @@ const Banner = () => {
                     <h4 className={styles["banner-container-text__description"]}>Esta plataforma foi pensada para você. Aproveite as funcionalidades abaixo e torne sua experiência ainda melhor</h4>
                 </div>
                <div className={styles["banner-container__button"]}>
-                    <button onClick={() => handleNavigation(`/instrucoes`)}>Ver mais</button>
+                    <button onClick={() => handleNavigation(`/aluno/instrucoes`)}>Ver mais</button>
                </div>
             </div>  
         </>

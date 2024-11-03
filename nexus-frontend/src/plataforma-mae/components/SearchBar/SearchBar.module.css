@@ -74,7 +74,6 @@ input:focus {
 
 
 .search-bar-container__preferences {
-    width: 12%;
     display: flex;
     align-items: center;
     justify-content: flex-end;

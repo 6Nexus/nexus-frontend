@@ -28,7 +28,7 @@ const CourseDetails = () => {
 
                     <div className={styles['courseDetails-container__content__info']}>
                         <div className={styles['info__return']}>
-                            <ArrowBackIcon className={styles['return__icon']} onClick={() => handleNavigation(`/cursos/${idCurso}/modulos`)}/>
+                            <ArrowBackIcon className={styles['return__icon']} onClick={() => handleNavigation(`/aluno/cursos/${idCurso}/modulos`)}/>
                             <p className={styles['return__text']}>Voltar</p>
                         </div>
                         <BannerInfoModule titleModule="Modulo 1" descriptionModule="Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam! Aut impedit assumenda rem odio quibusdam id nulla doloribus quo reprehenderit nisi in distinctio amet qui consequuntur sequi sit natus dolorem." duration="20" date="24/09/2023"/>
@@ -46,7 +46,7 @@ const CourseDetails = () => {
                             </div>
                         </div>
 
-                        <button className={styles['questionnaire__button']} onClick={() => handleNavigation(`/questionario/${idCurso}`)}>
+                        <button className={styles['questionnaire__button']} onClick={() => handleNavigation(`/aluno/questionario/${idCurso}`)}>
                             Iniciar
                         </button>
                     </div>

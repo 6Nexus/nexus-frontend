@@ -1,9 +1,9 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import HomeSite from "./site-institucional/page/Home/Home"
-import Login from "./site-institucional/page/Login/Login"
-import Cadastro from "./site-institucional/page/Cadastro/Cadastro"
+import HomeSite from "./site-institucional/page/Home/Home";
+import Login from "./site-institucional/page/Login/Login";
+import Cadastro from "./site-institucional/page/Cadastro/Cadastro";
 
 import Home from "./plataforma-mae/pages/Home/Home";
 import Course from "./plataforma-mae/pages/Course/Course";
@@ -15,6 +15,10 @@ import ProfileSettings from "./plataforma-mae/pages/ProfileSettings/ProfileSetti
 import Certificates from "./plataforma-mae/pages/Certificates/Certificates";
 import SavedCourses from "./plataforma-mae/pages/SavedCourses/SavedCourses";
 
+import Professor from './plataforma-admin/pages/Professor/Professor';
+import Mae from './plataforma-admin/pages/Mae/Mae';
+import Curso from './plataforma-admin/pages/Curso/Curso';
+
 function Rotas() {
     return (
         <BrowserRouter>
@@ -25,15 +29,20 @@ function Rotas() {
                 <Route path="/cadastro" element={<Cadastro />} />
 
                 {/* plataforma-mae */}
-                <Route path="/inicio" element={<Home />} />
-                <Route path="/cursos" element={<Course />} />
-                <Route path="/cursos/:idCurso/modulos" element={<CourseModules />} />
-                <Route path="/cursos/:idCurso/modulos/:idModulo" element={<CourseDetails />} />
-                <Route path="/questionario/:idCurso" element={<Questionnaire />} />
-                <Route path="/instrucoes" element={<Instructions />} />
-                <Route path="/perfil" element={<ProfileSettings />} />
-                <Route path="/certificados" element={<Certificates />} />
-                <Route path="/cursos-salvos" element={<SavedCourses />} />
+                <Route path="/aluno/inicio" element={<Home />} />
+                <Route path="/aluno/cursos" element={<Course />} />
+                <Route path="/aluno/cursos/:idCurso/modulos" element={<CourseModules />} />
+                <Route path="/aluno/cursos/:idCurso/modulos/:idModulo" element={<CourseDetails />} />
+                <Route path="/aluno/questionario/:idCurso" element={<Questionnaire />} />
+                <Route path="/aluno/instrucoes" element={<Instructions />} />
+                <Route path="/aluno/perfil" element={<ProfileSettings />} />
+                <Route path="/aluno/certificados" element={<Certificates />} />
+                <Route path="/aluno/cursos-salvos" element={<SavedCourses />} />
+
+                {/* plataforma-admin */}
+                <Route path="/admin/professores" element={<Professor />} />
+                <Route path="/admin/maes" element={<Mae />} />
+                <Route path="/admin/cursos" element={<Curso />} />
             </Routes>
         </BrowserRouter>
     );

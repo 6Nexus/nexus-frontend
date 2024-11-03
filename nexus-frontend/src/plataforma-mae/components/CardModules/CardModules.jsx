@@ -24,12 +24,12 @@ const CardModules = ({ idModule, idCourse, title, subtitle, inProgress }) => {
                             <p className={styles['progress__number']}>50%</p>
                         </div>
 
-                        <button className={styles['actions__button']} onClick={() => handleNavigation(`/cursos/${idCourse}/modulos/${idModule}`)}>
+                        <button className={styles['actions__button']} onClick={() => handleNavigation(`/aluno/cursos/${idCourse}/modulos/${idModule}`)}>
                             Continuar
                         </button>
                     </div>
                     :
-                    <button className={styles['card-curso-container__button']} onClick={() => handleNavigation(`/cursos/${idCourse}/modulos/${idModule}`)}>
+                    <button className={styles['card-curso-container__button']} onClick={() => handleNavigation(`/aluno/cursos/${idCourse}/modulos/${idModule}`)}>
                         Começar
                     </button>
                 }

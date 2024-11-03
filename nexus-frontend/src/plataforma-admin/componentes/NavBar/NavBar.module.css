@@ -1,0 +1,43 @@
+.navbar-top {
+    background-color: #F6F6F6;
+    color: #66AF53;
+    padding: 10px;
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    position: fixed;
+    width: 100%;
+    height: 50px;
+    top: 0;
+}
+
+#toggle-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 30px;
+    cursor: pointer;
+}
+
+.elementos-navtop{
+    width: 15px auto;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    width: 90%;
+}
+
+
+.logo {
+    padding: 130px;
+    text-align: center;
+    font-size: 30px;
+    font-weight: bold;
+    height: 35px;
+}
+
+
+.admin-title {
+    font-size: 30px;
+    font-weight: bolder;
+}
