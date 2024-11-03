@@ -19,6 +19,9 @@ function MeusCursos() {
     return (
         <>
             <SideBar backgroundColor={'#94065E'} />
+            <div className="header-cursos-criados">
+                <p class="title-cursos">Cursos criados</p>
+            </div>
             <div className="cursos-criados">
                 {cursos.map((curso, index) => (
                     <div className="curso-criados-info" key={index}>

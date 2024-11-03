@@ -1,4 +1,24 @@
 
+.header-cursos-criados {
+    width: 80%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    border-left: 5px solid var(--corPrimaria);
+    padding: 0px 8px 0px;
+    margin: 0px auto;
+    margin-top: 20px;
+}
+
+.title-cursos {
+    font-family: 'Inter-Medium', sans-serif;
+    color: #333;
+    color: #5d033a;
+    font-size: 24px;
+    /* margin: 16px 0 0; */
+}
+
+
 .cursos-criados {
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); 
@@ -7,7 +27,7 @@
     border-radius: 8px;
     margin: 20px;
     gap: 15px; 
-    margin-left: 6rem;
+    margin-left: 8rem;
 }
 
 
@@ -44,6 +64,8 @@
 .info-cards h2 {
     font-family: 'Inter-Medium';
     font-size: 20px;
+    color: #333;
+    /* color: #5d033a; */
 }
 
 .info-cards h4 {
@@ -82,5 +104,5 @@
 }
 
 .button-editar-curso button:hover {
-    background-color: #5d033a;;
+    background-color: #5d033a;
 }
