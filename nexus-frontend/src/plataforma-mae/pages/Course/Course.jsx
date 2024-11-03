@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../../../api"
+import apiCursos from "./../../../apiCursos";
 import styles from './Course.module.css'
 import SideBar from "../../components/SideBar/SideBar";
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -22,7 +22,7 @@ const Course = () => {
 
 
     function buscarCursos() {
-        api.get().then((response) => {
+        apiCursos.get().then((response) => {
             const { data } = response;
             console.log(data);
             setCardsData(data)

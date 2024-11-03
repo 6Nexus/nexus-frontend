@@ -26,7 +26,7 @@ const CourseModules = () => {
 
                     <div className={styles['courseModules-container__content__info']}>
                         <div className={styles['info__return']}>
-                            <ArrowBackIcon className={styles['return__icon']} onClick={() => handleNavigation(`/cursos`)} />
+                            <ArrowBackIcon className={styles['return__icon']} onClick={() => handleNavigation(`/aluno/cursos`)} />
                             <p className={styles['return__text']}>Voltar</p>
                         </div>
                         <BannerInfoCourse courseName="Nome do curso" teacherName="Ana Luiza Santos" teacherEmail="ana.lsantos@gmail.com"/>
