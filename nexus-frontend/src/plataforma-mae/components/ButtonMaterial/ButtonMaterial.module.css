@@ -1,0 +1,23 @@
+.buttonMaterial-container {
+    display: flex;
+    justify-content: end;
+}
+
+.buttonMaterial-container__button {
+    border: none;
+    background-color: var(--primary-green);
+    color: #fff;
+    padding: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    border-radius: 8px;
+    width: 20%;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.buttonMaterial-container__button:hover {
+    background-color: var(--primary-green-hover);
+}

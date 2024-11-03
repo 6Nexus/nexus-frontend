@@ -14,7 +14,7 @@ import { useEffect } from 'react';
 
 const SideBar = ({backgroundColor}) => {
     const [isExpanded, setExpanded] = useState(false);
-    const [activeItem, setActiveItem] = useState('/professores');
+    const [activeItem, setActiveItem] = useState('/admin/professores');
     const navigate = useNavigate();
     const location = useLocation();  
 
@@ -26,15 +26,15 @@ const SideBar = ({backgroundColor}) => {
         const currentPath = location.pathname;
        
         
-        if (currentPath === '/professores') {
+        if (currentPath === '/admin/professores') {
             setActiveItem('professor');
         } 
         
-        if (currentPath === '/maes') {
+        if (currentPath === '/admin/maes') {
             setActiveItem('aluno');
         } 
 
-        if (currentPath === '/cursos') {
+        if (currentPath === '/admin/cursos') {
             setActiveItem('curso');
         } 
 
@@ -54,17 +54,17 @@ const SideBar = ({backgroundColor}) => {
 
                 <div className={styles["menuOptions"]}>
                     <div className={styles["menuOptions__primary"]}>
-                        <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('professor', '/professores')}>
+                        <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('professor', '/admin/professores')}>
                             <PersonIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'professor' ? styles["active"] : ""}`}/>
                             {isExpanded && <span className={styles["menuOptions__item__text"]}>Professor</span>}
                         </div>
 
-                        <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('aluno', '/maes')}>
+                        <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('aluno', '/admin/maes')}>
                             <Groups2RoundedIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'aluno' ? styles["active"] : ""}`}/>
                             {isExpanded && <span className={styles["menuOptions__item__text"]}>Mães</span>}
                         </div>
 
-                        <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('curso', '/cursos')}>
+                        <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('curso', '/admin/cursos')}>
                             <SchoolIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'curso' ? styles["active"] : ""}`}/>
                             {isExpanded && <span className={styles["menuOptions__item__text"]}>Cursos</span>}
                         </div>

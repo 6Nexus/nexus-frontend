@@ -1,0 +1,64 @@
+.bannerInfoModule-container {
+    height: 200px;
+    background-color: var(--primary-green);
+    padding: 24px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    justify-content: center;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+
+.bannerInfoModule-container__text {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+    text-align: center;
+    width: 60%;
+}
+
+.bannerInfoModule-container-text__title {
+    color: #fff;
+    font-family: 'Inter-Light', sans-serif;
+    font-size: 24px;
+    letter-spacing: 2px;
+    margin: 0px;
+}
+
+.bannerInfoModule-container-text__description {
+    color: #fff;
+    font-family: 'Inter-Extra-Light', sans-serif;
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin: 0px;
+}
+
+.bannerInfoModule-container__line {
+    width: 8%;
+    border: 0.2px solid #fff;
+    transform: rotate(90deg);
+}
+
+.bannerInfoModule-container__infoDuration, .bannerInfoModule-container__infoDate {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 20%;
+    gap: 24px;
+    color: #fff;
+    font-size: 16px;
+    font-family: 'Inter-Medium', sans-serif;
+}
+
+.infoDuration__icon, .infoDate__icon {
+    font-size: 52px;
+}
+
+.bannerInfoModule-container__infoDuration p, .bannerInfoModule-container__infoDate p {
+    margin: 0px;
+}

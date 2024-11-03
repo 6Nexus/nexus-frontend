@@ -4,7 +4,7 @@ import NavBar from '../../componentes/NavBar/NavBar';
 import Titulos from '../../componentes/Titulos/Titulos';
 import Card from '../../componentes/Card/Card';
 import Pagination from '@mui/material/Pagination';
-import styles from '../Global.module.css';
+import styles from '../Pages.module.css';
 import { cursosAtivos, cursosBloqueados } from '../../../data';
 
 function Curso() {

@@ -1,13 +1,12 @@
-import api from "./api"; 
+import Rotas from "./routes";
 
-const App = () => {
-    function listar() { 
-        console.log(api.get()); 
-    }
-
-    return (
-        <button onClick={listar}>Listar</button> 
-    );
+function App() {
+  return (
+    <Rotas />
+  );
 }
 
 export default App;
+
+
+

@@ -3,7 +3,7 @@ import SideBar from '../../componentes/SideBar/SideBar';
 import NavBar from '../../componentes/NavBar/NavBar';
 import Titulos from '../../componentes/Titulos/Titulos';
 import Card from '../../componentes/Card/Card';
-import styles from '../Global.module.css';
+import styles from '../Pages.module.css';
 import { professoresEmAprovacao, professoresAprovados, professoresBloqueados } from '../../../data';
 import Pagination from '@mui/material/Pagination';
 

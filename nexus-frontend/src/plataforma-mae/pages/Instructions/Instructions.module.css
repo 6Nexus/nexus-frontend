@@ -1,0 +1,15 @@
+.instructions-container {
+    display: flex;
+    flex-direction: row;
+   
+}
+
+.instructions-container__content {
+    width: 94%; 
+    margin-left: 6%; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 80px;
+    padding: 32px;
+}
