@@ -60,11 +60,13 @@ input[type="file"]{
     cursor: pointer;
     font-weight: 500;
     background: var(--corPrimaria);
-    border-color: var(--corDeContorno);
+    /* border-color: var(--corDeContorno); */
+    border: none;
     color: white;
     border-radius: 8px;
     font-size: 14px; 
-    transition: all 0.3s ease;
+    /* transition: all 0.3s ease; */
+    font-family: 'Inter-Medium', sans-serif;
 }
 
 .btn-selecionar-img:hover {

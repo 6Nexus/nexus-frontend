@@ -13,7 +13,7 @@
     display: flex;
     align-items: normal;
     margin-top: 1rem;
-    margin-left: 12%;
+    margin-left: 7%;
     position: relative; 
 }   
 
@@ -29,6 +29,7 @@
     margin-right: 3rem;
     margin-left: 5rem;
     height: auto;
+ 
 }
 
 .infos h4 {
@@ -52,6 +53,7 @@
     display: flex;
     justify-content: flex-end;  
     
+    
 }
 
 .btn-editar-info button {
@@ -59,10 +61,14 @@
     width: 100px;
     cursor: pointer;
     background-color: var(--corPrimaria);
-    border-color: var(--corDeContorno);
+    /* border-color: var(--corDeContorno); */
+    border: none;
     color: white;
     border-radius: 8px;
-    transition: all 0.3s ease ;
+    /* transition: all 0.3s ease ; */
+    border-radius: 8px;
+    font-family: 'Inter-Medium', sans-serif;
+
 }
 
 .btn-editar-info:hover button {
