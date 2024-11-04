@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
  
 function Cadastro() {
 
-    return (
+    return ( 
 
         <section>
             <div className="container-banner">

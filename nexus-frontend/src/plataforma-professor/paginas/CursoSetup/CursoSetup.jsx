@@ -54,6 +54,8 @@ function CursoSetup() {
 
         });
         setMostrarCriarCurso(false);
+
+
     };
 
     return (
