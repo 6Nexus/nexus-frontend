@@ -140,7 +140,7 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
                         </div>
                     )}
                 </div>
-
+ 
                 <div className="form-group">
                     <label>Adicionar Material de Aula (PDF)</label>
                     <input type="file" accept="application/pdf" onChange={handleAddPdf} />

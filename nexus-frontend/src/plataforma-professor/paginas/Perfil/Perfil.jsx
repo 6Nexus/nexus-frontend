@@ -19,12 +19,15 @@ function Perfil() {
                     <div className="container-info">
                         <div className="infos">
                             <h4>Informações Pessoais</h4>
-                            <span>Nome</span>
-                            <span>Sobrenome</span>
-                            <span>Email</span>
+                            <label>Nome</label>
+                            <input type="text" />
+                            <label>Sobrenome</label>
+                            <input type="text" />
+                            <label>Email</label>
+                            <input type="text" />
                         </div>
                         <div className="btn-editar-info">
-                            <button>Editar</button>
+                            <button>Salvar</button>
                         </div>
                     </div>
                 </div>

@@ -61,6 +61,7 @@ function CursoSetup() {
             <SideBar />
             <div className="container-criar-curso">
                 <div className="container-curso">
+
                     <button onClick={abrirCriadorCurso} className="btn-novo-curso">
                         + Novo Curso
                     </button>

@@ -49,7 +49,7 @@
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     object-fit: cover;
-}
+} 
 
 .info-cards {
     padding: 16px;
@@ -101,6 +101,8 @@
     width: min-content;
     border-radius: 8px;
     cursor: pointer;
+    width: 100%;
+    font-family: 'Inter-Medium', sans-serif;
 }
 
 .button-editar-curso button:hover {

@@ -14,7 +14,7 @@ function MeusCursos() {
         { titulo: 'Curso 6', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
         { titulo: 'Curso 7', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
         { titulo: 'Curso 8', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
-    ];
+    ]; 
 
     return (
         <>
