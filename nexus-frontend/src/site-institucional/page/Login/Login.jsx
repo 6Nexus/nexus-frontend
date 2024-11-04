@@ -41,7 +41,7 @@ const Login = () => {
   
             // alert("Login sucess")
             toast.success('Login realizado com sucesso!');
-            navigate('/');
+            navigate('/aluno/inicio');
           } else {
             // alert("Falhou")
             throw new Error('Ops! Ocorreu um erro interno.');
@@ -54,11 +54,14 @@ const Login = () => {
         });
     };
   
+    const handleNavigation = (item, route) => {
+        navigate(route);
+    };
 
     return (
         <section className={styles.login}>
             <div className={styles.home}>
-                <div className={styles.voltar}>
+                <div className={styles.voltar} onClick={() => handleNavigation('home', '/')}>
                     <NavigateBeforeIcon />  <p>Voltar</p>
                 </div>
             </div>
@@ -114,8 +117,8 @@ const Login = () => {
                             <button type="submit" className={styles.botaoLogin}>Login</button>
                         </div>
 
-                        <p className={styles.cadastro}>
-                            Não tem uma conta? <a href="#" className={styles.linkCadastro}>Inscreva-se</a>
+                        <p className={styles.cadastro} >
+                            Não tem uma conta? <a href="#" className={styles.linkCadastro} onClick={() => handleNavigation('cadastro', '/cadastro')}>Inscreva-se</a>
                         </p>
                     </form>
                 </div>

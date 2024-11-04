@@ -9,8 +9,13 @@ import SchoolOutlinedIcon from '@mui/icons-material/SchoolOutlined';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import HandshakeIcon from '@mui/icons-material/Handshake';
 import GroupsIcon from '@mui/icons-material/Groups';
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
+    const navigate = useNavigate();
+    const handleNavigation = (item, route) => {
+        navigate(route);
+    };
 
     return (
         <>
@@ -24,7 +29,7 @@ const Home = () => {
                         <li><a className={styles.principal} href="#home">Home</a></li>
                         <li><a href="#historia">História</a></li>
                         <li><a href="#sobreNos">Conheça a ONG</a></li>
-                        <li><a href="#login">Login</a></li>
+                        <li onClick={() => handleNavigation('login', '/login')}><a href="#login">Login</a></li>
                         <li><a href="#contato">Contate-nos</a></li>
                     </ul>
                 </div>
@@ -40,8 +45,8 @@ const Home = () => {
 
                     </p>
 
-                    <div className={styles.buttonContainer}>
-                        <a href="plataforma"> <button className={styles.buttonPlataforma}> Plataforma</button></a>
+                    <div className={styles.buttonContainer} onClick={() => handleNavigation('login', '/login')}>
+                        <a href=""> <button className={styles.buttonPlataforma}> Plataforma</button></a>
                         {/* <a href="login" target="_blank"><button className={styles.buttonLogin} >Login</button>
                         </a> */}
                     </div>
