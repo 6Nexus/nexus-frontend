@@ -28,7 +28,7 @@ function Cadastro() {
                             <input type="text" placeholder="Confirme sua senha" required />
 
                             <button className="btn-cadastrar">Criar Conta</button>
-                            <ButtonLoginGoogle />
+                            {/* <ButtonLoginGoogle /> */}
                         </div>
                         <div className='link-logar'>
                             <p>Já tem uma conta?<Link to="/login-professor"> Login</Link></p>
