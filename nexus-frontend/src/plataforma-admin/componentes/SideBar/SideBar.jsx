@@ -7,6 +7,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded';
 import SchoolIcon from '@mui/icons-material/School';
 import LogoutIcon from '@mui/icons-material/Logout';
+import UploadFileIcon from '@mui/icons-material/UploadFile';
 
 
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -72,6 +73,13 @@ const SideBar = ({backgroundColor}) => {
                     </div>
 
                     <div className={styles["menuOptions__line"]}></div>
+
+                    <div className={styles["menuOptions__secondary"]}>
+                        <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('', '/')}>
+                            <UploadFileIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'metrica' ? styles["active"] : ""}`}/>
+                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Métricas</span>}
+                        </div>
+                    </div>
                 </div>
 
                 <div className={styles["menuIconLogout"]}>
