@@ -29,7 +29,7 @@ function Card({ dados, tipoSelecionado }) {
                         <BlockIcon fontSize="small" className={styles.fotoCanto} />
                     )}
                     
-                    {(tipoSelecionado.includes('ativos') || tipoSelecionado.includes('aprovados')) && (
+                    {(tipoSelecionado.includes('ativos-aluno') || tipoSelecionado.includes('aprovados')) && (
                         <IconButton onClick={handleMenuClick} className={styles.menuClick}>
                             <MoreVertIcon fontSize="medium" />
                         </IconButton>
