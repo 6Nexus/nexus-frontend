@@ -10,7 +10,7 @@ function Login() {
     return (
 
         <div className="container-login">
-            <div className="box-login">  
+            <div className="box-login">   
 
                     <img className="logo"  src={logo} alt="logo nexus" />
                 <form action="" method="">

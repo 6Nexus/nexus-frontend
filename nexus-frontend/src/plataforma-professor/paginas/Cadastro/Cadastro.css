@@ -17,7 +17,9 @@ section {
     height: 100vh;
     display: flex;
     overflow: hidden; 
+    background-color:#F5F5FF;
 }
+
 
 .container-banner {
     position: relative;
@@ -92,7 +94,7 @@ input {
     width: 100%;
     padding: 12px;
     border: 1px solid #ddd;
-    border-radius: 8    px;
+    border-radius: 8px;
     margin-bottom: 15px;
     font-size: 16px;
     background-color: #fafafa;
@@ -106,12 +108,13 @@ input {
 .container-cadastro {
     width: 50%; 
     /* background-color: var(--fundoNeutro);  */
-    background-color: #f5f5ff;
+    /* background-color: #f5f5ff; */
     display: flex;
     flex-direction: column; 
     justify-content: center; 
     align-items: center;
     padding: 20px; 
+    
 }
 
 .container-cadastro h1 {
@@ -119,14 +122,19 @@ input {
     font-weight: bolder;
     color: var(--corPrimaria);
     font-size: xx-large;
+    font-family: 'Inter-Medium', sans-serif;
 }
 
 .container-form {
-    width: 80%; 
-    max-width: 400px; 
+    width: 100%; 
+    max-width: 600px; 
     display: flex;
     flex-direction: column; 
     align-items: center; 
+    border-radius: 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 2rem;
 }
 
 .container-form h1 {
@@ -139,7 +147,6 @@ input {
     color: #F7F3F5;
     font-size: 16px; 
     font-weight: 300;
-    /* border-color: var(--corDeContorno); */
     border: none;
     border-radius: 8px;
     transition: all 0.3s ease;
@@ -158,6 +165,7 @@ input {
 
 .link-logar a {
     color: var(--corPrimaria);
+    font-family: 'Inter-Medium', sans-serif;
 }
 
 .btn-cadastrar:hover {
@@ -172,8 +180,10 @@ input {
 .link-logar p {
    color: #5c033a;
    font-size: 14px;
-   margin-top: 10px;
+   margin-top: 15px;
+   font-family: 'Inter-Medium', sans-serif;
 }
+
 
 /* Responsividade */
 @media (max-width: 600px) {
@@ -213,6 +223,10 @@ input {
         max-width: 400px; 
     }
 
+    .container-form .logo {
+        display: block;
+    }
+
 }
 
 @media (min-width: 600px) and (max-width: 900px) {
@@ -233,6 +247,10 @@ input {
     .input-cadastro input:nth-child(4) {
         flex: 1 1 100%; 
     }
+
+    .container-form .logo {
+        display: block;
+    }
 }
 
 @media (min-width: 900px) {
@@ -247,6 +265,10 @@ input {
     /* .mobile-logo {
         display: none; 
     } */
+
+    .container-form .logo {
+        display: block;
+    }
 }
 
 
@@ -257,6 +279,10 @@ input {
         max-width: 90%;
         margin: 0 auto;
     }
+
+    /* .container-form .logo {
+        display: none;
+    } */
 }
 
 /* Ajuste geral para alturas dinâmicas */
