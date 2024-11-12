@@ -18,7 +18,7 @@ function Login() {
                     <div className="input-login">
                         <input type="text" placeholder="Email" required />
                     </div>
-                    <div className="input-login">
+                    <div className="input-login"> 
                         <input type="password" placeholder="Senha" required />
                     </div>
 
@@ -27,7 +27,7 @@ function Login() {
                     </div>
 
                     <button className='acessar' type='submit'>Acessar</button>
-                    <ButtonLoginGoogle />
+                    {/* <ButtonLoginGoogle /> */}
 
                         <div className='registre-se'>
                         <p>Não tem uma conta? <Link to="/cadastro-professor">Registre-se</Link></p>
