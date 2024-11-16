@@ -47,6 +47,36 @@ function Cadastro() {
 
     })
 
+    const navigate = useNavigate();
+
+    const handleSubmit = (values, {setSubmitting, resetForm}) => {
+       
+        api.post('/professores', values, {
+             headers:{
+                'Content-Type': 'application/json'
+             }
+        })
+        
+            .then( response => {
+                if(response.status === 201){
+                    toast.success('Cadastro realizado com sucesso!')
+                    console.log(values)
+                    resetForm()
+                    navigate('/curso-setup')
+                } else {
+                    throw new Error('Ops! Ocorreu um erro interno, tente mais tarde.');
+                }
+            })
+
+            .catch(error => {
+                toast.error(error.message);
+                // alert(error.message)
+
+            })
+            
+            .finally(() => setSubmitting(false))
+    };
+
     return (
 
          <section>
@@ -54,12 +84,12 @@ function Cadastro() {
             <div className="container-cadastro">
                 <div className="container-form">
                     <img className="logo" src={logo} alt="logo nexus" />
-                    {/* <h1>Crie sua conta</h1> */}
-
+                   
                     <Formik
-                        initialValues={{nome: '', sobrenome: '', email: '', senha: '', confirmeSenha: ''}} 
+                        initialValues={{nome: '', sobrenome: '', cpf: '', areaAtuacao: '', email: '', senha: '', confirmeSenha: ''}} 
                         validationSchema={validationSchema} 
-                        onSubmit={''} // coloca a função de enviar
+                        onSubmit={handleSubmit} 
+                        
                     >
 
                         {({isSubmitting, errors, touched}) => (
@@ -67,30 +97,44 @@ function Cadastro() {
 
                         
                             <div className="input-cadastro">
-                                <Field type="text" name="nome" placeholder="Nome" />
+                                <Field type="text" name="nome" placeholder="Nome" 
+                                className={touched.nome ? errors.nome ? 'input-erro' : 'input-success' : ''}
+                                />
                                 <ErrorMessage name="nome" component="div" className="error-message" />
 
-                                <Field type="text" name="sobrenome" placeholder="Sobrenome" />
+                                <Field type="text" name="sobrenome" placeholder="Sobrenome" 
+                                className={touched.sobrenome ? errors.sobrenome ? 'input-erro' : 'input-success' : ''}
+                                />
                                 <ErrorMessage name="sobrenome" component="div" className="error-message" />
 
-                                <Field type="text" name="cpf" placeholder="CPF" />
+                                <Field type="text" name="cpf" placeholder="CPF" 
+                                className={touched.cpf ? errors.cpf ? 'input-erro' : 'input-success' : ''}
+                                />
                                 <ErrorMessage name="cpf" component="div" className="error-message" />
 
-                                <Field type="text" name="areaAtuacao" placeholder="Área de atuação" />
+                                <Field type="text" name="areaAtuacao" placeholder="Área de atuação" 
+                                className={touched.areaAtuacao ? errors.areaAtuacao ? 'input-erro' : 'input-success' : ''}
+                                />
                                 <ErrorMessage name="areaAtuacao" component="div" className="error-message" />
 
-                                <Field type="text" name="email" placeholder="Email" />
+                                <Field type="text" name="email" placeholder="Email" 
+                                className={touched.email ? errors.email ? 'input-erro' : 'input-success' : ''}
+                                />
                                 <ErrorMessage name="email" component="div" className="error-message" />
 
-                                <Field type="password" name="senha" placeholder="Senha" />
+                                <Field type="password" name="senha" placeholder="Senha" 
+                                className={touched.senha ? errors.senha ? 'input-erro' : 'input-success' : ''}
+                                />
                                 <ErrorMessage name="senha" component="div" className="error-message" />
 
-                                <Field type="password" name="confirmeSenha" placeholder="Confirme sua senha" />
+                                <Field type="password" name="confirmeSenha" placeholder="Confirme sua senha" 
+                                className={touched.confirmeSenha ? errors.confirmeSenha ? 'input-erro' : 'input-success' : ''}
+                                />
                                 <ErrorMessage name="confirmeSenha" component="div" className="error-message" />
                             </div>
 
                                 <button className="btn-cadastrar" type="submit" disabled={isSubmitting}>
-                                    Criar Conta
+                                        {isSubmitting ? 'Cadastrando...' : 'Cadastrar'}
                                 </button>
 
                             <div className='link-logar'>
