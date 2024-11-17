@@ -13,6 +13,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 const SideBar = ({backgroundColor}) => {
     const [isExpanded, setExpanded] = useState(false);
@@ -55,6 +56,28 @@ const SideBar = ({backgroundColor}) => {
         setActiveItem(item);
         navigate(route);
     };
+
+    const logout = () => {
+        Swal.fire({
+            title: "Confirmar saída",
+            text: "Deseja sair de sua conta?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3B9D3B",
+            cancelButtonColor: "#dadada",
+            cancelTextColor: "#00000",
+            cancelButtonText: "Cancelar",
+            confirmButtonText: "Sair",
+        }).then((result) => {
+
+            if(result.value == true) {
+                sessionStorage.clear();
+                window.location.href = '/login';
+            }
+            
+        
+        });
+    }
 
     return (
         <>
@@ -102,7 +125,7 @@ const SideBar = ({backgroundColor}) => {
                 </div>
 
                 <div className={styles["menuIconLogout"]}>
-                    <div className={styles["menuOptions__item"]}>
+                    <div className={styles["menuOptions__item"]} onClick={() => logout()}>
                         <LogoutIcon sx={{ fontSize: 32, color: '#fff'}}/>
                         {isExpanded && <span className={styles["menuOptions__item__text"]}>Sair</span>}
                     </div>

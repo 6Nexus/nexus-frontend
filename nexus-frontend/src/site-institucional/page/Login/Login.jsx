@@ -38,18 +38,18 @@ const Login = () => {
             sessionStorage.setItem('authToken', response.data.token);
             sessionStorage.setItem('usuario', response.data.nome);
             sessionStorage.setItem('userId',response.data.userId)
+            sessionStorage.setItem('email',response.data.email)
   
-            // alert("Login sucess")
             toast.success('Login realizado com sucesso!');
             navigate('/aluno/inicio');
           } else {
-            // alert("Falhou")
+            alert("Falhou")
             throw new Error('Ops! Ocorreu um erro interno.');
           }
         })
         .catch(error => {
           toast.error(error.message);
-        // alert(error.message)
+        alert(error.message)
 
         });
     };

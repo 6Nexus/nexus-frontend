@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useParams } from 'react-router-dom';
+import api from "./../../../api";
 import styles from './CourseModules.module.css'
 import SideBar from "../../components/SideBar/SideBar";
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -10,11 +11,31 @@ import { useNavigate } from 'react-router-dom';
 
 const CourseModules = () => {
     const {idCurso} = useParams();
-
+    const [modules, setModules] = useState([]);
     const navigate = useNavigate();
     const handleNavigation = (route) => {
         navigate(route);
     };
+
+    function buscarModulos() {
+        const token = sessionStorage.getItem('authToken');
+        api.get(`/modulos/curso/${idCurso}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
+            const { data } = response;
+            setModules(data)
+
+        }).catch((e) => {
+            console.log("Deu erro", e)
+        })
+    }
+
+    useEffect(() => {
+        buscarModulos();
+    }, [])
 
     return (
         <>
@@ -34,8 +55,17 @@ const CourseModules = () => {
 
                     <div className={styles['courseModules-container__content__modulesList']}>
                         <p className={styles["courseList__title"]}>Módulos</p>
-                        <CardModules idModule={1} idCourse={idCurso} inProgress={true} title="Módulo 1" subtitle="Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam! Aut impedit assumenda rem odio quibusdam id nulla doloribus quo reprehenderit nisi in distinctio amet qui consequuntur sequi sit natus dolorem." />
-                        <CardModules idModule={2} idCourse={idCurso} inProgress={false} title="Módulo 2" subtitle="Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam! Aut impedit assumenda rem odio quibusdam id nulla doloribus quo reprehenderit nisi in distinctio amet qui consequuntur sequi sit natus dolorem." />
+                       
+                           {modules && modules.map((module, _) => (
+                                <CardModules
+                                    idModule ={module.id}
+                                    idCourse={module.id}
+                                    title={module.titulo}
+                                    subtitle={module.titulo}
+
+                                />
+                            ))
+                        }
                     </div>
                 </div>
             </div>

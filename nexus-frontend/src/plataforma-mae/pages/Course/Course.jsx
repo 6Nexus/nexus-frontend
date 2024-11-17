@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import apiCursos from "./../../../apiCursos";
+import api from "./../../../api";
 import styles from './Course.module.css'
 import SideBar from "../../components/SideBar/SideBar";
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -22,7 +22,13 @@ const Course = () => {
 
 
     function buscarCursos() {
-        apiCursos.get().then((response) => {
+        const token = sessionStorage.getItem('authToken');
+        api.get('/cursos', {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          })
+          .then((response) => {
             const { data } = response;
             console.log(data);
             setCardsData(data)
@@ -52,13 +58,13 @@ const Course = () => {
                             {currentCards && currentCards.map((data, _) => (
                               
                                     <CardCurso
-                                        id={data.idModulo}
+                                        id={data.id}
                                         title={data.titulo}
                                         subtitle={data.descricao}
                                         category={data.categoria}
                                         inProgress={data.emProgresso}
                                         liked={data.curtido}
-                                        imageUrl={data.imagem}
+                                        imageUrl={data.imagem} 
                                         progress={data.progreso}
                                     />
                             
