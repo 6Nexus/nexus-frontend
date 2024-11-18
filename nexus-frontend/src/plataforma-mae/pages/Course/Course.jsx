@@ -52,7 +52,7 @@ const Course = () => {
                         setActiveCategory={setActiveCategory}
                     />
 
-                    <div className={styles["course-container__content__courseList"]}>
+                    <div className={`${styles["course-container__content__courseList"]} ${currentCards.length === 0 ? styles.noContent : ''}`}>
                         <p className={styles["courseList__title"]}>Cursos encontrados</p>
                         <div 
                          className={`${currentCards.length > 0 ? styles.courseList__cards : ''}`}
