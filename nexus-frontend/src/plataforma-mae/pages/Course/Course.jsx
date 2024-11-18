@@ -6,6 +6,7 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import CardCurso from "../../components/CardCurso/CardCurso";
 import HeaderCategory from "../../components/HeaderCategory/HeaderCategory";
 import Pagination from '@mui/material/Pagination';
+import ContentNotFound from "../../components/ContentNotFound/ContentNotFound";
 
 const Course = () => {
     const [cardsData, setCardsData] = useState([]);
@@ -53,47 +54,56 @@ const Course = () => {
 
                     <div className={styles["course-container__content__courseList"]}>
                         <p className={styles["courseList__title"]}>Cursos encontrados</p>
-                        <div className={styles["courseList__cards"]}>
-                            {currentCards && currentCards.map((data, _) => (
-
-                                <CardCurso
-                                    id={data.id}
-                                    title={data.titulo}
-                                    subtitle={data.descricao}
-                                    category={data.categoria}
-                                    inProgress={data.emProgresso}
-                                    liked={data.curtido}
-                                    imageUrl={data.imagem}
-                                    progress={data.progreso}
-                                />
-
-                            ))}
+                        <div 
+                         className={`${currentCards.length > 0 ? styles.courseList__cards : ''}`}
+                        >
+                            {
+                                currentCards && currentCards.length > 0 ? (
+                                    currentCards.map((data, _) => (
+                                        <CardCurso
+                                            key={data.id}
+                                            id={data.id}
+                                            title={data.titulo}
+                                            subtitle={data.descricao}
+                                            category={data.categoria}
+                                            inProgress={data.emProgresso}
+                                            liked={data.curtido}
+                                            imageUrl={data.imagem}
+                                            progress={data.progreso}
+                                        />
+                                    ))
+                                ) : (
+                                   <ContentNotFound content="cursos"/>
+                                )
+                            }
                         </div>
                     </div>
 
-                    <Pagination
-                        count={Math.ceil(cardsData.length / cardsPerPage)}
-                        page={currentPage}
-                        onChange={handleChange}
-                        variant="outlined"
-                        shape="rounded"
-                        sx={{
+                    {cardsData &&
+                        <Pagination
+                            count={Math.ceil(cardsData.length / cardsPerPage)}
+                            page={currentPage}
+                            onChange={handleChange}
+                            variant="outlined"
+                            shape="rounded"
+                            sx={{
 
-                            backgroundColor: '#F3F3F3',
-                            padding: '8px',
-                            borderRadius: '30px',
-                            '& .MuiPaginationItem-root': {
-                                color: '#245024',
-                                border: 'none',
-                                borderRadius: '50%',
-                                fontSize: '16px'
-                            },
-                            '& .MuiPaginationItem-root.Mui-selected': {
-                                backgroundColor: '#3B9D3B',
-                                color: 'white',
-                            },
-                        }}
-                    />
+                                backgroundColor: '#F3F3F3',
+                                padding: '8px',
+                                borderRadius: '30px',
+                                '& .MuiPaginationItem-root': {
+                                    color: '#245024',
+                                    border: 'none',
+                                    borderRadius: '50%',
+                                    fontSize: '16px'
+                                },
+                                '& .MuiPaginationItem-root.Mui-selected': {
+                                    backgroundColor: '#3B9D3B',
+                                    color: 'white',
+                                },
+                            }}
+                        />
+                    }
                 </div>
             </div>
         </>
