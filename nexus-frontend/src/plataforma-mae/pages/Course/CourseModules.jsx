@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
+import api from "./../../../api";
 import styles from './CourseModules.module.css'
 import SideBar from "../../components/SideBar/SideBar";
 import SearchBar from "../../components/SearchBar/SearchBar";
@@ -7,7 +8,6 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CardModules from "../../components/CardModules/CardModules";
 import BannerInfoCourse from "../../components/BannerInfoCourse/BannerInfoCourse"
 import { useNavigate } from 'react-router-dom';
-import api from "../../../api";
 
 const CourseModules = () => {
     const {idCurso} = useParams();

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styles from './Cadastro.module.css';
 import logo from '../../../utils/assets/logotipoSemTexto.png';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import { useNavigate } from 'react-router-dom';
 
 const Cadastro = () => {
     const [step, setStep] = useState(1);
@@ -59,11 +60,16 @@ const Cadastro = () => {
             [name]: value,
         }));
     };
+    const navigate = useNavigate();
+    const handleNavigation = (item, route) => {
+        navigate(route);
+    };
+
 
     return (
         <section className={styles.cadastro}>
             <div className={styles.home}>
-                <div className={styles.voltar}>
+                <div className={styles.voltar} onClick={() => handleNavigation('login', '/login')}>
                     <NavigateBeforeIcon /> <p>Voltar</p>
                 </div>
             </div>

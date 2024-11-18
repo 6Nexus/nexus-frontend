@@ -33,26 +33,29 @@ const Login = () => {
             sessionStorage.setItem('authToken', response.data.token);
             sessionStorage.setItem('usuario', response.data.nome);
             sessionStorage.setItem('userId',response.data.userId)
+            sessionStorage.setItem('email',response.data.email)
   
-            // alert("Login sucess")
             toast.success('Login realizado com sucesso!');
-            navigate('/');
+            navigate('/aluno/inicio');
           } else {
             throw new Error('Ops! Ocorreu um erro interno.');
           }
         })
         .catch(error => {
           toast.error(error.message);
-        // alert(error.message)
+        alert(error.message)
 
         });
     };
   
+    const handleNavigation = (item, route) => {
+        navigate(route);
+    };
 
     return (
         <section className={styles.login}>
             <div className={styles.home}>
-                <div className={styles.voltar}>
+                <div className={styles.voltar} onClick={() => handleNavigation('home', '/')}>
                     <NavigateBeforeIcon />  <p>Voltar</p>
                 </div>
             </div>
@@ -108,8 +111,8 @@ const Login = () => {
                             <button type="submit" className={styles.botaoLogin}>Login</button>
                         </div>
 
-                        <p className={styles.cadastro}>
-                            Não tem uma conta? <a href="#" className={styles.linkCadastro}>Inscreva-se</a>
+                        <p className={styles.cadastro} >
+                            Não tem uma conta? <a href="#" className={styles.linkCadastro} onClick={() => handleNavigation('cadastro', '/cadastro')}>Inscreva-se</a>
                         </p>
                     </form>
                 </div>

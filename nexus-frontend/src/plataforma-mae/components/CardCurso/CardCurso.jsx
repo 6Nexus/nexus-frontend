@@ -1,6 +1,6 @@
 import * as React from "react";
 import styles from './CardCurso.module.css'
-import imagemTeste from '../../../utils/assets/imagem-card-teste.png'
+import imagemCapa from '../../../utils/assets/capa_curso.jpg'
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useNavigate} from 'react-router-dom';
 
@@ -16,7 +16,7 @@ const CardCurso = ({id, title, subtitle, inProgress, progress, category, liked, 
            <div className={styles["card-curso-container"]}>
                 <div className={styles["card-curso-container__info"]}>
                     <div className={styles["card-curso-container__info__image"]}>
-                        <img src={imageUrl ? imageUrl : imagemTeste } alt="" />
+                        <img src={imageUrl ? imageUrl : imagemCapa } alt="" />
                     </div>
                     <div className={styles["card-curso-container__info__content"]}>
                         <div className={styles["card-curso-container__info__content__titles"]}>
