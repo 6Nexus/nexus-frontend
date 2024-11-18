@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import styles from './CourseModules.module.css'
 import SideBar from "../../components/SideBar/SideBar";
@@ -7,14 +7,41 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import CardModules from "../../components/CardModules/CardModules";
 import BannerInfoCourse from "../../components/BannerInfoCourse/BannerInfoCourse"
 import { useNavigate } from 'react-router-dom';
+import api from "../../../api";
 
 const CourseModules = () => {
     const {idCurso} = useParams();
-
+    const [modules, setModules] = useState([]);
+    const [course, setCourse] = useState([]);
     const navigate = useNavigate();
     const handleNavigation = (route) => {
         navigate(route);
     };
+
+    function buscarCurso() {
+        api.get(`/cursos/${idCurso}`)
+            .then((response) => {
+                const { data } = response;
+                setCourse(data)
+            }).catch((e) => {
+                console.log("Deu", e)
+            })
+    }
+
+    function buscarModulos() {
+        api.get(`/modulos/curso/${idCurso}`)
+          .then((response) => {
+            const { data } = response;
+            setModules(data)
+        }).catch((e) => {
+            console.log("Deu erro", e)
+        })
+    }
+
+    useEffect(() => {
+        buscarModulos();
+        buscarCurso();  
+    }, [])
 
     return (
         <>
@@ -29,13 +56,21 @@ const CourseModules = () => {
                             <ArrowBackIcon className={styles['return__icon']} onClick={() => handleNavigation(`/aluno/cursos`)} />
                             <p className={styles['return__text']}>Voltar</p>
                         </div>
-                        <BannerInfoCourse courseName="Nome do curso" teacherName="Ana Luiza Santos" teacherEmail="ana.lsantos@gmail.com"/>
+                        <BannerInfoCourse courseName={course.titulo} teacherName={course.professor} description={course.descricao}/>
                     </div>
 
                     <div className={styles['courseModules-container__content__modulesList']}>
                         <p className={styles["courseList__title"]}>Módulos</p>
-                        <CardModules idModule={1} idCourse={idCurso} inProgress={true} title="Módulo 1" subtitle="Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam! Aut impedit assumenda rem odio quibusdam id nulla doloribus quo reprehenderit nisi in distinctio amet qui consequuntur sequi sit natus dolorem." />
-                        <CardModules idModule={2} idCourse={idCurso} inProgress={false} title="Módulo 2" subtitle="Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam! Aut impedit assumenda rem odio quibusdam id nulla doloribus quo reprehenderit nisi in distinctio amet qui consequuntur sequi sit natus dolorem." />
+                       
+                           {modules && modules.map((module, _) => (
+                                <CardModules
+                                    idModule={module.id}
+                                    idCourse={idCurso}
+                                    title={module.titulo}
+                                    subtitle={module.titulo}
+                                />
+                            ))
+                        }
                     </div>
                 </div>
             </div>

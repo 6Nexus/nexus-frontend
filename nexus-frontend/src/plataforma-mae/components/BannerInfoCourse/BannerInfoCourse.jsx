@@ -2,7 +2,7 @@ import * as React from "react";
 import styles from './BannerInfoCourse.module.css';
 import IconCourse from '../../../utils/assets/course.svg'
 
-const BannerInfoCourse = ({ courseName, teacherName, teacherEmail }) => {
+const BannerInfoCourse = ({ courseName, teacherName, description }) => {
     return (
         <>
             <div className={styles["bannerInfoCourse-container"]}>
@@ -11,7 +11,7 @@ const BannerInfoCourse = ({ courseName, teacherName, teacherEmail }) => {
                 </div>
                 <div className={styles["bannerInfoCourse-container__text"]}>
                     <h2 className={styles["bannerInfoCourse-container-text__title"]}>Curso: {courseName}</h2>
-                    <h4 className={styles["bannerInfoCourse-container-text__description"]}>Professor(a): {teacherName} | Email: {teacherEmail}</h4>
+                    <h4 className={styles["bannerInfoCourse-container-text__description"]}>{description} | Professor(a): {teacherName}</h4>
                 </div>
             </div>
         </>
