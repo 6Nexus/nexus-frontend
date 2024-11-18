@@ -3,7 +3,6 @@ import styles from "./Login.module.css";
 import logo from "../../../utils/assets/logotipoSemTexto.png";
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import HomeIcon from '@mui/icons-material/Home';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import api from "../../../api";
 import { useNavigate } from 'react-router-dom';
@@ -28,10 +27,6 @@ const Login = () => {
       api.post('/associados/login', {
         email: email,
         senha: password
-      }, {
-        headers: {
-          'Content-Type': 'application/json'
-        }
       })
         .then(response => {
           if (response.status === 200 && response.data?.token) {
@@ -43,7 +38,6 @@ const Login = () => {
             toast.success('Login realizado com sucesso!');
             navigate('/aluno/inicio');
           } else {
-            alert("Falhou")
             throw new Error('Ops! Ocorreu um erro interno.');
           }
         })

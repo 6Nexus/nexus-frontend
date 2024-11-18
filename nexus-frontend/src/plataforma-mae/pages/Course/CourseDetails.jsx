@@ -10,8 +10,7 @@ import BannerInfoModule from "../../components/BannerInfoModule/BannerInfoModule
 import { useNavigate } from 'react-router-dom';
 
 const CourseDetails = () => {
-    const {idCurso}  = useParams();
-    const {idModulo} = useParams();
+    const { idCurso, idModule } = useParams();
 
     const navigate = useNavigate();
     const handleNavigation = (route) => {
@@ -46,7 +45,7 @@ const CourseDetails = () => {
                             </div>
                         </div>
 
-                        <button className={styles['questionnaire__button']} onClick={() => handleNavigation(`/aluno/questionario/${idCurso}`)}>
+                        <button className={styles['questionnaire__button']} onClick={() => handleNavigation(`/aluno/questionario/${idModule}`)}>
                             Iniciar
                         </button>
                     </div>

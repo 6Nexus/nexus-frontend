@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams } from 'react-router-dom';
 import api from "./../../../api";
 import styles from './CourseModules.module.css'
@@ -12,22 +12,27 @@ import { useNavigate } from 'react-router-dom';
 const CourseModules = () => {
     const {idCurso} = useParams();
     const [modules, setModules] = useState([]);
+    const [course, setCourse] = useState([]);
     const navigate = useNavigate();
     const handleNavigation = (route) => {
         navigate(route);
     };
 
+    function buscarCurso() {
+        api.get(`/cursos/${idCurso}`)
+            .then((response) => {
+                const { data } = response;
+                setCourse(data)
+            }).catch((e) => {
+                console.log("Deu", e)
+            })
+    }
+
     function buscarModulos() {
-        const token = sessionStorage.getItem('authToken');
-        api.get(`/modulos/curso/${idCurso}`, {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          })
+        api.get(`/modulos/curso/${idCurso}`)
           .then((response) => {
             const { data } = response;
             setModules(data)
-
         }).catch((e) => {
             console.log("Deu erro", e)
         })
@@ -35,6 +40,7 @@ const CourseModules = () => {
 
     useEffect(() => {
         buscarModulos();
+        buscarCurso();  
     }, [])
 
     return (
@@ -50,7 +56,7 @@ const CourseModules = () => {
                             <ArrowBackIcon className={styles['return__icon']} onClick={() => handleNavigation(`/aluno/cursos`)} />
                             <p className={styles['return__text']}>Voltar</p>
                         </div>
-                        <BannerInfoCourse courseName="Nome do curso" teacherName="Ana Luiza Santos" teacherEmail="ana.lsantos@gmail.com"/>
+                        <BannerInfoCourse courseName={course.titulo} teacherName={course.professor} description={course.descricao}/>
                     </div>
 
                     <div className={styles['courseModules-container__content__modulesList']}>
@@ -58,11 +64,10 @@ const CourseModules = () => {
                        
                            {modules && modules.map((module, _) => (
                                 <CardModules
-                                    idModule ={module.id}
-                                    idCourse={module.id}
+                                    idModule={module.id}
+                                    idCourse={idCurso}
                                     title={module.titulo}
                                     subtitle={module.titulo}
-
                                 />
                             ))
                         }

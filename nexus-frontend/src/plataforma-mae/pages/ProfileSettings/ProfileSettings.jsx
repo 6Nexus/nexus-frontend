@@ -51,11 +51,6 @@ const ProfileSettings = () => {
                             nome: values.name || null,
                             email: values.email || null,
                             senha: values.password || null,
-                        },
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
                         }
                     )
                     .then((response) => {
@@ -111,11 +106,6 @@ const ProfileSettings = () => {
                                 email: userEmail,
                                 senha: values.passwordDelete,
                             }
-                        },
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
                         }
                     )
                     .then((response) => {

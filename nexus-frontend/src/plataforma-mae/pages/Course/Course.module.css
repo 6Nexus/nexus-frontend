@@ -22,6 +22,14 @@
     gap: 48px;
 }
 
+.noContent {
+    width: 80%;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
 .courseList__title {
     font-family: 'Inter-Medium', sans-serif;
     color: var(--secondary-green);
