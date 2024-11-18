@@ -1,5 +1,7 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Home from "./plataforma-mae/pages/Home/Home";
 import Course from "./plataforma-mae/pages/Course/Course";
@@ -24,6 +26,8 @@ function Rotas() {
 
     return (
         <BrowserRouter>
+            <ToastContainer/>
+
             <Routes> 
                 <Route path="/" element={<Home />} />
                 <Route path="/cursos" element={<Course />} />

@@ -11,23 +11,21 @@
 
 .container-geral {
     display: flex;
-    align-items: normal;
-    margin-top: 1rem;
-    margin-left: 7%;
-    position: relative;
+    align-items: start;
+    justify-content: end;
+    min-height: 100vh;  
+    padding: 2rem;
+    gap: 1.5rem;
+    /* background-color: #ececf1; */
 }
 
 .container-info {
-    max-width: 90%;
-    width: 90%;
-    padding: 1.5rem;
-    border-radius: 20px;
-    margin-top: 2rem;
-    margin-right: 3rem;
-    margin-left: 5rem;
-    height: auto;
     background-color: #ffffff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 50%;
+    padding: 1.5rem;   
 }
 
 .infos h4 {
@@ -42,7 +40,7 @@
     margin-bottom: 0.5rem;
     margin-top: 1.5rem;
     display: block;
-    font-size: 16px;
+    font-size: 18px;
     font-family: 'Inter-Medium', sans-serif;
 }
 
@@ -58,29 +56,20 @@
 
 
 .btn-editar-info {
-    position: absolute;
-    bottom: 26px;
-    /* right: 20px;  */
     display: flex;
     justify-content: flex-end;
-
-
+    margin-top: 1rem;
 }
 
 .btn-editar-info button {
-    padding: 16px;
-    width: 200px;
-    cursor: pointer;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    color: #ffffff;
     background-color: var(--corPrimaria);
-    /* border-color: var(--corDeContorno); */
     border: none;
-    color: white;
     border-radius: 8px;
-    /* transition: all 0.3s ease ; */
-    border-radius: 8px;
-    font-family: 'Inter-Medium', sans-serif;
-    font-size: 14px;
-
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 

@@ -103,7 +103,7 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
                         value={aula.titulo}
                         onChange={handleChangeAula}
                         placeholder="Digite o título da aula"
-                        required
+                        // required
                         className="input-field"
                         style={{ width: '40%' }}
                     />
@@ -117,7 +117,7 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
                         value={aula.descricao}
                         onChange={handleChangeAula}
                         placeholder="Digite a descrição da aula"
-                        required
+                        // required
                         className="input-descricao"
                     />
                 </div>

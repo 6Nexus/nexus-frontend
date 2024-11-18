@@ -40,8 +40,7 @@ function Ajuda() {
                         </label>
                         <label htmlFor="">Descrição<span style={{ color: 'red' }}>*</span></label>
                         <input type="text" className="input-descricao" />
-
-
+ 
                         <label for="anexo" className="anexo-solicitacao">Anexar Arquivo:</label>
                         <span className="desc-anexo">Caso necessário, anexe prints</span>
                         <input action="/upload" type="file" id="anexo" name="anexo" />

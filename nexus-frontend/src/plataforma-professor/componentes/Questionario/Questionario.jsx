@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './Questionario.css';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import { toast } from 'react-toastify';
 
 
 function Questao({ questao, atualizarQuestao, deletarQuestao, index }) {
@@ -88,13 +89,43 @@ function Questionario({ onClose, onSave }) {
 
     const handleSalvarQuestionario = () => {
         if (questoes.length === 0) {
-            alert('Adicione pelo menos uma questão antes de salvar.');
+            toast.warning('Adicione pelo menos uma questão antes de salvar.');
             return;
         }
+
+        for (const [index, questao] of questoes.entries()) {
+            if (!questao.texto) {
+                toast.warning(`A questão "${index + 1}" precisa ter um texto!`);
+                return;
+            }
+    
+            if (questao.alternativas.length === 0) {
+                toast.warning(`A questão "${index + 1}" não possui alternativas. Adicione pelo menos uma alternativa!`);
+                return;
+            }
+    
+            
+            for (const alternativa of questao.alternativas) {
+                if (!alternativa.texto) {
+                    toast.warning(`A alternativa da questão "${index + 1}" está vazia!`);
+                    return;
+                }
+            }
+    
+            
+            const alternativaCorreta = questao.alternativas.find(alt => alt.correta);
+            if (!alternativaCorreta) {
+                toast.warning(`A questão "${index + 1}" precisa de uma alternativa correta!`);
+                return;
+            }
+        }
+
+        
         onSave(questoes);
         console.log('Questionário Salvo', questoes)
+        toast.success('Questionário Salvo!')
     };
-
+ 
     return (
         <div className='container-questionario'>
 

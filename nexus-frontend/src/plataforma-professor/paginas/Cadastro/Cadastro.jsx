@@ -65,7 +65,7 @@ function Cadastro() {
                     navigate('/curso-setup')
                 } else {
                     throw new Error('Ops! Ocorreu um erro interno, tente mais tarde.');
-                }
+                } 
             })
 
             .catch(error => {

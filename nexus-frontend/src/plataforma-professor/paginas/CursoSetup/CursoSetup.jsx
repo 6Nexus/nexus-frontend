@@ -74,7 +74,7 @@ function CursoSetup() {
                             atualizarCurso={atualizarCurso}
                             onClose={fecharCriadorCurso}
                             onSave={salvarCurso}
-                        />
+                        /> 
                     )}
                 </div>
             </div>

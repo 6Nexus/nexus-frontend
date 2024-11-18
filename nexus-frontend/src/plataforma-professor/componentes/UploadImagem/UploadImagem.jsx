@@ -2,7 +2,7 @@ import React from "react";
 import './UploadImagem.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCloudArrowUp } from "@fortawesome/free-solid-svg-icons";
-import fotoPerfil from "../../../utils/assets/foto-perfil.png"
+import fotoPerfil from "../../../utils/assets/me.png"
 
 function UploadImagem (){
 
@@ -14,7 +14,7 @@ function UploadImagem (){
                 <div className="select-img">
                     <FontAwesomeIcon icon={faCloudArrowUp} className="icon-upload" />
                     <span>Carregar imagem</span>
-                    {/* <img src={fotoPerfil} alt="foto de perfil" /> */}
+                    <img src={fotoPerfil} alt="foto de perfil" />
                 </div>
                 <button className="btn-selecionar-img"> 
                     Selecione uma imagem 

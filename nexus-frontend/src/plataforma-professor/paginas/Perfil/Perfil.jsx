@@ -23,8 +23,12 @@ function Perfil() {
                             <input type="text" />
                             <label>Sobrenome</label>
                             <input type="text" />
-                            <label>Email</label>
+                            <label>CPF</label>
                             <input type="text" />
+                            <label>Área de atuação</label>
+                            <input type="text" />
+                            <label>Email</label>
+                            <input type="text" />                         
                         </div>
                         <div className="btn-editar-info">
                             <button>Salvar</button>

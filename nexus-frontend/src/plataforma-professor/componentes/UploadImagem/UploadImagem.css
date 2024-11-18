@@ -5,12 +5,10 @@
     width: 100%;
     background-color: var(--fundoNeutro);
     padding: 1.5rem;
-    margin-top: 2rem;
     margin-left: 2.5rem;
     border-radius: 20px;
     background-color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    /* border: 1px solid #e1dede; */
 }
 
 .select-img {

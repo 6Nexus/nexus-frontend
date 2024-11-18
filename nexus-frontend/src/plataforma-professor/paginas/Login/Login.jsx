@@ -61,7 +61,7 @@ function Login() {
 
                     // alert("Login sucess")
                     toast.success('Login realizado com sucesso!');
-                    navigate('/');
+                    navigate('/curso-setup');
                 } else {
                     // alert("Falhou")              
                     throw new Error('Ops! Ocorreu um erro interno.');

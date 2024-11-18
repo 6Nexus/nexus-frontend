@@ -3,6 +3,7 @@ import './ButtonNovoCurso.css';
 import SideBar from "../../componentes/SideBar/SideBar";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AdicionarModulos from "../Modulos/AdicionarModulos";
+import { toast } from 'react-toastify';
 
 function ButtonNovoCurso({ onClose }) {
     const [curso, setCurso] = useState({
@@ -39,14 +40,14 @@ function ButtonNovoCurso({ onClose }) {
         e.preventDefault();
         const { titulo, descricao, categoria, modulos } = curso;
 
-        // Verificações iniciais
+        
         if (!titulo || !descricao || !categoria) {
-            alert('Por favor, preencha todos os campos obrigatórios!');
+            toast.warning('Por favor, preencha todos os campos obrigatórios!')
             return;
         }
 
         if (modulos.length === 0) {
-            alert('Por favor, adicione pelo menos um módulo ao curso!');
+            toast.warning('Por favor, adicione pelo menos um módulo ao curso!');
             return;
         }
 
@@ -55,47 +56,48 @@ function ButtonNovoCurso({ onClose }) {
 
         // Validação dos módulos
         for (let i = 0; i < modulos.length; i++) {
-            console.log("Validando módulo:", modulos[i]); // Log do módulo atual
+            console.log("Validando módulo:", modulos[i]); // Log do módulo
             if (!modulos[i].titulo || !modulos[i].descricao) {
-                alert(`Por favor, preencha todos os campos do módulo ${i + 1}`);
+                toast.warning(`Por favor, preencha todos os campos do módulo ${i + 1}`);
                 return;
             }
 
             // Verificação das aulas
             if (modulos[i].aulas.length === 0) {
-                alert(`O módulo ${i + 1} não possui aulas. Por favor, adicione pelo menos uma aula!`);
+                toast.warning(`O módulo ${i + 1} não possui aulas. Por favor, adicione pelo menos uma aula!`);
                 return;
             }
 
             for (let j = 0; j < modulos[i].aulas.length; j++) {
-                console.log("Validando aula:", modulos[i].aulas[j]); // Log da aula atual
+
+                console.log("Validando aula:", modulos[i].aulas[j]); // Log da aula 
+
                 if (!modulos[i].aulas[j].titulo || !modulos[i].aulas[j].descricao) {
-                    alert(`Por favor, preencha todos os campos da aula ${j + 1} no módulo ${i + 1}`);
+                    toast.warning(`Por favor, preencha todos os campos da aula ${j + 1} no módulo ${i + 1}`);
                     return;
                 }
+                
+                if(!modulos[i].aulas[j].conteudos.video){
+                    toast.warning(`A aula ${j + 1} não possui um vídeo. Adicione um conteúdo de vídeo!`)
+                }
+
+
             }
 
-            // Verificação do questionário
+            // Verificação se não tem questionário no módulo 
             if (modulos[i].questionario.length === 0) {
-                alert(`O módulo ${i + 1} não possui questões no questionário. Por favor, adicione pelo menos uma questão!`);
+                toast.warning(`O módulo ${i + 1} não possui questionário. Por favor, adicione pelo menos uma questão!`);
                 return;
             }
 
-            for (const questao of modulos[i].questionario) {
-                if (!questao.texto || questao.alternativas.length === 0) {
-                    alert(`A questão "${questao.texto}" do módulo ${i + 1} precisa de pelo menos uma alternativa!`);
-                    return;
-                }
-                const alternativaCorreta = questao.alternativas.find(alt => alt.correta);
-                if (!alternativaCorreta) {
-                    alert(`A questão "${questao.texto}" do módulo ${i + 1} precisa de uma alternativa correta!`);
-                    return;
-                }
-            }
+        
+            
         }
 
-        console.log('Curso Criado', curso); // Aqui você pode implementar a lógica de envio do curso para o backend
-        alert('Curso criado com sucesso!');
+        
+
+        console.log('Curso Criado', curso);
+        toast.success('Curso criado com sucesso!');
         resetForm();
     };
 
@@ -127,7 +129,7 @@ function ButtonNovoCurso({ onClose }) {
                         value={curso.titulo}
                         onChange={handleInputChange}
                         placeholder="Digite o título do curso"
-                        required
+                        // required
                         style={{ width: '40%' }}
                     />
 
@@ -137,7 +139,7 @@ function ButtonNovoCurso({ onClose }) {
                         value={curso.descricao}
                         onChange={handleInputChange}
                         placeholder="Digite a descrição do curso"
-                        required
+                        // required
                         className="input-descricao"
                     />
 
@@ -154,7 +156,7 @@ function ButtonNovoCurso({ onClose }) {
                         name="categoria"
                         value={curso.categoria}
                         onChange={handleInputChange}
-                        required
+                        // required
                     >
                         <option value="">Selecione uma categoria</option>
                         <option value="Cidadania">Cidadania</option>

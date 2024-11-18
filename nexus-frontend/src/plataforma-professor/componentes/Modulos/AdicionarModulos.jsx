@@ -5,6 +5,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
 import Questionario from '../Questionario/Questionario';
 
+
 function AdicionarModulos({ moduloIndex, atualizarModulo, removerModulo }) {
     const [modulo, setModulo] = useState({
         titulo: '',
@@ -76,7 +77,7 @@ function AdicionarModulos({ moduloIndex, atualizarModulo, removerModulo }) {
                     placeholder="Digite o título do módulo"
                     className="input-field"
                     style={{ width: '40%' }}
-                    required
+                    // required
                 />
             </div>
 
@@ -89,7 +90,7 @@ function AdicionarModulos({ moduloIndex, atualizarModulo, removerModulo }) {
                     onChange={handleChangeModulo}
                     placeholder="Digite a descrição do módulo"
                     className="input-descricao"
-                    required
+                    // required
                 />
             </div>
 
