@@ -4,6 +4,8 @@ import SideBar from "../../componentes/SideBar/SideBar";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AdicionarModulos from "../Modulos/AdicionarModulos";
 import { toast } from 'react-toastify';
+import { useNavigate } from 'react-router-dom';
+import api from "../../../api.js";
 
 function ButtonNovoCurso({ onClose }) {
     const [curso, setCurso] = useState({
@@ -35,6 +37,9 @@ function ButtonNovoCurso({ onClose }) {
             modulos: [...prevCurso.modulos, { titulo: '', descricao: '', aulas: [], questionario: [] }],
         }));
     };
+
+
+    const navigate = useNavigate();
 
     const handleSalvarCurso = (e) => {
         e.preventDefault();
@@ -88,12 +93,36 @@ function ButtonNovoCurso({ onClose }) {
             if (modulos[i].questionario.length === 0) {
                 toast.warning(`O módulo ${i + 1} não possui questionário. Por favor, adicione pelo menos uma questão!`);
                 return;
-            }
-
-        
-            
+            }   
         }
 
+        const cursoValues = {
+            titulo: curso.titulo,
+            descricao: curso.descricao,
+            categoria: curso.categoria,
+            modulos: curso.modulos, 
+        }
+
+        api.post('/', curso, {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+
+        .then((response) => {
+            if (response.status === 201) {
+                toast.success('Curso criado com sucesso!');
+                console.log(cursoValues); 
+                resetForm(); 
+                navigate('/curso-setup'); 
+            } else {
+                throw new Error('Ops! Ocorreu um erro interno, tente mais tarde.');
+            }
+        })
+        .catch((error) => {
+            toast.error(error.message); 
+        })
+       
         
 
         console.log('Curso Criado', curso);

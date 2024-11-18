@@ -65,10 +65,11 @@ function Login() {
                 } else {
                     // alert("Falhou")              
                     throw new Error('Ops! Ocorreu um erro interno.');
+                    
                 }
             })
             .catch(error => {
-                toast.error(error.message);
+                toast.error('Ops! Ocorreu um erro interno.');
                 // alert(error.message)
 
             });

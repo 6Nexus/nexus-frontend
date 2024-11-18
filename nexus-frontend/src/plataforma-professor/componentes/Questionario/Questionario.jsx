@@ -39,14 +39,16 @@ function Questao({ questao, atualizarQuestao, deletarQuestao, index }) {
         atualizarQuestao({ ...questao, alternativas: novasAlternativas });
     };
 
+
+
     return (
         <div className="question-container">
             <div className='header-questao'>
                 <h4>Questão {index + 1}</h4>
-            
-                    <button className="btn-remover" type="button" onClick={deletarQuestao}>
-                        <CloseRoundedIcon/>
-                    </button>
+
+                <button className="btn-remover" type="button" onClick={deletarQuestao}>
+                    <CloseRoundedIcon />
+                </button>
             </div>
             <input
                 type="text"
@@ -67,12 +69,20 @@ function Questao({ questao, atualizarQuestao, deletarQuestao, index }) {
                         onChange={(e) => atualizarAlternativa(alt.id, e.target.value)}
                         placeholder="Digite a alternativa"
                     />
+
                     <input
                         type="radio"
                         name={`correta-${questao.id}`}
                         checked={alt.correta}
                         onChange={() => setAlternativaCorreta(alt.id)}
                     /> Correta
+
+                    <button className="btn-remover" type="button" onClick={() => {
+                        setAlternativas(alternativas.filter((item) => item.id !== alt.id));
+                    }}>
+                        <CloseRoundedIcon />
+                    </button>
+
                 </div>
             ))}
 
@@ -98,21 +108,21 @@ function Questionario({ onClose, onSave }) {
                 toast.warning(`A questão "${index + 1}" precisa ter um texto!`);
                 return;
             }
-    
+
             if (questao.alternativas.length === 0) {
                 toast.warning(`A questão "${index + 1}" não possui alternativas. Adicione pelo menos uma alternativa!`);
                 return;
             }
-    
-            
+
+
             for (const alternativa of questao.alternativas) {
                 if (!alternativa.texto) {
                     toast.warning(`A alternativa da questão "${index + 1}" está vazia!`);
                     return;
                 }
             }
-    
-            
+
+
             const alternativaCorreta = questao.alternativas.find(alt => alt.correta);
             if (!alternativaCorreta) {
                 toast.warning(`A questão "${index + 1}" precisa de uma alternativa correta!`);
@@ -120,12 +130,12 @@ function Questionario({ onClose, onSave }) {
             }
         }
 
-        
+
         onSave(questoes);
         console.log('Questionário Salvo', questoes)
         toast.success('Questionário Salvo!')
     };
- 
+
     return (
         <div className='container-questionario'>
 
