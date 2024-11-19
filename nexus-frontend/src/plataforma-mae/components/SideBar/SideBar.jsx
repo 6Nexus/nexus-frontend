@@ -16,7 +16,7 @@ import { useEffect } from 'react';
 import Swal from 'sweetalert2';
 
 const SideBar = ({backgroundColor}) => {
-    const [isExpanded, setExpanded] = useState(false);
+    const [isExpanded, setExpanded] = useState(false); 
     const [activeItem, setActiveItem] = useState('');
     const navigate = useNavigate();
     const location = useLocation();  

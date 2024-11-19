@@ -1,0 +1,142 @@
+
+:root {
+    --corPrimaria: #94065E;
+    --fundoNeutro: #F7F3F5;
+    --corDeContorno: #FE5D9F;
+}
+
+.sidebar {
+    height: 100vh;
+    width: 6%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    align-items: center;
+    border-bottom-right-radius: 16px;
+    position: fixed;
+    transition: width 0.5s ease;
+    background-color: var(--corPrimaria);
+    border-top-right-radius: 16px;
+    /* overflow-y: auto;  */
+    /* overflow-x: hidden; */
+}
+
+.sidebar.expanded {
+    width: 12%;
+    align-items: flex-start;
+}
+
+.toggle-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin: 16px 0;
+}
+
+.menu {
+    height: auto;
+    width: fit-content;
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    align-items: center;
+    gap: 30px;
+    flex-grow: 1; 
+}
+
+.menu-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border-radius: 8px;
+    width: 100%; 
+}
+
+.menu-item:hover {
+    background-color: var(--corDeContorno );
+}
+
+.menu-item.active {
+    background-color: #ffffff27; 
+    border-radius: 8px; 
+    transform: scale(1.1); 
+    color: #fff; 
+}
+
+.menu-item:hover {
+    background-color: #ffffff27;
+    color: #FFFFFF; 
+}
+
+
+.menu-icon {
+    cursor: pointer; 
+    display: flex; 
+    border-radius: 8px; 
+    margin-bottom: 20px; 
+    transform: scale(1.1);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.sidebar.expanded .menu-icon {
+    margin-left: 2.9rem;
+}
+
+.icons {
+    display: flex;
+    align-items: center;
+    color: antiquewhite;
+    
+}
+
+.icon-logout {
+    width: 100%;
+    justify-content: center;
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    gap: 8px;
+    padding: 10px; 
+    border-radius: 8px; 
+    transition: background-color 0.3s ease;
+    cursor: pointer;
+}
+
+
+.icon-logout:hover {
+    background-color: rgba(255, 255, 255, 0.1); 
+}
+
+
+
+.item-name {
+    font-family: 'Inter-Medium', sans-serif; 
+    color: #fff; 
+    font-size: 16px; 
+    white-space: nowrap; 
+}
+
+.sidebar-logo {
+    display: flex;
+    justify-content:center;
+    width: 100%;
+}
+
+.sidebar-logo img {
+    width: 85%;
+    max-width: 120px; 
+    height: auto;
+    transition: opacity 0.5s ease;
+    /* margin-top: -30px; */
+}
+
+
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: #fff;
+}

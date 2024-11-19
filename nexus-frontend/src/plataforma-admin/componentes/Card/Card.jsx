@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styles from './Card.module.css';
-import foto from '../../../utils/assets/foto-perfil.png';
+import foto from '../../../utils/assets/profile.svg';
 import BlockIcon from '@mui/icons-material/Block';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
