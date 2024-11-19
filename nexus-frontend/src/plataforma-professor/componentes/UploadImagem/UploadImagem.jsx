@@ -14,7 +14,7 @@ function UploadImagem (){
                 <div className="select-img">
                     <FontAwesomeIcon icon={faCloudArrowUp} className="icon-upload" />
                     <span>Carregar imagem</span>
-                    <img src={fotoPerfil} alt="foto de perfil" />
+                    {/* <img src={fotoPerfil} alt="foto de perfil" /> */}
                 </div>
                 <button className="btn-selecionar-img"> 
                     Selecione uma imagem 

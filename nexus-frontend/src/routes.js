@@ -25,6 +25,9 @@ import CadastroProfessor from "./plataforma-professor/paginas/CadastroProfessor/
 import CursoSetup from "./plataforma-professor/paginas/CursoSetup/CursoSetup";
 import MeusCursos from "./plataforma-professor/paginas/MeusCursos/MeusCursos";
 import Ajuda from "./plataforma-professor/paginas/Ajuda/Ajuda";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 
 
 function Rotas() {
@@ -33,6 +36,8 @@ function Rotas() {
 
     return (
         <BrowserRouter>
+            <ToastContainer/>
+
             <Routes>
                 {/* site-institucional */}
                 <Route path="/" element={<HomeSite />} />
