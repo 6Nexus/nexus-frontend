@@ -1,22 +1,32 @@
 .course-container__content__category {
     width: 80%;
-    height: max-content;
     display: flex;
     flex-direction: column;
     gap: 48px;
+    overflow: hidden;
 }
 
 .category__cards {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    height: fit-content;
+}
+
+.listCategory {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 32px;
+    overflow: hidden;
 }
 
 .category__card__button {
     color: var(--secondary-green);
     font-size: 40px;
+    cursor: pointer;
 }
 
 .category__title {

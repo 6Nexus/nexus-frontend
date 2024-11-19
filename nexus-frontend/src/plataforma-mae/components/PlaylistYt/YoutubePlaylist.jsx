@@ -5,7 +5,7 @@ import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import IconCourse from '../../../utils/assets/course.svg';
 import ButtonMaterial from '../ButtonMaterial/ButtonMaterial';
 
-const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails}) => {
+const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails }) => {
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -61,15 +61,15 @@ const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails}) => {
           ></iframe>
           {
             isCursoDetails &&
-            <ButtonMaterial/>
+            <ButtonMaterial />
           }
         </div>
       )}
 
-    
+
 
       <div className={styles['playlist-container__videos']}>
-        <h2 className={styles['videos__title']}>{ titlePlaylist }</h2>
+        <h2 className={styles['videos__title']}>{titlePlaylist}</h2>
         <div className={styles['videos__container']}>
           {videos.map((video) => {
             const thumbnailUrl = video.snippet.thumbnails?.medium?.url;
@@ -96,13 +96,23 @@ const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails}) => {
                   <p className={styles['item__thumbnail__title']}>{video.snippet.title}</p>
                 </div>
 
-                <PlayCircleOutlineIcon
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    setSelectedVideo(video);
-                  }}
-                  className={styles['icon__player']}
-                />
+                {
+                  isCursoDetails ?
+                    <input
+                      type="checkbox"
+                      className={styles['checkbox']}
+                    />
+                    :
+
+                    <PlayCircleOutlineIcon
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setSelectedVideo(video);
+                      }}
+                      className={styles['icon__player']}
+                    />
+                }
+
               </div>
             );
           })}

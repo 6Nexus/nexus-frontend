@@ -1,16 +1,9 @@
-import { BrowserRouter } from 'react-router-dom';
-import Home from "./plataforma-mae/pages/Home/Home"
-import Perfil from "./plataforma-professor/paginas/Perfil/Perfil"
-import CursoSetup from './plataforma-professor/paginas/CursoSetup/CursoSetup';
-import Login from './plataforma-professor/paginas/Login/Login';
+import Rotas from "./routes";
 
-
-const App = () => {
-    return (
-        <BrowserRouter>
-            <Perfil />
-        </BrowserRouter>
-    );
+function App() {
+  return (
+    <Rotas />
+  );
 }
 
 export default App;

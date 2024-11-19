@@ -4,13 +4,13 @@
     --corDeContorno: #FE5D9F;
 }
 
-* {
+/* * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-}
+} */
 
-section {
+section .section-professor {
     position: relative;
     width: 100%;
     height: 100vh;

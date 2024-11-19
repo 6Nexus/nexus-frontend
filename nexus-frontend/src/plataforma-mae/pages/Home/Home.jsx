@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import api from "../../../api.js";
+import apiCursos from "../../../apiCursos.js";
 import styles from './Home.module.css'
 import SideBar from "../../components/SideBar/SideBar.jsx";
 import SearchBar from "../../components/SearchBar/SearchBar.jsx";
@@ -9,17 +9,20 @@ import IconCourse from '../../../utils/assets/course.svg'
 import IconInstructions from '../../../utils/assets/instructions.svg'
 import IconProfile from '../../../utils/assets/profile.svg'
 import Pagination from '@mui/material/Pagination';
-
+import { useNavigate } from 'react-router-dom';
 
 const Home = () => {
     const [cardsData, setCardsData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const cardsPerPage = 3;
+    const navigate = useNavigate();
 
-
+    const handleNavigation = (route) => {
+        navigate(route);
+    };
 
     function buscarCursos() {
-        api.get().then((response) => {
+        apiCursos.get().then((response) => {
             const { data } = response;
             console.log(data);
             setCardsData(data)
@@ -51,17 +54,17 @@ const Home = () => {
                     <Banner />
 
                     <div className={styles["home-container__content__options"]}>
-                        <div className={`${styles["content__options__option"]} ${styles["course"]}`}>
+                        <div className={`${styles["content__options__option"]} ${styles["course"]}`} onClick={() => handleNavigation(`/aluno/cursos`)}>
                             <img src={IconCourse} alt="" />
                             <p className={styles["options__option__text"]}>Ver cursos</p>
                         </div>
 
-                        <div className={`${styles["content__options__option"]} ${styles["instructions"]}`}>
+                        <div className={`${styles["content__options__option"]} ${styles["instructions"]}`} onClick={() => handleNavigation(`/aluno/instrucoes`)}>
                             <img src={IconInstructions} alt="" />
                             <p className={styles["options__option__text"]}>Instruções</p>
                         </div>
 
-                        <div className={`${styles["content__options__option"]} ${styles["profile"]}`}>
+                        <div className={`${styles["content__options__option"]} ${styles["profile"]}`} onClick={() => handleNavigation(`/aluno/perfil`)}>
                             <img src={IconProfile} alt="" />
                             <p className={styles["options__option__text"]}>Meu perfil</p>
                         </div>
@@ -74,7 +77,7 @@ const Home = () => {
                             {currentCards && currentCards.map((data, _) => (
 
                                 <CardCurso
-                                    key={data.idModulo}
+                                    id={data.idModulo}
                                     title={data.titulo}
                                     subtitle={data.descricao}
                                     category={data.categoria}

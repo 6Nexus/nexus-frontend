@@ -1,16 +1,22 @@
 import * as React from "react";
 import styles from './CardCurso.module.css'
-import imagemTeste from '../../../utils/assets/imagem-card-teste.png'
+import imagemCapa from '../../../utils/assets/capa_curso.jpg'
 import FavoriteIcon from '@mui/icons-material/Favorite';
+import { useNavigate} from 'react-router-dom';
 
+const CardCurso = ({id, title, subtitle, inProgress, progress, category, liked, imageUrl}) => {
+    const navigate = useNavigate();
 
-const CardCurso = ({title, subtitle, inProgress, progress, category, liked, imageUrl}) => {
+    const handleNavigation = (route) => {
+        navigate(route);
+    };
+
     return (
         <>
            <div className={styles["card-curso-container"]}>
                 <div className={styles["card-curso-container__info"]}>
                     <div className={styles["card-curso-container__info__image"]}>
-                        <img src={imageUrl ? imageUrl : imagemTeste } alt="" />
+                        <img src={imageUrl ? imageUrl : imagemCapa } alt="" />
                     </div>
                     <div className={styles["card-curso-container__info__content"]}>
                         <div className={styles["card-curso-container__info__content__titles"]}>
@@ -29,11 +35,11 @@ const CardCurso = ({title, subtitle, inProgress, progress, category, liked, imag
                 </div>
                 
                 <div className={ inProgress ? styles["card-curso-container__button"] : styles["card-curso-container__button-secondary"]}>
-                    <button>
+                    <button onClick={() => handleNavigation(`/aluno/cursos/${id}/modulos`)}>
                         { inProgress ? "Continuar" : "Ver curso"}
                     </button>
 
-                    { inProgress && <p className={styles["button__progress"]}>Progresso: 20%</p>}
+                    { inProgress && <p className={styles["button__progress"]}>Progresso: {progress}%</p>}
                 </div>
            </div>
         </>

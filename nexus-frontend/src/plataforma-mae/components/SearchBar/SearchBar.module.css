@@ -63,6 +63,7 @@ input:focus {
     background-color: #EDEBEB;
     border-radius: 50%;
     cursor: pointer;
+    font-size: 12px;
 }
 
 .search__voice__icon {
@@ -73,16 +74,28 @@ input:focus {
 
 
 .search-bar-container__preferences {
-    width: 10%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.search-bar-container__preferences button {
     display: flex;
     flex-direction: row;
     align-items: center;
-    justify-content: flex-end;
+    justify-content: center;
+    border: none;
+    padding: 12px;
     gap: 8px;
+    width: 100%;
+    background-color: var(--secondary-green);
+    color: #fff;
+    font-size: 16px;
+    border-radius: 8px;
 }
 
 .icon-preference{
-    color: var(--secondary-green);
+    color: #fff;
     cursor: pointer;
 }
 

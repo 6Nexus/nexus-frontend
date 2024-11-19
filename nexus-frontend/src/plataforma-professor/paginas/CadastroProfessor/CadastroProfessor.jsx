@@ -1,5 +1,5 @@
 import React from "react";
-import './Cadastro.css';
+import './CadastroProfessor.css';
 import flatDesing from '../../../utils/assets/img-flat1.png';
 import logoBranca from '../../../utils/assets/logo-nexus-branca.png';
 import ButtonLoginGoogle from "../../componentes/ButtonLoginGoogle/ButtonLoginGoogle.jsx";
@@ -79,7 +79,7 @@ function Cadastro() {
 
     return (
 
-         <section>
+         <section className="section-professor">
 
             <div className="container-cadastro">
                 <div className="container-form">

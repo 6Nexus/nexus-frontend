@@ -1,0 +1,114 @@
+.card-curso-container {
+    display: flex;
+    flex-direction: row;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 32px 24px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+}
+
+.card-curso-container__informations {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 70%;
+}
+
+
+
+.description__title {
+    font-family: 'Inter-Regular';
+    font-size: 20px;
+    color: var(--secondary-green);
+    margin: 0px;
+}
+
+.description__subtitle {
+    width: 100%;
+    font-family: 'Inter-Regular';
+    color: var(--primary-grey);
+    margin: 0px;
+}
+
+.main__text, .description__date {
+    font-family: 'Inter-Regular';
+    color: var(--primary-grey);
+    margin: 0px;
+}
+
+.card-curso-container__button {
+    height: fit-content;
+    width: 10%;
+    border: none;
+    padding: 16px;
+    background-color: var(--primary-green);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    align-self: center;
+}
+
+
+
+.card-curso-container__actions {
+    width: 20%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    gap: 16px;
+}
+
+.actions__progress {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+}
+
+.progress__base {
+    width: 80%;
+    height: 10px;
+    background-color: #EDEBEB;
+    border-radius: 30px;
+}
+
+.progress__base__bar {
+    width: 50%;
+    height: 10px;
+    background-color: var(--secondary-green);
+    border-radius: 30px;
+}
+
+.progress__number {
+    margin: 0px;
+    font-family: 'Inter-Regular';
+    font-size: 14px;
+}
+
+.actions__button {
+    width: 100%;
+    height: fit-content;
+    border: none;
+    padding: 16px;
+    background-color: var(--primary-green);
+    border-radius: 8px;
+    color: #fff;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    cursor: pointer;
+    align-self: flex-end;
+}

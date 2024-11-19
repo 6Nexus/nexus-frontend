@@ -1,24 +1,19 @@
 import * as React from "react";
 import styles from './BannerInfoCourse.module.css';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import IconCourse from '../../../utils/assets/course.svg'
 
-const BannerInfoCourse = ({backgroundImage, titleCourse, descriptionCourse, duration}) => {
-    const bannerStyle = {
-        backgroundImage: `url(${backgroundImage})`,
-      };
+const BannerInfoCourse = ({ courseName, teacherName, description }) => {
     return (
         <>
-            <div className={styles["bannerInfoCourse-container"]} style={bannerStyle}>
-                <div className={styles["bannerInfoCourse-container__text"]}>
-                    <h2 className={styles["bannerInfoCourse-container-text__title"]}>{titleCourse}</h2>
-                    <h4 className={styles["bannerInfoCourse-container-text__description"]}>{descriptionCourse}</h4>
+            <div className={styles["bannerInfoCourse-container"]}>
+                <div className={styles["bannerInfoCourse-container__icon"]}>
+                    <img src={IconCourse} alt="" />
                 </div>
-               <div className={styles["bannerInfoCourse-container__line"]}></div>
-               <div className={styles["bannerInfoCourse-container__infoDuration"]}>
-                    <AccessTimeIcon/>
-                    <p>Duração: { duration } horas</p>
-               </div>
-            </div>  
+                <div className={styles["bannerInfoCourse-container__text"]}>
+                    <h2 className={styles["bannerInfoCourse-container-text__title"]}>Curso: {courseName}</h2>
+                    <h4 className={styles["bannerInfoCourse-container-text__description"]}>{description} | Professor(a): {teacherName}</h4>
+                </div>
+            </div>
         </>
     );
 };
