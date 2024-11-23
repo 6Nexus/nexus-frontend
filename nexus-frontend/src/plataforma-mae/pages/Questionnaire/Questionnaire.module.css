@@ -76,7 +76,7 @@
     justify-content: center;
     gap: 32px;
     background-color: #fff;
-    padding: 24px;
+    padding: 24px 32px;
     border-radius: 20px;
 }
 
@@ -141,7 +141,6 @@
     background-color: var(--primary-green);
     color: #fff;
 }
-
 
 
 
