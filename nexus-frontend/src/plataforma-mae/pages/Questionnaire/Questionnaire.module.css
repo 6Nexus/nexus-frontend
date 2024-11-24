@@ -1,40 +1,5 @@
-.questionnaire-container {
-    display: flex;
-    flex-direction: row;
-}
-
-.questionnaire-container__content {
-    width: 94%; 
-    margin-left: 6%; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 80px;
-    padding: 32px;
-}
-
-
-.content__return {
-    display: flex;
-    flex-direction: row;
-    width: 80%;
-    align-items: center;
-    gap: 8px;
-}
-
-.return__icon {
-    color: var(--primary-green);
-    font-size: 32px;
-}
-
-.return__text {
-    color: var(--secondary-green);
-    font-family: 'Inter-Medium';
-    font-size: 24px;
-}
 
 .content__info {
-    width: 80%;
     background-color: #fff;
     border-radius: 20px;
     padding: 24px;
@@ -70,13 +35,12 @@
 }
 
 .content__question, .content__review {
-    width: 80%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 32px;
     background-color: #fff;
-    padding: 24px;
+    padding: 24px 32px;
     border-radius: 20px;
 }
 
@@ -116,7 +80,6 @@
 }
 
 .content__buttons {
-    width: 80%;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -141,7 +104,6 @@
     background-color: var(--primary-green);
     color: #fff;
 }
-
 
 
 
