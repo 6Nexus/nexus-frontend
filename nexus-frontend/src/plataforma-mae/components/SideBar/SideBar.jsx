@@ -100,7 +100,7 @@ const SideBar = ({backgroundColor}) => {
 
                         <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('instructions', '/aluno/instrucoes')}>
                             <InfoIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'instructions' ? styles["active"] : ""}`}/>
-                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Instruções</span>}
+                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Ajuda</span>}
                         </div>
 
                         <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('profileSettings', '/aluno/perfil')}>
