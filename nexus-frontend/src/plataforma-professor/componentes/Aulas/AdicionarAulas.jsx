@@ -16,7 +16,7 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
         setAula((prevAula) => {
             const updatedAula = {
                 ...prevAula,
-                [name]: value
+                [name]: value 
             };
             AdicionarAula(updatedAula);
             return updatedAula;

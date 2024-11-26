@@ -5,7 +5,6 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
 import Questionario from '../Questionario/Questionario';
 
-
 function AdicionarModulos({ moduloIndex, atualizarModulo, removerModulo }) {
     const [modulo, setModulo] = useState({
         titulo: '',
@@ -24,7 +23,7 @@ function AdicionarModulos({ moduloIndex, atualizarModulo, removerModulo }) {
     };
 
     const handleAddAula = () => {
-        const novaAula = { titulo: '', descricao: '' };
+        const novaAula = { titulo: '', descricao: '', conteudos: { video: '' } };
         setModulo((prevModulo) => {
             const updatedModulo = {
                 ...prevModulo,
@@ -43,18 +42,18 @@ function AdicionarModulos({ moduloIndex, atualizarModulo, removerModulo }) {
 
     const toggleQuestionario = () => {
         setMostrarQuestionario((prevMostrar) => !prevMostrar);
-    };
+    }; 
 
     const handleSalvarQuestionario = (questoes) => {
         setModulo((prevModulo) => {
-            const updatedModulo = {
+            const updatedModulo = { 
                 ...prevModulo,
-                questionario: questoes
+                questionario: questoes // Atualiza o questionário com as questões
             };
-            atualizarModulo(moduloIndex, updatedModulo);
+            atualizarModulo(moduloIndex, updatedModulo); // Atualiza o módulo no estado do componente pai
             return updatedModulo;
         });
-        setMostrarQuestionario(false);
+        setMostrarQuestionario(false); // Fecha o modal de questionário
     };
 
     return (
@@ -77,7 +76,6 @@ function AdicionarModulos({ moduloIndex, atualizarModulo, removerModulo }) {
                     placeholder="Digite o título do módulo"
                     className="input-field"
                     style={{ width: '40%' }}
-                    // required
                 />
             </div>
 
@@ -90,7 +88,6 @@ function AdicionarModulos({ moduloIndex, atualizarModulo, removerModulo }) {
                     onChange={handleChangeModulo}
                     placeholder="Digite a descrição do módulo"
                     className="input-descricao"
-                    // required
                 />
             </div>
 

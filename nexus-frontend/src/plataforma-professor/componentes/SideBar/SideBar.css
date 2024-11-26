@@ -85,21 +85,28 @@
 .icons {
     display: flex;
     align-items: center;
+    justify-content: center;
     color: antiquewhite;
-    
 }
 
+
 .icon-logout {
-    width: 100%;
-    justify-content: center;
     display: flex;
     align-items: center;
-    margin-bottom: 10px;
+    justify-content: center;  
     gap: 8px;
-    padding: 10px; 
-    border-radius: 8px; 
+    padding: 10px;
+    border-radius: 8px;
     transition: background-color 0.3s ease;
     cursor: pointer;
+    width: 100%;  
+    flex-direction: row; 
+    text-align: center; 
+    margin-bottom: 10px;
+}
+
+.sidebar.expanded .icon-logout .item-name {
+    margin-right: 3rem
 }
 
 
@@ -108,12 +115,12 @@
 }
 
 
-
 .item-name {
     font-family: 'Inter-Medium', sans-serif; 
     color: #fff; 
     font-size: 16px; 
     white-space: nowrap; 
+    display: inline-block; 
 }
 
 .sidebar-logo {

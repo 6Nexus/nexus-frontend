@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import './CursoSetup.css';
 import SideBar from "../../componentes/SideBar/SideBar";
 import ButtonNovoCurso from "../../componentes/ButtonNovoCurso/ButtonNovoCurso";
+import Swal from 'sweetalert2';
 
 
 function CursoSetup() {
@@ -13,7 +14,7 @@ function CursoSetup() {
         categoria: '',
         modulos: [],
 
-    });
+    }); 
 
     const abrirCriadorCurso = () => {
         setMostrarCriarCurso(true);
@@ -33,30 +34,7 @@ function CursoSetup() {
 
     // Função para salvar o curso 
     // ainda vai ser passado os propriedades para salvar módulos e aulas
-    const salvarCurso = () => {
-        if (!curso.titulo || !curso.descricao || !curso.categoria) {
-            alert('Por favor, preencha todos os campos obrigatórios!');
-            return;
-        }
-
-        console.log("Curso salvo:", curso);
-        // implementar a lógica pro back aqui
-        alert('Curso criado com sucesso!');
-
-
-        setCurso({
-            titulo: '',
-            descricao: '',
-            imagem: null, 
-            categoria: '',
-            modulos: [],
-            aulas: []
-
-        });
-        setMostrarCriarCurso(false);
-
-
-    };
+    
 
     return (
         <>
@@ -73,7 +51,7 @@ function CursoSetup() {
                             curso={curso}
                             atualizarCurso={atualizarCurso}
                             onClose={fecharCriadorCurso}
-                            onSave={salvarCurso}
+                            // onSave={salvarCurso}
                         /> 
                     )}
                 </div>

@@ -56,7 +56,7 @@ function Questao({ questao, atualizarQuestao, deletarQuestao, index }) {
                 value={texto}
                 onChange={handleTextoChange}
                 placeholder="Digite a pergunta"
-            />
+            /> 
             <button className="btn-add-alternativa" type="button" onClick={addAlternativa}>
                 + Alternativa
             </button>
@@ -132,8 +132,8 @@ function Questionario({ onClose, onSave }) {
 
 
         onSave(questoes);
-        console.log('Questionário Salvo', questoes)
-        toast.success('Questionário Salvo!')
+        console.log('Questionário Adicionado', questoes)
+        toast.success('Questionário Adicionado!')
     };
 
     return (
@@ -163,7 +163,7 @@ function Questionario({ onClose, onSave }) {
                     />
                 ))}
                 <button type="button" className='btn-add-questao' onClick={handleAddQuestao}>Adicionar Questão</button>
-                <button type="button" className='btn-salvar-questionario' onClick={handleSalvarQuestionario}>Salvar Questionário</button>
+                <button type="button" className='btn-salvar-questionario' onClick={handleSalvarQuestionario}>Adicionar Questionário</button>
 
             </div>
         </div>

@@ -103,7 +103,7 @@ function ButtonNovoCurso({ onClose }) {
             modulos: curso.modulos, 
         }
 
-        api.post('/', curso, {
+        api.post('/curso', curso, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -114,7 +114,7 @@ function ButtonNovoCurso({ onClose }) {
                 toast.success('Curso criado com sucesso!');
                 console.log(cursoValues); 
                 resetForm(); 
-                navigate('/curso-setup'); 
+              //  navigate('/curso-setup');  
             } else {
                 throw new Error('Ops! Ocorreu um erro interno, tente mais tarde.');
             }

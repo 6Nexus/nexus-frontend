@@ -8,7 +8,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import InfoIcon from '@mui/icons-material/Info';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteIcon from '@mui/icons-material/Favorite'; 
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useNavigate, useLocation } from 'react-router-dom';
