@@ -1,7 +1,6 @@
 import * as React from "react";
 import styles from './CardCurso.module.css'
 import imagemCapa from '../../../utils/assets/capa_curso.jpg'
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useNavigate} from 'react-router-dom';
 
 const CardCurso = ({id, title, subtitle, inProgress, progress, category, liked, imageUrl}) => {
@@ -23,13 +22,6 @@ const CardCurso = ({id, title, subtitle, inProgress, progress, category, liked, 
                                 <h2 className={styles["info__content__titles__title"]}>{title}</h2>
                                 <h4 className={styles["info__content__titles__subtitle"]}>{subtitle}</h4>
                                 <p className={styles["info__content__titles__tag"]}>{category}</p>
-                        </div>
-
-                        <div className={styles["card-curso-container__info__content__button"]}>
-                            <button>
-                                <FavoriteIcon className={ liked ? styles["content__button__icon-liked"] : styles["content__button__icon"] } style={{fontSize: 33}}/>
-                                { liked ? "Salvo" : "Salvar"}
-                            </button>
                         </div>
                     </div>
                 </div>

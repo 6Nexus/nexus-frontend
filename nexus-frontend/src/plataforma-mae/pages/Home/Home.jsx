@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import apiCursos from "../../../apiCursos.js";
 import styles from './Home.module.css';
-import SearchBar from "../../components/SearchBar/SearchBar.jsx";
 import CardCurso from '../../components/CardCurso/CardCurso.jsx';
 import Banner from '../../components/Banner/Banner.jsx';
 import IconCourse from '../../../utils/assets/course.svg';

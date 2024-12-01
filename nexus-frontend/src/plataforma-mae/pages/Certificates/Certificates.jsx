@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from "react";
 import styles from './Certificates.module.css'
-import SideBar from "../../components/SideBar/SideBar";
-import SearchBar from "../../components/SearchBar/SearchBar";
 import HeaderCategory from "../../components/HeaderCategory/HeaderCategory";
 import CardCertificate from "../../components/CardCertificate/CardCertificate";
 import Pagination from '@mui/material/Pagination';
-
+import Main from "../Main/Main.jsx";
 import apiCurso from "../../../apiCursos";
 
 const Certificates = () => {
@@ -38,12 +36,10 @@ const Certificates = () => {
     }, [])
 
     return (
-        <>
+        <Main>
             <div className={styles["certificates-container"]}>
-                <SideBar backgroundColor={'#245024'} />
 
                 <div className={styles["certificates-container__content"]}>
-                    <SearchBar />
                     <HeaderCategory />
 
                     <div className={styles['certificates-container__content__cardCertificateList']}>
@@ -51,6 +47,8 @@ const Certificates = () => {
 
                             <CardCertificate
                                 id={data.id}
+                                name="Maria Eduarda Veroneze"
+                                module="Culinária Italiana"
                                 title={data.titulo}
                                 teacher={data.professor}
                                 duration="4"
@@ -59,10 +57,9 @@ const Certificates = () => {
 
                         ))}
                     </div>
-
                     <Pagination
                         count={Math.ceil(cardsData.length / cardsPerPage)}
-                        page={currentPage} 
+                        page={currentPage}
                         onChange={handleChange}
                         variant="outlined"
                         shape="rounded"
@@ -72,13 +69,13 @@ const Certificates = () => {
                             padding: '8px',
                             borderRadius: '30px',
                             '& .MuiPaginationItem-root': {
-                                color: '#245024', 
+                                color: '#245024',
                                 border: 'none',
                                 borderRadius: '50%',
-                                fontSize:'16px'
+                                fontSize: '16px'
                             },
                             '& .MuiPaginationItem-root.Mui-selected': {
-                                backgroundColor: '#3B9D3B', 
+                                backgroundColor: '#3B9D3B',
                                 color: 'white',
                             },
                         }}
@@ -86,7 +83,7 @@ const Certificates = () => {
 
                 </div>
             </div>
-        </>
+        </Main>
     );
 };
 export default Certificates

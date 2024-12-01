@@ -13,6 +13,9 @@ const BannerInfoCourse = ({ courseName, teacherName, description }) => {
                     <h2 className={styles["bannerInfoCourse-container-text__title"]}>Curso: {courseName}</h2>
                     <h4 className={styles["bannerInfoCourse-container-text__description"]}>{description} | Professor(a): {teacherName}</h4>
                 </div>
+                <button className={styles["bannerInfoCourse-container__button"]}>
+                    Matricule-se
+                </button>
             </div>
         </>
     );
