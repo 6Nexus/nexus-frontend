@@ -52,7 +52,7 @@ const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails }) => {
           <h2 className={styles['selectedVideo__title']}>{selectedVideo.snippet.title}</h2>
           <iframe
             width="100%"
-            height="600"
+            height="800"
             src={`https://www.youtube.com/embed/${selectedVideo.snippet.resourceId.videoId}`}
             frameBorder="0"
             allowFullScreen
