@@ -3,6 +3,7 @@ import styles from './ProfileSettings.module.css'
 import SideBar from '../../components/SideBar/SideBar'
 import SearchBar from "../../components/SearchBar/SearchBar";
 import DownloadIcon from '@mui/icons-material/Download';
+import Main from "../Main/Main";
 import { Formik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import api from "./../../../api";
@@ -140,13 +141,9 @@ const ProfileSettings = () => {
     }
 
     return (
-        <>
-
+        <Main showReturnPages={false}>
             <div className={styles['profileSettings-container']}>
-                <SideBar backgroundColor={'#245024'} />
                 <div className={styles['profileSettings-container__content']}>
-                    <SearchBar />
-
                     <div className={styles['profileSettings-container__content__sectionData']}>
                         <h1 className={styles['sectionData__title']}>Informações pessoais</h1>
 
@@ -239,7 +236,7 @@ const ProfileSettings = () => {
                     </div>
                 </div>
             </div>
-        </>
+        </Main>
     );
 };
 export default ProfileSettings

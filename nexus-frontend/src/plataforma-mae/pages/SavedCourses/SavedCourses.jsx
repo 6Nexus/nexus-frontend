@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import apiCursos from "../../../apiCursos.js";
 import styles from './SavedCourses.module.css'
-import SideBar from "../../components/SideBar/SideBar";
-import SearchBar from "../../components/SearchBar/SearchBar";
 import CardCurso from "../../components/CardCurso/CardCurso";
 import HeaderCategory from "../../components/HeaderCategory/HeaderCategory";
 import Pagination from '@mui/material/Pagination';
+import Main from "../Main/Main";
 
 const SavedCourses = () => {
     const [cardsData, setCardsData] = useState([]);
@@ -37,12 +36,10 @@ const SavedCourses = () => {
         buscarCursos();
     }, [])
     return (
-        <>
+        <Main showReturnPages={false}>
             <div className={styles["savedCourses-container"]}>
-                <SideBar backgroundColor={'#245024'} />
 
                 <div className={styles["savedCourses-container__content"]}>
-                    <SearchBar />
 
                     <HeaderCategory />
 
@@ -67,7 +64,7 @@ const SavedCourses = () => {
                     </div>
                     <Pagination
                         count={Math.ceil(cardsData.length / cardsPerPage)}
-                        page={currentPage} 
+                        page={currentPage}
                         onChange={handleChange}
                         variant="outlined"
                         shape="rounded"
@@ -77,20 +74,20 @@ const SavedCourses = () => {
                             padding: '8px',
                             borderRadius: '30px',
                             '& .MuiPaginationItem-root': {
-                                color: '#245024', 
+                                color: '#245024',
                                 border: 'none',
                                 borderRadius: '50%',
-                                fontSize:'16px'
+                                fontSize: '16px'
                             },
                             '& .MuiPaginationItem-root.Mui-selected': {
-                                backgroundColor: '#3B9D3B', 
+                                backgroundColor: '#3B9D3B',
                                 color: 'white',
                             },
                         }}
                     />
                 </div>
             </div>
-        </>
+        </Main>
     );
 };
 export default SavedCourses
