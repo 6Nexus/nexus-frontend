@@ -82,7 +82,7 @@ function Login() {
             <div className="box-login">
 
                 <img className="logo" src={logo} alt="logo nexus" />
-                <Formik
+                <Formik 
                     initialValues={{ email: '', senha: '' }} 
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}

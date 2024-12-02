@@ -83,7 +83,7 @@ const ProfileSettings = () => {
 
             }
         });
-    }
+    } 
 
     function excluirConta(values) {
         Swal.fire({

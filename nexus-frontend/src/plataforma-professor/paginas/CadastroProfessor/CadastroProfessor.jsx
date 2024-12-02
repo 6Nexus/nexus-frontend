@@ -97,7 +97,7 @@ function Cadastro() {
 
                         
                             <div className="input-cadastro">
-                                <Field type="text" name="nome" placeholder="Nome" 
+                                <Field type="text" name="nome"  id="nome" placeholder="Nome" 
                                 className={touched.nome ? errors.nome ? 'input-erro' : 'input-success' : ''}
                                 />
                                 <ErrorMessage name="nome" component="div" className="error-message" />

@@ -154,7 +154,7 @@ input[type="file"] {
   }
 }
 
-.input-descricao::placeholder {
+.input-descricao::placeholder { 
   padding-top: 8px;     
   transform: translateY(-4px);
   color: #999;

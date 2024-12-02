@@ -4,7 +4,6 @@ import SideBar from "../../componentes/SideBar/SideBar";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AdicionarModulos from "../Modulos/AdicionarModulos";
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 import api from "../../../api.js";
 
 function ButtonNovoCurso({ onClose }) {
@@ -39,7 +38,7 @@ function ButtonNovoCurso({ onClose }) {
     };
 
 
-    const navigate = useNavigate();
+   
 
     const handleSalvarCurso = (e) => {
         e.preventDefault();
@@ -114,14 +113,13 @@ function ButtonNovoCurso({ onClose }) {
                 toast.success('Curso criado com sucesso!');
                 console.log(cursoValues); 
                 resetForm(); 
-              //  navigate('/curso-setup');  
             } else {
                 throw new Error('Ops! Ocorreu um erro interno, tente mais tarde.');
             }
         })
         .catch((error) => {
             toast.error(error.message); 
-        })
+        }) 
        
         
 
