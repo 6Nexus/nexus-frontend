@@ -12,7 +12,7 @@ function ButtonNovoCurso({ onClose }) {
         descricao: '',
         imagem: null,
         categoria: '',
-        modulos: []
+        modulos: [] 
     });
 
     const handleInputChange = (e) => {
@@ -120,7 +120,6 @@ function ButtonNovoCurso({ onClose }) {
         .catch((error) => {
             toast.error(error.message); 
         }) 
-       
         
 
         console.log('Curso Criado', curso);

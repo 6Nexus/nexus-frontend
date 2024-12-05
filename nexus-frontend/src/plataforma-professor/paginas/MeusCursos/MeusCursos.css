@@ -2,7 +2,7 @@
 .header-cursos-criados {
     width: 80%;
     height: max-content;
-    display: flex;
+    /* display: flex;  */
     flex-direction: column;
     border-left: 5px solid var(--corPrimaria);
     padding: 0px 8px 0px;

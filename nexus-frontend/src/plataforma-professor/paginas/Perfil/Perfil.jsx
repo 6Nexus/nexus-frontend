@@ -14,19 +14,19 @@ function Perfil() {
     const validationSchemaPerfil = Yup.object().shape({
         nome: Yup.string()
             .min(3, "O nome deve ter mais de 3 letras")
-            .nullable(), 
-    
+            .nullable(),
+
         sobrenome: Yup.string()
             .min(3, "O sobrenome deve ter mais de 3 letras")
             .nullable(),
-    
+
         cpf: Yup.string()
             .test('valid-cpf', 'CPF inválido', (value) => !value || cpf.isValid(value))
             .nullable(),
-    
+
         areaAtuacao: Yup.string()
             .nullable(),
-    
+
         email: Yup.string()
             .email("Formato de email inválido")
             .matches(
@@ -34,20 +34,22 @@ function Perfil() {
                 "Por favor, insira um email com um domínio válido."
             )
             .nullable(),
-    
+
         senha: Yup.string()
             .min(6, "A senha deve ter pelo menos 6 caracteres")
             .nullable(),
-    
+
         confirmeSenha: Yup.string()
             .oneOf([Yup.ref('senha'), null], 'As senhas devem ser iguais')
             .nullable()
     });
-    
 
+    
     const id = sessionStorage.getItem('userId')
 
     const handleSlvarAlteracoesPerfil = (values, { setSubmitting, resetForm }) => {
+
+        
 
         api.put(`professores/${id}`, values, {
             headers: {
@@ -58,6 +60,10 @@ function Perfil() {
             .then(response => {
                 if (response.status === 200) {
                     toast.success('Dados atualizados com sucesso')
+                    
+                    sessionStorage.setItem('usuario', response.data.nome);
+                    sessionStorage.setItem('email', response.data.email)
+
                     console.log(values)
                     resetForm()
                 } else {
@@ -66,14 +72,15 @@ function Perfil() {
             })
 
             .catch(error => {
-                toast.error(error.message);
-
+                const errorMessage = 'Erro ao atualizar dados.';
+                toast.error(errorMessage);
+                console.log(error.response?.data?.message)
             })
 
             .finally(() => setSubmitting(false))
 
-            console.log(JSON.stringify(values));
-            
+        console.log(JSON.stringify(values));
+
     }
 
 
@@ -82,7 +89,7 @@ function Perfil() {
 
             <SideBar backgroundColor={'#94065E'} />
             <div>
-                <div className="container-geral">   
+                <div className="container-geral">
                     <div className="container-info">
                         <Formik
                             initialValues={{ nome: '', sobrenome: '', cpf: '', areaAtuacao: '', email: '', senha: '', confirmeSenha: '' }}

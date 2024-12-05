@@ -43,9 +43,17 @@ const SideBar = ({ backgroundColor }) => {
                 window.location.href = '/login-professor';
                 sessionStorage.clear();
             } 
-        });
+        }); 
     }
 
+    const [username, setUsername] = useState('')
+
+    useEffect(() => {
+        const username = sessionStorage.getItem('username')
+        if(username){
+            setUsername(username)
+        }
+    }, [])
 
 
     const menuItems = [
@@ -82,12 +90,14 @@ const SideBar = ({ backgroundColor }) => {
                 
                 {isExpanded && (
                     <div className="sidebar-logo">
+                        <p>Olá {username}</p>
                         <img src={logoMaes} alt="Logo" className="logo-maes" />
                     </div>
                 )}
 
                 {!isExpanded && (
                     <div className='sidebar-logo'>
+                        <p>Olá {username}</p>
                         <img src={logoMaes} alt="icone maes" style={{width: '90'}} />
                     </div>
                 )}

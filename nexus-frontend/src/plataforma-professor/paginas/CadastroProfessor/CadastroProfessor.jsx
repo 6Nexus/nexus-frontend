@@ -59,6 +59,7 @@ function Cadastro() {
         
             .then( response => {
                 if(response.status === 201){
+                    sessionStorage.setItem('username', values.nome);
                     toast.success('Cadastro realizado com sucesso!')
                     console.log(values)
                     resetForm()

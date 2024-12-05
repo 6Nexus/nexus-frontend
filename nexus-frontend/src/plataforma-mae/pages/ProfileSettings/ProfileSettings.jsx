@@ -64,7 +64,7 @@ const ProfileSettings = () => {
                             sessionStorage.setItem('usuario', response.data.nome);
                             sessionStorage.setItem('email', response.data.email)
 
-                        } else {
+                        } else { 
                             Swal.fire({
                                 title: "Erro ao realizar sua solicitação",
                                 text: "Por favor, tente novamente mais tarde ou entre em contato com o suporte se o erro persistir.",

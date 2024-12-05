@@ -4,6 +4,8 @@ import AdicionarAula from '../Aulas/AdicionarAulas';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
 import Questionario from '../Questionario/Questionario';
+import api from '../../../api';
+import { toast } from 'react-toastify';
 
 function AdicionarModulos({ moduloIndex, atualizarModulo, removerModulo }) {
     const [modulo, setModulo] = useState({
@@ -17,7 +19,7 @@ function AdicionarModulos({ moduloIndex, atualizarModulo, removerModulo }) {
         const { name, value } = e.target;
         setModulo((prevModulo) => {
             const updatedModulo = { ...prevModulo, [name]: value };
-            atualizarModulo(moduloIndex, updatedModulo); 
+            atualizarModulo(moduloIndex, updatedModulo);
             return updatedModulo;
         });
     };
@@ -29,32 +31,68 @@ function AdicionarModulos({ moduloIndex, atualizarModulo, removerModulo }) {
                 ...prevModulo,
                 aulas: [...prevModulo.aulas, novaAula]
             };
-            atualizarModulo(moduloIndex, updatedModulo); 
+            atualizarModulo(moduloIndex, updatedModulo);
             return updatedModulo;
         });
     };
 
     const handleRemoverModulo = () => {
-        removerModulo(moduloIndex); 
+        removerModulo(moduloIndex);
     };
 
     const [mostrarQuestionario, setMostrarQuestionario] = useState(false);
 
     const toggleQuestionario = () => {
         setMostrarQuestionario((prevMostrar) => !prevMostrar);
-    }; 
-
-    const handleSalvarQuestionario = (questoes) => {
-        setModulo((prevModulo) => {
-            const updatedModulo = { 
-                ...prevModulo,
-                questionario: questoes // Atualiza o questionário com as questões
-            };
-            atualizarModulo(moduloIndex, updatedModulo); // Atualiza o módulo no estado do componente pai
-            return updatedModulo;
-        });
-        setMostrarQuestionario(false); // Fecha o modal de questionário
     };
+
+   
+    const handleSalvarQuestionario = (questoes) => {
+        // valores do questionario
+        const questionarioData = {
+            idModulo: moduloIndex,  
+            perguntas: questoes.map(questao => ({
+                pergunta: questao.texto,
+                respostas: questao.alternativas.map(alt => ({
+                    resposta: alt.texto,
+                    respostaCerta: alt.correta
+                }))
+            }))
+        };
+
+        const token = localStorage.getItem('authToken');
+
+        
+        api.post('/questionarios', questionarioData, {
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`  
+            }
+        })
+            .then(response => {
+               
+                toast.success('Questionário salvo com sucesso!');
+
+                setModulo((prevModulo) => {
+                    const updatedModulo = {
+                        ...prevModulo,
+                        questionario: questoes  
+                    };
+                    atualizarModulo(moduloIndex, updatedModulo);  // Atualiza o módulo no componente pai (ButtonNovoCurso)
+                    return updatedModulo;
+                });
+
+                
+                setMostrarQuestionario(false);
+            })
+            .catch(error => {
+              
+                toast.error('Erro ao salvar o questionário.');
+                console.error(error);
+            });
+
+    };
+
 
     return (
         <div className="container-modulo">
@@ -131,7 +169,12 @@ function AdicionarModulos({ moduloIndex, atualizarModulo, removerModulo }) {
                 <QuizRoundedIcon /> Criar Questionário
             </button>
 
-            {mostrarQuestionario && <Questionario onClose={toggleQuestionario} onSave={handleSalvarQuestionario} />}
+            {mostrarQuestionario &&
+                <Questionario
+                    idModulo={modulo.id}
+                    onSave={handleSalvarQuestionario}
+                    onClose={toggleQuestionario}
+                />}
         </div>
     );
 }

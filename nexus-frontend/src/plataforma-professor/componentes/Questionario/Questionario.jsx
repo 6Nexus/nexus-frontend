@@ -3,7 +3,6 @@ import './Questionario.css';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { toast } from 'react-toastify';
 
-
 function Questao({ questao, atualizarQuestao, deletarQuestao, index }) {
     const [texto, setTexto] = useState(questao.texto || '');
     const [alternativas, setAlternativas] = useState(questao.alternativas || []);
@@ -56,7 +55,7 @@ function Questao({ questao, atualizarQuestao, deletarQuestao, index }) {
                 value={texto}
                 onChange={handleTextoChange}
                 placeholder="Digite a pergunta"
-            /> 
+            />
             <button className="btn-add-alternativa" type="button" onClick={addAlternativa}>
                 + Alternativa
             </button>
@@ -90,14 +89,15 @@ function Questao({ questao, atualizarQuestao, deletarQuestao, index }) {
     );
 }
 
-function Questionario({ onClose, onSave }) {
+function Questionario({ onClose, onSave}) {
     const [questoes, setQuestoes] = useState([]);
 
     const handleAddQuestao = () => {
         setQuestoes([...questoes, { id: Date.now(), texto: '', alternativas: [] }]);
     };
 
-    const handleSalvarQuestionario = () => {
+    // os dados daqui é passado para onSave no componente AdicionarModulos
+    const handleAdicionarQuestionario = () => {
         if (questoes.length === 0) {
             toast.warning('Adicione pelo menos uma questão antes de salvar.');
             return;
@@ -130,7 +130,7 @@ function Questionario({ onClose, onSave }) {
             }
         }
 
-
+        // chama onSave do AdicionarModulos envia as questões de volta para AdicionarModulos
         onSave(questoes);
         console.log('Questionário Adicionado', questoes)
         toast.success('Questionário Adicionado!')
@@ -163,7 +163,7 @@ function Questionario({ onClose, onSave }) {
                     />
                 ))}
                 <button type="button" className='btn-add-questao' onClick={handleAddQuestao}>Adicionar Questão</button>
-                <button type="button" className='btn-salvar-questionario' onClick={handleSalvarQuestionario}>Adicionar Questionário</button>
+                <button type="button" className='btn-salvar-questionario' onClick={handleAdicionarQuestionario}>Adicionar Questionário</button>
 
             </div>
         </div>
