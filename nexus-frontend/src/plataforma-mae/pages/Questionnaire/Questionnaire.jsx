@@ -3,10 +3,14 @@ import api from "./../../../api";
 import styles from './Questionnaire.module.css';
 import Main from "../Main/Main";
 import { Checkbox, Radio } from "@mui/material";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { useNavigation } from "../../../NavigationContext"; // Hook de navegação
 
 const Questionnaire = () => {
     const { idModule } = useParams();
+    const navigate = useNavigate();
+    const { pilha, removeFromPilha } = useNavigation(); // Gerenciamento da pilha de navegação
+
     const [dataQuestionnaire, setDataQuestionnaire] = useState(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState([]);
@@ -55,8 +59,19 @@ const Questionnaire = () => {
 
     const currentQuestion = dataQuestionnaire.perguntas[currentQuestionIndex];
 
+    // Lógica de navegação de "Voltar"
+    const handleBackNavigation = () => {
+        if (pilha.length > 1) {
+            const previousUrl = pilha[pilha.length - 2]; // Recupera a URL anterior na pilha
+            removeFromPilha(); // Remove a URL atual da pilha
+            navigate(previousUrl); // Navega para a página anterior
+        } else {
+            navigate('/aluno/cursos'); // Caso não tenha pilha vai para cursos
+        }
+    };
+
     return (
-        <Main showReturnPages>
+        <Main enableReturnPages={true}>
             <div className={styles['content__info']}>
                 <h2>{dataQuestionnaire.titulo}</h2>
                 <p>{dataQuestionnaire.descricao}</p>
@@ -105,10 +120,9 @@ const Questionnaire = () => {
             <div className={styles['content__buttons']}>
                 <button
                     className={styles['buttons__back']}
-                    onClick={handlePreviousQuestion}
-                    disabled={currentQuestionIndex === 0}
+                    onClick={currentQuestionIndex === 0 ? handleBackNavigation : handlePreviousQuestion}
                 >
-                    Voltar
+                    {currentQuestionIndex === 0 ? "Voltar" : "Anterior"}
                 </button>
                 {selectedAnswers.length === dataQuestionnaire.perguntas.length &&
                     selectedAnswers.every(answer => answer !== null) &&

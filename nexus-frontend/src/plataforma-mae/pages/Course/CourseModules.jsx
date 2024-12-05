@@ -5,12 +5,22 @@ import styles from './CourseModules.module.css';
 import Main from "../Main/Main";
 import CardModules from "../../components/CardModules/CardModules";
 import BannerInfoCourse from "../../components/BannerInfoCourse/BannerInfoCourse";
+import { useNavigation } from "../../../NavigationContext";
 
 const CourseModules = () => {
     const { idCurso } = useParams();
     const [modules, setModules] = useState([]);
     const [course, setCourse] = useState([]);
     const navigate = useNavigate();
+    const { addToPilha } = useNavigation();
+
+    useEffect(() => {
+        buscarCurso();
+        buscarModulos();
+
+        // Adiciona a URL atual à pilha ao carregar
+        addToPilha(window.location.pathname);
+    }, [idCurso]);
 
     const buscarCurso = () => {
         api.get(`/cursos/${idCurso}`)
@@ -24,13 +34,14 @@ const CourseModules = () => {
             .catch((e) => console.log("Erro ao buscar módulos:", e));
     };
 
-    useEffect(() => {
-        buscarCurso();
-        buscarModulos();
-    }, []);
+    const handleNavigation = (idModule) => {
+        const nextUrl = `/detalhes-modulo/${idModule}`;
+        addToPilha(nextUrl); // Adiciona a próxima URL à pilha antes de navegar
+        navigate(nextUrl);
+    };
 
     return (
-        <Main showReturnPages={true}>
+        <Main enableReturnPages={true}>
             <div className={styles["info"]}>
                 <BannerInfoCourse
                     courseName={course.titulo}
@@ -48,6 +59,7 @@ const CourseModules = () => {
                         idCourse={idCurso}
                         title={module.titulo}
                         subtitle={module.titulo}
+                        onClick={() => handleNavigation(module.id)}
                     />
                 ))}
             </div>

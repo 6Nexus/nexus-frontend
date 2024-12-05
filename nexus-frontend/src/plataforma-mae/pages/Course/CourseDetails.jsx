@@ -1,25 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams, useNavigate } from 'react-router-dom';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import styles from './CourseDetails.module.css';
 import Main from "../Main/Main";
 import YoutubePlaylist from "../../components/PlaylistYt/YoutubePlaylist";
 import BannerInfoModule from "../../components/BannerInfoModule/BannerInfoModule";
+import { useNavigation } from "../../../NavigationContext";
 
 const CourseDetails = () => {
     const { idModule } = useParams();
     const navigate = useNavigate();
+    const { addToPilha } = useNavigation();
+
+    useEffect(() => {
+        // Adiciona a URL atual à pilha ao carregar
+        addToPilha(window.location.pathname);
+    }, [idModule]);
 
     const handleNavigation = (route) => {
+        addToPilha(route); // Adiciona a próxima URL à pilha antes de navegar
         navigate(route);
     };
 
     return (
-        <Main showReturnPages={true}>
+        <Main enableReturnPages={true}>
             <div className={styles["content__info"]}>
                 <BannerInfoModule 
-                    titleModule="Modulo 1" 
-                    descriptionModule="Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam! Aut impedit assumenda rem odio quibusdam id nulla doloribus quo reprehenderit nisi in distinctio amet qui consequuntur sequi sit natus dolorem." 
+                    titleModule="Módulo 1" 
+                    descriptionModule="Lorem ipsum dolor sit amet."
                     duration="20" 
                     date="24/09/2023"
                 />
@@ -32,7 +40,7 @@ const CourseDetails = () => {
             />
 
             <div className={styles['content__questionnaire']}>
-                <div className={styles['questionnaire']}>
+            <div className={styles['questionnaire']}>
                     <WorkspacePremiumIcon 
                         className={styles['questionnaire__icon']} 
                         sx={{ fontSize: 48 }} 
@@ -42,7 +50,6 @@ const CourseDetails = () => {
                         <p>10 perguntas sobre os conhecimentos adquiridos durante as aulas</p>
                     </div>
                 </div>
-
                 <button 
                     className={styles['questionnaire__button']} 
                     onClick={() => handleNavigation(`/aluno/questionario/${idModule}`)}
