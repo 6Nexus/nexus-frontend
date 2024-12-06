@@ -76,7 +76,7 @@ const Course = () => {
                                     />
                                 ))
                             ) : (
-                                <ContentNotFound content="cursos" />
+                                <ContentNotFound content="Desculpe, não encontramos cursos disponíveis para essa categoria no momento." />
                             )}
                         </div>
                     </div>

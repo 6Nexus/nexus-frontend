@@ -29,6 +29,15 @@
     margin: 0px;
 }
 
+.disable {
+    background-color: #EDEBEB;
+    cursor: not-allowed;
+}
+
+.disable__text {
+    color: var(--secondary-grey);
+}
+
 .main__text, .description__date {
     font-family: 'Inter-Regular';
     color: var(--primary-grey);

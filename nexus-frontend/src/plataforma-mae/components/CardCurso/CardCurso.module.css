@@ -58,6 +58,21 @@
     font-size: 16px;
 }
 
+.card-curso-container__info__content__button button {
+    display: flex;
+    flex-direction: column;
+    border: none;
+    align-items: center;
+    gap: 8px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+
+.content__button__icon-liked {
+    color: var(--primary-green);
+}
+
 .card-curso-container__button {
     display: flex;
     flex-direction: row;

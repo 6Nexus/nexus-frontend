@@ -1,7 +1,5 @@
 import React from "react";
 import styles from './ProfileSettings.module.css'
-import SideBar from '../../components/SideBar/SideBar'
-import SearchBar from "../../components/SearchBar/SearchBar";
 import DownloadIcon from '@mui/icons-material/Download';
 import Main from "../Main/Main";
 import { Formik, Form, Field } from 'formik';

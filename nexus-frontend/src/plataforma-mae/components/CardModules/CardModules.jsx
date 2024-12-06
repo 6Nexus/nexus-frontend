@@ -1,8 +1,8 @@
 import * as React from "react";
 import styles from './CardModules.module.css'
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
-const CardModules = ({ idModule, idCourse, title, subtitle, inProgress }) => {
+const CardModules = ({ idModule, idCourse, title, subtitle, inProgress, showButton }) => {
     const navigate = useNavigate();
 
     const handleNavigation = (route) => {
@@ -10,12 +10,12 @@ const CardModules = ({ idModule, idCourse, title, subtitle, inProgress }) => {
     };
     return (
         <>
-            <div className={styles["card-curso-container"]}>
+            <div className={showButton ? styles["card-curso-container"] : `${styles['card-curso-container']} ${styles['disable']}` }>
                 <div className={styles['card-curso-container__informations']}>
-                    <h1 className={styles['description__title']}>{title}</h1>
-                    <p className={styles['description__subtitle']}>{subtitle}</p>
+                    <h1 className={showButton ? styles['description__title'] : `${styles['description__title']} ${styles['disable__text']}`}>{title}</h1>
+                    <p className={showButton ? styles['description__subtitle'] : `${styles['description__subtitle']} ${styles['disable__text']}` }>{subtitle}</p>
                 </div>
-                {inProgress ?
+                {inProgress ? (
                     <div className={styles['card-curso-container__actions']}>
                         <div className={styles['actions__progress']}>
                             <div className={styles['progress__base']}>
@@ -28,11 +28,13 @@ const CardModules = ({ idModule, idCourse, title, subtitle, inProgress }) => {
                             Continuar
                         </button>
                     </div>
-                    :
-                    <button className={styles['card-curso-container__button']} onClick={() => handleNavigation(`/aluno/cursos/${idCourse}/modulos/${idModule}`)}>
-                        Começar
-                    </button>
-                }
+                ) : (
+                    showButton && (
+                        <button className={styles['card-curso-container__button']} onClick={() => handleNavigation(`/aluno/cursos/${idCourse}/modulos/${idModule}`)}>
+                            Começar
+                        </button>
+                    )
+                )}
             </div>
         </>
     );
