@@ -4,17 +4,18 @@ import HeaderCategory from "../../components/HeaderCategory/HeaderCategory";
 import CardCertificate from "../../components/CardCertificate/CardCertificate";
 import Pagination from '@mui/material/Pagination';
 import Main from "../Main/Main.jsx";
-import apiCurso from "../../../apiCursos";
+import api from "../../../api";
 
 const Certificates = () => {
+    const id = sessionStorage.getItem('userId');
+    const name = sessionStorage.getItem('usuario');
     const [cardsData, setCardsData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const cardsPerPage = 5;
 
     function buscarCertificados() {
-        apiCurso.get().then((response) => {
+        api.get(`/cursos/associado/${id}/certificados`).then((response) => {
             const { data } = response;
-            console.log(data);
             setCardsData(data)
 
         }).catch((e) => {
@@ -47,7 +48,7 @@ const Certificates = () => {
 
                             <CardCertificate
                                 id={data.id}
-                                name="Maria Eduarda Veroneze"
+                                name={name}
                                 module="Culinária Italiana"
                                 title={data.titulo}
                                 teacher={data.professor}
