@@ -10,9 +10,10 @@ function ButtonNovoCurso({ onClose }) {
     const [curso, setCurso] = useState({
         titulo: '',
         descricao: '',
-        imagem: null,
+        // imagem: null,
         categoria: '',
-        modulos: [] 
+        idProfessor: Number(sessionStorage.getItem('userId'))
+        // modulos: [] 
     });
 
     const handleInputChange = (e) => {
@@ -42,7 +43,7 @@ function ButtonNovoCurso({ onClose }) {
 
     const handleSalvarCurso = (e) => {
         e.preventDefault();
-        const { titulo, descricao, categoria, modulos } = curso;
+        const { titulo, descricao, categoria } = curso;
 
         
         if (!titulo || !descricao || !categoria) {
@@ -50,59 +51,59 @@ function ButtonNovoCurso({ onClose }) {
             return;
         }
 
-        if (modulos.length === 0) {
-            toast.warning('Por favor, adicione pelo menos um módulo ao curso!');
-            return;
-        }
+        // if (modulos.length === 0) {
+        //     toast.warning('Por favor, adicione pelo menos um módulo ao curso!');
+        //     return;
+        // }
 
-        // Log para verificar o estado dos módulos
-        console.log("Módulos no momento da validação:", modulos);
+        // // Log para verificar o estado dos módulos
+        // console.log("Módulos no momento da validação:", modulos);
 
-        // Validação dos módulos
-        for (let i = 0; i < modulos.length; i++) {
-            console.log("Validando módulo:", modulos[i]); // Log do módulo
-            if (!modulos[i].titulo || !modulos[i].descricao) {
-                toast.warning(`Por favor, preencha todos os campos do módulo ${i + 1}`);
-                return;
-            }
+        // // Validação dos módulos
+        // for (let i = 0; i < modulos.length; i++) {
+        //     console.log("Validando módulo:", modulos[i]); // Log do módulo
+        //     if (!modulos[i].titulo || !modulos[i].descricao) {
+        //         toast.warning(`Por favor, preencha todos os campos do módulo ${i + 1}`);
+        //         return;
+        //     }
 
-            // Verificação das aulas
-            if (modulos[i].aulas.length === 0) {
-                toast.warning(`O módulo ${i + 1} não possui aulas. Por favor, adicione pelo menos uma aula!`);
-                return;
-            }
+        //     // Verificação das aulas
+        //     if (modulos[i].aulas.length === 0) {
+        //         toast.warning(`O módulo ${i + 1} não possui aulas. Por favor, adicione pelo menos uma aula!`);
+        //         return;
+        //     }
 
-            for (let j = 0; j < modulos[i].aulas.length; j++) {
+        //     for (let j = 0; j < modulos[i].aulas.length; j++) {
 
-                console.log("Validando aula:", modulos[i].aulas[j]); // Log da aula 
+        //         console.log("Validando aula:", modulos[i].aulas[j]); // Log da aula 
 
-                if (!modulos[i].aulas[j].titulo || !modulos[i].aulas[j].descricao) {
-                    toast.warning(`Por favor, preencha todos os campos da aula ${j + 1} no módulo ${i + 1}`);
-                    return;
-                }
+        //         if (!modulos[i].aulas[j].titulo || !modulos[i].aulas[j].descricao) {
+        //             toast.warning(`Por favor, preencha todos os campos da aula ${j + 1} no módulo ${i + 1}`);
+        //             return;
+        //         }
                 
-                if(!modulos[i].aulas[j].conteudos.video){
-                    toast.warning(`A aula ${j + 1} não possui um vídeo. Adicione um conteúdo de vídeo!`)
-                }
+        //         if(!modulos[i].aulas[j].conteudos.video){
+        //             toast.warning(`A aula ${j + 1} não possui um vídeo. Adicione um conteúdo de vídeo!`)
+        //         }
 
 
-            }
+        //     }
 
-            // Verificação se não tem questionário no módulo 
-            if (modulos[i].questionario.length === 0) {
-                toast.warning(`O módulo ${i + 1} não possui questionário. Por favor, adicione pelo menos uma questão!`);
-                return;
-            }   
-        }
+        //     // Verificação se não tem questionário no módulo 
+        //     if (modulos[i].questionario.length === 0) {
+        //         toast.warning(`O módulo ${i + 1} não possui questionário. Por favor, adicione pelo menos uma questão!`);
+        //         return;
+        //     }   
+        // }
 
-        const cursoValues = {
-            titulo: curso.titulo,
-            descricao: curso.descricao,
-            categoria: curso.categoria,
-            modulos: curso.modulos, 
-        }
+        // const cursoValues = {
+        //     titulo: curso.titulo,
+        //     descricao: curso.descricao,
+        //     categoria: curso.categoria,
+        //     modulos: curso.modulos, 
+        // }
 
-        api.post('/curso', curso, {
+        api.post('/cursos', curso, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -111,7 +112,7 @@ function ButtonNovoCurso({ onClose }) {
         .then((response) => {
             if (response.status === 201) {
                 toast.success('Curso criado com sucesso!');
-                console.log(cursoValues); 
+                // console.log(cursoValues); 
                 resetForm(); 
             } else {
                 throw new Error('Ops! Ocorreu um erro interno, tente mais tarde.');
@@ -131,9 +132,9 @@ function ButtonNovoCurso({ onClose }) {
         setCurso({
             titulo: '',
             descricao: '',
-            imagem: null,
+            // imagem: null,
             categoria: '',
-            modulos: []
+            // modulos: []
         });
     };
 
@@ -202,7 +203,7 @@ function ButtonNovoCurso({ onClose }) {
                         + Módulo
                     </button>
 
-                    {curso.modulos.map((modulo, index) => (
+                    {/* {curso.modulos.map((modulo, index) => (
                         <AdicionarModulos
                         key={index}
                         moduloIndex={index}
@@ -223,7 +224,7 @@ function ButtonNovoCurso({ onClose }) {
                             }));
                         }}
                     />                    
-                    ))}
+                    ))} */}
 
                     <button type="submit" className="btn-submit">Salvar Curso</button>
                 </form>
