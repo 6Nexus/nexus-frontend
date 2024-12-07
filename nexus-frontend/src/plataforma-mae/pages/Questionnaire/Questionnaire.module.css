@@ -32,6 +32,7 @@
     align-items: center;
     justify-content: center;
     gap: 4px;
+    cursor: pointer;
 }
 
 .content__question, .content__review {

@@ -37,10 +37,10 @@ section .section-professor {
     margin-top: 10px; 
 }
 
-input {
+/* input {
     padding: 10px;
     box-sizing: border-box; 
-}
+} */
 
 
 
@@ -254,9 +254,9 @@ input {
 }
 
 
-section {
+/* section {
     min-height: 100vh;
-}
+} */
 
 
 @media (max-width: 600px) {
