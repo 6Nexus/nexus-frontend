@@ -4,7 +4,8 @@ import DownloadIcon from '@mui/icons-material/Download';
 
 const ButtonMaterial = () => {
     const handleDownload = () => {
-        const fileUrl = 'https://example.com/arquivos/teste_doc.docx'; 
+        const fileUrl = 'https://drive.google.com/uc?export=download&id=1vyxMiQZD2as7v-93uc5zvAb00JN-9yUN';
+
         const link = document.createElement('a');
         link.href = fileUrl;
         link.download = 'material_de_apoio.docx'; 
