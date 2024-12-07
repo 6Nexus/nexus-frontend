@@ -97,7 +97,6 @@ const CourseDetails = () => {
 
             <YoutubePlaylist
                 titlePlaylist="Próximas aulas"
-                playlistId="PL29TaWXah3iaqOejItvW--TaFr9NcruyQ"
                 isCursoDetails={true}
             />
 

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styles from './Certificates.module.css'
-import HeaderCategory from "../../components/HeaderCategory/HeaderCategory";
 import CardCertificate from "../../components/CardCertificate/CardCertificate";
 import Pagination from '@mui/material/Pagination';
 import Main from "../Main/Main.jsx";
 import api from "../../../api";
+import ContentNotFound from "../../components/ContentNotFound/ContentNotFound";
 
 const Certificates = () => {
     const id = sessionStorage.getItem('userId');
@@ -41,24 +41,27 @@ const Certificates = () => {
             <div className={styles["certificates-container"]}>
 
                 <div className={styles["certificates-container__content"]}>
-                    <HeaderCategory />
 
                     <div className={styles['certificates-container__content__cardCertificateList']}>
-                        {currentCards && currentCards.map((data, _) => (
+                        <p className={styles["cardCertificateList__title"]}>Certificados encontrados</p>
+                        {currentCards && currentCards.length > 0 ? (
+                            currentCards.map((data, _) => (
+                                <CardCertificate
+                                    id={data.id}
+                                    name={name}
+                                    module="Culinária Italiana"
+                                    title={data.titulo}
+                                    teacher={data.professor}
+                                    duration="4"
+                                    date={data.dataFim}
+                                />
 
-                            <CardCertificate
-                                id={data.id}
-                                name={name}
-                                module="Culinária Italiana"
-                                title={data.titulo}
-                                teacher={data.professor}
-                                duration="4"
-                                date={data.dataFim}
-                            />
-
-                        ))}
+                            ))
+                        ) : (
+                            <ContentNotFound content="Desculpe, não encontramos nenhum certificado." />
+                        )}
                     </div>
-                    <Pagination
+                    {cardsData && (<Pagination
                         count={Math.ceil(cardsData.length / cardsPerPage)}
                         page={currentPage}
                         onChange={handleChange}
@@ -80,8 +83,7 @@ const Certificates = () => {
                                 color: 'white',
                             },
                         }}
-                    />
-
+                    />)}
                 </div>
             </div>
         </Main>

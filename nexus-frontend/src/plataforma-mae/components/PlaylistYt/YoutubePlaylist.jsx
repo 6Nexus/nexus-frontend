@@ -1,38 +1,76 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../../../api'
+import axios from 'axios';
 import styles from './YoutubePlaylist.module.css';
 import PlayCircleOutlineIcon from '@mui/icons-material/PlayCircleOutline';
 import IconCourse from '../../../utils/assets/course.svg';
 import ButtonMaterial from '../ButtonMaterial/ButtonMaterial';
+import Skeleton from '@mui/material/Skeleton';
+import Stack from '@mui/material/Stack';
 
 const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails }) => {
   const { idModule } = useParams();
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [loading, setLoading] = useState(true);
+  const API_YOUTUBE_KEY = 'AIzaSyBWPdWoACygsmbt5jhGJ1ff-DWBV_8ojUY';
 
   useEffect(() => {
     const fetchVideos = async () => {
       try {
-        const res = await api.get(`/videos/modulo/${idModule}`);
-        if (res.data) {
-          setVideos(res.data);
-          setSelectedVideo(res.data[0]);
+        if (playlistId) {
+          const res = await axios.get(
+            `https://www.googleapis.com/youtube/v3/playlistItems`,
+            {
+              params: {
+                part: 'snippet',
+                playlistId: playlistId,
+                maxResults: 50,
+                key: API_YOUTUBE_KEY,
+              },
+            }
+          );
+          if (res.data.items) {
+            const formattedVideos = res.data.items.map((item) => ({
+              id: item.snippet.resourceId.videoId,
+              titulo: item.snippet.title,
+              youtubeUrl: item.snippet.resourceId.videoId,
+              thumbnail: item.snippet.thumbnails?.medium?.url,
+            }));
+            setVideos(formattedVideos);
+            setSelectedVideo(formattedVideos[0]);
+          }
+        } else {
+          const res = await api.get(`/videos/modulo/${idModule}`);
+          if (res.data) {
+            setVideos(res.data);
+            setSelectedVideo(res.data[0]);
+          }
         }
       } catch (error) {
-        console.error('Erro ao buscar videos:', error);
+        console.error('Erro ao buscar vídeos:', error);
       } finally {
         setLoading(false);
       }
     };
 
     fetchVideos();
-
-  }, []);
+  }, [playlistId, idModule]);
 
   if (loading) {
-    return <p>Carregando aulas...</p>;
+    return (
+      <Stack spacing={2} sx={{ padding: '1rem' }}>
+        <Skeleton variant="text" width="20%" height={20}/>
+        <Skeleton variant="rectangular" width="100%" height={500} />
+        <Skeleton variant="text" width="20%" height={20}/>
+        <Stack direction="column" spacing={2}>
+          {[...Array(3)].map((_, index) => (
+            <Skeleton key={index} variant="rectangular" width="100%" height={100} />
+          ))}
+        </Stack>
+      </Stack>
+    );
   }
 
   return (
