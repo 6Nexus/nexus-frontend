@@ -44,7 +44,7 @@ function Rotas() {
                 <Route path="/aluno/cursos" element={<Course />} />
                 <Route path="/aluno/cursos/:idCurso/modulos" element={<CourseModules />} />
                 <Route path="/aluno/cursos/:idCurso/modulos/:idModule" element={<CourseDetails />} />
-                <Route path="/aluno/questionario/:idModule" element={<Questionnaire />} />
+                <Route path="/aluno/questionario/:idCurso/:idModule" element={<Questionnaire />} />
                 <Route path="/aluno/instrucoes" element={<Instructions />} />
                 <Route path="/aluno/perfil" element={<ProfileSettings />} />
                 <Route path="/aluno/certificados" element={<Certificates />} />

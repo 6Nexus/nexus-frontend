@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
 import styles from './Certificates.module.css'
-import SideBar from "../../components/SideBar/SideBar";
-import SearchBar from "../../components/SearchBar/SearchBar";
-import HeaderCategory from "../../components/HeaderCategory/HeaderCategory";
 import CardCertificate from "../../components/CardCertificate/CardCertificate";
 import Pagination from '@mui/material/Pagination';
-
-import apiCurso from "../../../apiCursos";
+import Main from "../Main/Main.jsx";
+import api from "../../../api";
+import ContentNotFound from "../../components/ContentNotFound/ContentNotFound";
 
 const Certificates = () => {
+    const id = sessionStorage.getItem('userId');
+    const name = sessionStorage.getItem('usuario');
     const [cardsData, setCardsData] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
     const cardsPerPage = 5;
 
     function buscarCertificados() {
-        apiCurso.get().then((response) => {
+        api.get(`/cursos/associado/${id}/certificados`).then((response) => {
             const { data } = response;
-            console.log(data);
             setCardsData(data)
 
         }).catch((e) => {
@@ -38,31 +37,33 @@ const Certificates = () => {
     }, [])
 
     return (
-        <>
+        <Main>
             <div className={styles["certificates-container"]}>
-                <SideBar backgroundColor={'#245024'} />
 
                 <div className={styles["certificates-container__content"]}>
-                    <SearchBar />
-                    <HeaderCategory />
 
                     <div className={styles['certificates-container__content__cardCertificateList']}>
-                        {currentCards && currentCards.map((data, _) => (
+                        <p className={styles["cardCertificateList__title"]}>Certificados encontrados</p>
+                        {currentCards && currentCards.length > 0 ? (
+                            currentCards.map((data, _) => (
+                                <CardCertificate
+                                    id={data.id}
+                                    name={name}
+                                    module="Culinária Italiana"
+                                    title={data.titulo}
+                                    teacher={data.professor}
+                                    duration="4"
+                                    date={data.dataFim}
+                                />
 
-                            <CardCertificate
-                                id={data.id}
-                                title={data.titulo}
-                                teacher={data.professor}
-                                duration="4"
-                                date={data.dataFim}
-                            />
-
-                        ))}
+                            ))
+                        ) : (
+                            <ContentNotFound content="Desculpe, não encontramos nenhum certificado." />
+                        )}
                     </div>
-
-                    <Pagination
+                    {cardsData && (<Pagination
                         count={Math.ceil(cardsData.length / cardsPerPage)}
-                        page={currentPage} 
+                        page={currentPage}
                         onChange={handleChange}
                         variant="outlined"
                         shape="rounded"
@@ -72,21 +73,20 @@ const Certificates = () => {
                             padding: '8px',
                             borderRadius: '30px',
                             '& .MuiPaginationItem-root': {
-                                color: '#245024', 
+                                color: '#245024',
                                 border: 'none',
                                 borderRadius: '50%',
-                                fontSize:'16px'
+                                fontSize: '16px'
                             },
                             '& .MuiPaginationItem-root.Mui-selected': {
-                                backgroundColor: '#3B9D3B', 
+                                backgroundColor: '#3B9D3B',
                                 color: 'white',
                             },
                         }}
-                    />
-
+                    />)}
                 </div>
             </div>
-        </>
+        </Main>
     );
 };
 export default Certificates
