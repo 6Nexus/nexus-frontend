@@ -98,28 +98,33 @@ function ButtonNovoCurso({ onClose }) {
 
         //         console.log("Validando aula:", modulos[i].aulas[j]); // Log da aula 
 
-        //         if (!modulos[i].aulas[j].titulo || !modulos[i].aulas[j].descricao) {
-        //             toast.warning(`Por favor, preencha todos os campos da aula ${j + 1} no módulo ${i + 1}`);
-        //             return;
-        //         }
-
-        //         if(!modulos[i].aulas[j].conteudos.video){
-        //             toast.warning(`A aula ${j + 1} não possui um vídeo. Adicione um conteúdo de vídeo!`)
-        //         }
+                if (!modulos[i].aulas[j].titulo || !modulos[i].aulas[j].descricao) {
+                    toast.warning(`Por favor, preencha todos os campos da aula ${j + 1} no módulo ${i + 1}`);
+                    return;
+                }
+                
+                if(!modulos[i].aulas[j].conteudos.video){
+                    toast.warning(`A aula ${j + 1} não possui um vídeo. Adicione um conteúdo de vídeo!`)
+                }
 
 
         //     }
 
-        //     // Verificação se não tem questionário no módulo 
-        //     if (modulos[i].questionario.length === 0) {
-        //         toast.warning(`O módulo ${i + 1} não possui questionário. Por favor, adicione pelo menos uma questão!`);
-        //         return;
-        //     }   
-        // }
+            // Verificação se não tem questionário no módulo 
+            if (modulos[i].questionario.length === 0) {
+                toast.warning(`O módulo ${i + 1} não possui questionário. Por favor, adicione pelo menos uma questão!`);
+                return;
+            }   
+        }
 
-        
+        const cursoValues = {
+            titulo: curso.titulo,
+            descricao: curso.descricao,
+            categoria: curso.categoria,
+            modulos: curso.modulos, 
+        }
 
-        api.post('/cursos', curso, {
+        api.post('/curso', curso, {
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -145,7 +150,8 @@ function ButtonNovoCurso({ onClose }) {
                 );
     
                 toast.success('Curso criado com sucesso!');
-                resetForm(); // Resetando o formulário após o sucesso
+                console.log(cursoValues); 
+                resetForm(); 
             } else {
                 throw new Error('Ops! Ocorreu um erro interno, tente mais tarde.');
             }
@@ -235,16 +241,27 @@ function ButtonNovoCurso({ onClose }) {
                         + Módulo
                     </button>
 
-                    {modulos.map((modulo, index) => (
+                    {curso.modulos.map((modulo, index) => (
                         <AdicionarModulos
-                            key={index}
-                            moduloIndex={index}
-                            modulo={modulo}
-                            atualizarModulo={handleAtualizarModulo}
-                            removerModulo={() => {
-                                setModulos((prevModulos) => prevModulos.filter((_, i) => i !== index));
-                            }}
-                        />
+                        key={index}
+                        moduloIndex={index}
+                        atualizarModulo={(moduloIndex, updatedModulo) => {
+                            const modulosAtualizados = curso.modulos.map((m, i) =>
+                                i === moduloIndex ? updatedModulo : m
+                            );
+                            setCurso((prevCurso) => ({
+                                ...prevCurso,
+                                modulos: modulosAtualizados,
+                            }));
+                        }}
+                        removerModulo={() => {
+                            const modulosAtualizados = curso.modulos.filter((_, i) => i !== index);
+                            setCurso((prevCurso) => ({
+                                ...prevCurso,
+                                modulos: modulosAtualizados,
+                            }));
+                        }}
+                    />                    
                     ))}
 
                     <button type="submit" className="btn-submit">Salvar Curso</button>
