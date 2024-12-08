@@ -6,19 +6,27 @@ import styles from './CourseDetails.module.css';
 import Main from "../Main/Main";
 import YoutubePlaylist from "../../components/PlaylistYt/YoutubePlaylist";
 import BannerInfoModule from "../../components/BannerInfoModule/BannerInfoModule";
+import { useNavigation } from "../../../NavigationContext";
 
 const CourseDetails = () => {
     const { idModule, idCurso } = useParams();
     const [idRegistration, setIdRegistration] = useState(null);
     const [idQuestionnaire, setIdQuestionnaire] = useState(null);
-    const [questionnaireTitle, setQuestionnaireTitle] = useState(null);
-    const [questionnaireDescription, setQuestionnaireDescription] = useState(null);
+    const [questionnaireTitle, setQuestionnaireTitle] = useState("Certificado de React");
+    const [questionnaireDescription, setQuestionnaireDescription] = useState("10 perguntas sobre os conhecimentos adquiridos durante as aulas");
     const userId = sessionStorage.getItem('userId');
     const [showButtonQuestionnaire, setShowButtonQuestionnaire] = useState(true);
     const [showSecondaryButton, setShowSecondaryButton] = useState(false);
     const navigate = useNavigate();
+    const { addToPilha } = useNavigation();
+
+    useEffect(() => {
+        // Adiciona a URL atual à pilha ao carregar
+        addToPilha(window.location.pathname);
+    }, [idModule]);
 
     const handleNavigation = (route) => {
+        addToPilha(route); // Adiciona a próxima URL à pilha antes de navegar
         navigate(route);
     };
 
@@ -30,9 +38,8 @@ const CourseDetails = () => {
                     if (data.pontuacao >= 75) {
                         setShowButtonQuestionnaire(false);
                     }
-
                     if (data && data.pontuacao < 75) {
-                        setShowSecondaryButton(true)
+                        setShowSecondaryButton(true);
                     }
                 })
                 .catch((e) => {
@@ -47,8 +54,8 @@ const CourseDetails = () => {
                 if (response.data && response.data.id) {
                     setIdQuestionnaire(response.data.id);
                     setQuestionnaireTitle(response.data.titulo);
-                    setQuestionnaireDescription(response.data.descricao)
-                } 
+                    setQuestionnaireDescription(response.data.descricao);
+                }
             })
             .catch((e) => {
                 console.log("Erro ao buscar dados do questionário:", e);
@@ -60,7 +67,7 @@ const CourseDetails = () => {
             .then((response) => {
                 if (response.status === 200 && response.data) {
                     setIdRegistration(response.data);
-                } 
+                }
             })
             .catch((e) => {
                 console.log("Erro ao buscar dados da matrícula:", e);
@@ -85,11 +92,11 @@ const CourseDetails = () => {
     }, [idRegistration, idQuestionnaire]);
 
     return (
-        <Main showReturnPages={true}>
+        <Main enableReturnPages={true}>
             <div className={styles["content__info"]}>
                 <BannerInfoModule
-                    titleModule="Modulo 1"
-                    descriptionModule="Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam! Aut impedit assumenda rem odio quibusdam id nulla doloribus quo reprehenderit nisi in distinctio amet qui consequuntur sequi sit natus dolorem."
+                    titleModule="Módulo 1"
+                    descriptionModule="Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam!"
                     duration="20"
                     date="24/09/2023"
                 />
@@ -97,6 +104,7 @@ const CourseDetails = () => {
 
             <YoutubePlaylist
                 titlePlaylist="Próximas aulas"
+                playlistId="PL29TaWXah3iaqOejItvW--TaFr9NcruyQ"
                 isCursoDetails={true}
             />
 
@@ -130,7 +138,6 @@ const CourseDetails = () => {
                 ) : (
                     <p className={styles['questionnaire__text']}>Finalizado</p>
                 )}
-
             </div>
         </Main>
     );

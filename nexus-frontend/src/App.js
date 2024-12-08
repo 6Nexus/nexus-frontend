@@ -1,4 +1,5 @@
 import Rotas from "./routes";
+import './TestPilha'
 
 function App() {
   return (

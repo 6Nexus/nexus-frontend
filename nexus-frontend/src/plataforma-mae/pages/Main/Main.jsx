@@ -4,22 +4,22 @@ import SearchBar from "../../components/SearchBar/SearchBar";
 import ReturnPages from "../../components/ReturnPages/ReturnPages";
 import styles from "./Main.module.css";
 
-const Main = ({ children, showReturnPages }) => {
-    return (
-        <div className={styles.container}>
-            <SideBar backgroundColor={'#245024'} />
+const Main = ({ children, enableReturnPages }) => {
+  return (
+    <div className={styles.container}>
+      <SideBar backgroundColor={'#245024'} />
 
-            <div className={styles.content}>
-                <SearchBar />
+      <div className={styles.content}>
+        <SearchBar />
 
-                {showReturnPages && <ReturnPages />}
+        {enableReturnPages && <ReturnPages enableReturnPages={enableReturnPages} />}
 
-                <div className={styles.pageContent}>
-                    {children}
-                </div>
-            </div>
+        <div className={styles.pageContent}>
+          {children}
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default Main;
