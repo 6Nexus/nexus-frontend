@@ -8,7 +8,7 @@ const ContentNotFound = ({content}) => {
         <>
             <div className={styles["contentNotFound-container"]}>
                <img src={imgContentNotFound} alt="" />
-               <p>Desculpe, não encontramos {content} disponíveis para essa categoria no momento.</p>
+               <p>{content}</p>
             </div>  
         </>
     );

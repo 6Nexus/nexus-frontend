@@ -32,3 +32,18 @@
     margin: 0px;
 }
 
+.bannerInfoCourse-container__button {
+    background-color: var(--secondary-green);
+    border: 0px;
+    color: #fff;
+    font-size: 16px;
+    padding: 16px;
+    border-radius: 8px;
+    width: 10%;
+    cursor: pointer;
+
+    &&:hover {
+        background-color: var(--secondary-green-hover);
+    }
+}
+

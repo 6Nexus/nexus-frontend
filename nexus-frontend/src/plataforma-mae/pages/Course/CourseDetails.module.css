@@ -52,3 +52,13 @@
     width: 10%;
     height: fit-content;
 }
+
+.questionnaire__button-custom {
+    width: 15% !important;
+}
+
+.questionnaire__text {
+    color: var(--primary-green) !important;
+    margin-right: 8px !important;
+    font-weight: 800 !important;
+}

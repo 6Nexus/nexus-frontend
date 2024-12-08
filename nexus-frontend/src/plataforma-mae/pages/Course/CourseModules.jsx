@@ -5,14 +5,18 @@ import styles from './CourseModules.module.css';
 import Main from "../Main/Main";
 import CardModules from "../../components/CardModules/CardModules";
 import BannerInfoCourse from "../../components/BannerInfoCourse/BannerInfoCourse";
+import { toast, ToastContainer} from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { useNavigation } from "../../../NavigationContext";
 
 const CourseModules = () => {
+    const id = sessionStorage.getItem('userId');
     const { idCurso } = useParams();
     const [modules, setModules] = useState([]);
     const [course, setCourse] = useState([]);
-    const navigate = useNavigate();
+    const [registration, setRegistration] = useState(false);
     const { addToPilha } = useNavigation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         buscarCurso();
@@ -34,19 +38,47 @@ const CourseModules = () => {
             .catch((e) => console.log("Erro ao buscar módulos:", e));
     };
 
+    const verificarMatricula = () => {
+        api.get(`/matriculas/${id}/${idCurso}`)
+            .then(({ status }) => {
+                if (status == 200) {
+                    setRegistration(true);
+                }
+            })
+            .catch(() =>
+                toast.info(`Você ainda não tem acesso aos módulos deste curso. Para acessar, realize sua matrícula em apenas um clique!`, {
+                    position: "bottom-right",
+                    autoClose: 10000,
+                })
+            );
+    };
+
+    const atualizarDados = () => {
+        verificarMatricula();
+        buscarCurso();
+        buscarModulos();
+    };
+
     const handleNavigation = (idModule) => {
         const nextUrl = `/detalhes-modulo/${idModule}`;
         addToPilha(nextUrl); // Adiciona a próxima URL à pilha antes de navegar
         navigate(nextUrl);
     };
 
+    useEffect(() => {
+        atualizarDados();
+    }, []);
+
     return (
         <Main enableReturnPages={true}>
             <div className={styles["info"]}>
+                <ToastContainer/>
                 <BannerInfoCourse
                     courseName={course.titulo}
                     teacherName={course.professor}
                     description={course.descricao}
+                    showButton={!registration}
+                    onMatriculaConcluida={atualizarDados}
                 />
             </div>
 
@@ -59,6 +91,7 @@ const CourseModules = () => {
                         idCourse={idCurso}
                         title={module.titulo}
                         subtitle={module.titulo}
+                        showButton={registration}
                         onClick={() => handleNavigation(module.id)}
                     />
                 ))}
