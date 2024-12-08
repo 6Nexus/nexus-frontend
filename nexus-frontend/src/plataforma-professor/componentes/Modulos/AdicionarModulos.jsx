@@ -1,40 +1,48 @@
     import React, { useState } from 'react';
     import './AdicionarModulos.css';
-    import AdicionarAula from '../Aulas/AdicionarAulas';
+    //import AdicionarAula from '../Aulas/AdicionarAulas';
     import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
     import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
     import Questionario from '../Questionario/Questionario';
     import api from '../../../api';
     import { toast } from 'react-toastify';
+import ButtonNovoCurso from '../ButtonNovoCurso/ButtonNovoCurso';
 
     function AdicionarModulos({ moduloIndex, atualizarModulo, removerModulo }) {
+        // const [modulo, setModulo] = useState({
+        //     titulo: '',
+        //     descricao: '', 
+        //     aulas: [],
+        //     questionario: []
+        // });
+
         const [modulo, setModulo] = useState({
             titulo: '',
             descricao: '', 
-            aulas: [],
-            questionario: []
+            idCurso: ButtonNovoCurso.idCurso,
+            ordem: moduloIndex + 1
         });
 
         const handleChangeModulo = (e) => {
             const { name, value } = e.target;
             setModulo((prevModulo) => {
                 const updatedModulo = { ...prevModulo, [name]: value };
-                atualizarModulo(moduloIndex, updatedModulo);
+                atualizarModulo(moduloIndex, updatedModulo); // atauliza e retonar pro pai
                 return updatedModulo;
             });
         };
 
-        const handleAddAula = () => {
-            const novaAula = { titulo: '', descricao: '', conteudos: { video: '' } };
-            setModulo((prevModulo) => {
-                const updatedModulo = {
-                    ...prevModulo,
-                    aulas: [...prevModulo.aulas, novaAula]
-                };
-                atualizarModulo(moduloIndex, updatedModulo);
-                return updatedModulo;
-            });
-        };
+        // const handleAddAula = () => {
+        //     const novaAula = { titulo: '', descricao: '', conteudos: { video: '' } };
+        //     setModulo((prevModulo) => {
+        //         const updatedModulo = {
+        //             ...prevModulo,
+        //             aulas: [...prevModulo.aulas, novaAula]
+        //         };
+        //         atualizarModulo(moduloIndex, updatedModulo);
+        //         return updatedModulo;
+        //     });
+        // };
 
         const handleRemoverModulo = () => {
             removerModulo(moduloIndex);
@@ -129,11 +137,11 @@
                     />
                 </div>
 
-                <button type="button" className='btn-add-aula' onClick={handleAddAula}>
+                {/* <button type="button" className='btn-add-aula' onClick={handleAddAula}>
                     + Aula
-                </button>
+                </button> */}
 
-                {modulo.aulas.map((aula, index) => (
+                {/* {modulo.aulas.map((aula, index) => (
                     <AdicionarAula
                         key={index}
                         aulaIndex={index + 1}
@@ -163,7 +171,7 @@
                             });
                         }}
                     />
-                ))}
+                ))} */}
 
                 <button type='button' className='criar-questionario' onClick={toggleQuestionario}>
                     <QuizRoundedIcon /> Criar Questionário
