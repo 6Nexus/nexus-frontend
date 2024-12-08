@@ -40,7 +40,7 @@ function ButtonNovoCurso({ onClose }) {
     //     }));
     // };
 
-    // separando o modulo do objeto de
+    // separando o modulo do objeto de curso
    const [modulos, setModulos] = useState([]);
 
     const handleAddModulo = () => {

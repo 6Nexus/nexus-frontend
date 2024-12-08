@@ -1,6 +1,6 @@
     import React, { useState } from 'react';
     import './AdicionarModulos.css';
-    //import AdicionarAula from '../Aulas/AdicionarAulas';
+    import AdicionarAula from '../Aulas/AdicionarAulas';
     import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
     import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
     import Questionario from '../Questionario/Questionario';
@@ -20,7 +20,8 @@ import ButtonNovoCurso from '../ButtonNovoCurso/ButtonNovoCurso';
             titulo: '',
             descricao: '', 
             idCurso: ButtonNovoCurso.idCurso,
-            ordem: moduloIndex + 1
+            ordem: moduloIndex + 1, 
+            aulas: []
         });
 
         const handleChangeModulo = (e) => {
@@ -32,17 +33,17 @@ import ButtonNovoCurso from '../ButtonNovoCurso/ButtonNovoCurso';
             });
         };
 
-        // const handleAddAula = () => {
-        //     const novaAula = { titulo: '', descricao: '', conteudos: { video: '' } };
-        //     setModulo((prevModulo) => {
-        //         const updatedModulo = {
-        //             ...prevModulo,
-        //             aulas: [...prevModulo.aulas, novaAula]
-        //         };
-        //         atualizarModulo(moduloIndex, updatedModulo);
-        //         return updatedModulo;
-        //     });
-        // };
+        const handleAddAula = () => {
+            const novaAula = { titulo: '', descricao: '', conteudos: { video: '' } };
+            setModulo((prevModulo) => {
+                const updatedModulo = {
+                    ...prevModulo,
+                    aulas: [...prevModulo.aulas, novaAula]
+                };
+                atualizarModulo(moduloIndex, updatedModulo);
+                return updatedModulo;
+            });
+        };
 
         const handleRemoverModulo = () => {
             removerModulo(moduloIndex);
@@ -137,11 +138,11 @@ import ButtonNovoCurso from '../ButtonNovoCurso/ButtonNovoCurso';
                     />
                 </div>
 
-                {/* <button type="button" className='btn-add-aula' onClick={handleAddAula}>
+                <button type="button" className='btn-add-aula' onClick={handleAddAula}>
                     + Aula
-                </button> */}
+                </button>
 
-                {/* {modulo.aulas.map((aula, index) => (
+                {modulo.aulas.map((aula, index) => (
                     <AdicionarAula
                         key={index}
                         aulaIndex={index + 1}
@@ -171,7 +172,7 @@ import ButtonNovoCurso from '../ButtonNovoCurso/ButtonNovoCurso';
                             });
                         }}
                     />
-                ))} */}
+                ))}
 
                 <button type='button' className='criar-questionario' onClick={toggleQuestionario}>
                     <QuizRoundedIcon /> Criar Questionário
