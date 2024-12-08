@@ -86,7 +86,6 @@ function AdicionarAula({ aulaIndex, AdicionarAula, removerAula }) {
 
     return (
         
-
             <div className='container-aulas'>
                 <div className='container-header'>
                     <h3>Aula {aulaIndex}</h3>

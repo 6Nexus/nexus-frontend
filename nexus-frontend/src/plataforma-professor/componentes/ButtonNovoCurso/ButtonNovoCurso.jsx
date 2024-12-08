@@ -6,7 +6,7 @@ import AdicionarModulos from "../Modulos/AdicionarModulos";
 import { toast } from 'react-toastify';
 import api from "../../../api.js";
 
-function ButtonNovoCurso({ onClose }) {
+function ButtonNovoCurso({ onClose }) { 
     const [curso, setCurso] = useState({
         titulo: '',
         descricao: '',
@@ -75,7 +75,7 @@ function ButtonNovoCurso({ onClose }) {
             for (let j = 0; j < modulos[i].aulas.length; j++) {
 
                 console.log("Validando aula:", modulos[i].aulas[j]); // Log da aula 
-
+ 
                 if (!modulos[i].aulas[j].titulo || !modulos[i].aulas[j].descricao) {
                     toast.warning(`Por favor, preencha todos os campos da aula ${j + 1} no módulo ${i + 1}`);
                     return;
@@ -121,7 +121,6 @@ function ButtonNovoCurso({ onClose }) {
             toast.error(error.message); 
         }) 
         
-
         console.log('Curso Criado', curso);
         toast.success('Curso criado com sucesso!');
         resetForm();
@@ -196,7 +195,7 @@ function ButtonNovoCurso({ onClose }) {
 
                     <button
                         type="button"
-                        className="btn-add-modulo"
+                        className="btn-add-modulo" 
                         onClick={handleAddModulo}
                     >
                         + Módulo
@@ -204,7 +203,7 @@ function ButtonNovoCurso({ onClose }) {
 
                     {curso.modulos.map((modulo, index) => (
                         <AdicionarModulos
-                        key={index}
+                        key={index} 
                         moduloIndex={index}
                         atualizarModulo={(moduloIndex, updatedModulo) => {
                             const modulosAtualizados = curso.modulos.map((m, i) =>
