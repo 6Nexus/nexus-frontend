@@ -125,39 +125,46 @@ function ButtonNovoCurso({ onClose }) {
             },
         })
         .then((response) => {
+            console.log('Resposta da API:', response.data); // Verifique o conteúdo aqui
             if (response.status === 201) {
-                // A resposta da API deve conter o curso criado, incluindo o id gerado
-                const createdCourse = response.data; // O objeto retornado pela API
-                const cursoId = createdCourse.id; // Acessando o id do curso criado (id gerado pelo banco)
-                
+                const createdCourse = response.data;
+                console.log('Curso criado retornado pela API:', createdCourse); // Adicione para depuração
+        
+                const cursosCriados = JSON.parse(localStorage.getItem('cursos')) || [];
+                const updatedCourses = [...cursosCriados, createdCourse];
+                localStorage.setItem('cursos', JSON.stringify(updatedCourses));
+                console.log('Cursos atualizados no localStorage:', updatedCourses);
+        
                 // Atualizando o estado do curso com o id
                 setCurso((prevCurso) => ({
                     ...prevCurso,
-                    idCurso: cursoId, // Atualizando com o id do curso
+                    idCurso: createdCourse.id,
                 }));
-    
-                // Agora, os módulos podem ser atualizados com o idCurso
-                setModulos((prevModulos) => 
+        
+                setModulos((prevModulos) =>
                     prevModulos.map((modulo) => ({
                         ...modulo,
-                        idCurso: cursoId, // Associando o curso ao módulo
+                        idCurso: createdCourse.id,
                     }))
                 );
-    
+        
                 toast.success('Curso criado com sucesso!');
-                resetForm(); // Resetando o formulário após o sucesso
+                resetForm();
             } else {
                 throw new Error('Ops! Ocorreu um erro interno, tente mais tarde.');
             }
         })
         .catch((error) => {
+            console.error('Erro ao criar o curso:', error); // Log para verificar o erro
             toast.error(error.message);
         });
+        
 
         
 
         console.log('Curso Criado', curso);
         resetForm();
+
     };
 
     const resetForm = () => {

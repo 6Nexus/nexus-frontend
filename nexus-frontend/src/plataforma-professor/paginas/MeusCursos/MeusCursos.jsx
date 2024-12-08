@@ -1,20 +1,48 @@
-import React from "react";
+import React, {useState, useEffect}  from "react";
 import './MeusCursos.css';
 import SideBar from "../../componentes/SideBar/SideBar";
 import imagemCapa from '../../../utils/assets/imagem-card-teste.png';
+import api from "../../../api";
 
 function MeusCursos() {
 
-    const cursos = [
-        { titulo: 'Curso 1', subtitulo: 'Subtítulo 1', categoria: 'Categoria 1' },
-        { titulo: 'Curso 2', subtitulo: 'Subtítulo 2', categoria: 'Categoria 2' },
-        { titulo: 'Curso 3', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
-        { titulo: 'Curso 4', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
-        { titulo: 'Curso 5', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
-        { titulo: 'Curso 6', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
-        { titulo: 'Curso 7', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
-        { titulo: 'Curso 8', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
-    ];
+
+    // const cursos = [
+    //     { titulo: 'Curso 1', subtitulo: 'Subtítulo 1', categoria: 'Categoria 1' },
+    //     { titulo: 'Curso 2', subtitulo: 'Subtítulo 2', categoria: 'Categoria 2' },
+    //     { titulo: 'Curso 3', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
+    //     { titulo: 'Curso 4', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
+    //     { titulo: 'Curso 5', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
+    //     { titulo: 'Curso 6', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
+    //     { titulo: 'Curso 7', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' },
+    //     { titulo: 'Curso 8', subtitulo: 'Subtítulo 3', categoria: 'Categoria 3' }, 
+    // ];
+
+    const [cursos, setCursos] = useState([]);
+    const [loading, setLoading] = useState(true); 
+    
+
+    useEffect(() => {
+        
+        const buscarCursos = async () => {
+            try {
+                const response = await api.get('/cursos'); 
+                if (response.status === 200) {
+                    setCursos(response.data); 
+                } 
+            } finally {
+                setLoading(false); 
+            }
+        };
+
+        buscarCursos();
+    }, []); 
+
+    if (loading) {
+        return <p>Carregando...</p>;
+    }
+
+    
 
     return (
         <>
@@ -31,8 +59,7 @@ function MeusCursos() {
                             </div>
                             <div className="info-cards">
                                 <h2>{curso.titulo}</h2>
-                                {/* <h4>{curso.subtitulo}</h4> */}
-                                {/* <p>{curso.categoria}</p> */}
+                                <p>{curso.categoria}</p>
                             </div>
                             <div className="button-editar-curso">
                                 <button>Editar</button>
