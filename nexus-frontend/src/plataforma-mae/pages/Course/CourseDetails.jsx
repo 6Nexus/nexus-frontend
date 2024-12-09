@@ -6,21 +6,22 @@ import styles from './CourseDetails.module.css';
 import Main from "../Main/Main";
 import YoutubePlaylist from "../../components/PlaylistYt/YoutubePlaylist";
 import BannerInfoModule from "../../components/BannerInfoModule/BannerInfoModule";
+import { useNavigation } from "../../../NavigationContext";
 
 const CourseDetails = () => {
     const { idModule, idCurso } = useParams();
     const location = useLocation();
-    const { title, subtitle, criadoEm } = location.state || {};
-    const date = new Date(criadoEm);
+    const { title, subtitle, criadoEm } = location.state || {};  // Pegando os dados do estado
 
-    const formattedDate = new Intl.DateTimeFormat('pt-BR', {
+    const date = criadoEm ? new Date(criadoEm) : null;
+    const formattedDate = date ? new Intl.DateTimeFormat('pt-BR', {
         dateStyle: 'short'
-    }).format(date);
+    }).format(date) : 'Data inválida';
 
     const [idRegistration, setIdRegistration] = useState(null);
     const [idQuestionnaire, setIdQuestionnaire] = useState(null);
-    const [questionnaireTitle, setQuestionnaireTitle] = useState(null);
-    const [questionnaireDescription, setQuestionnaireDescription] = useState(null);
+    const [questionnaireTitle, setQuestionnaireTitle] = useState("Certificado de React");
+    const [questionnaireDescription, setQuestionnaireDescription] = useState("10 perguntas sobre os conhecimentos adquiridos durante as aulas");
     const userId = sessionStorage.getItem('userId');
     const [showButtonQuestionnaire, setShowButtonQuestionnaire] = useState(true);
     const [showSecondaryButton, setShowSecondaryButton] = useState(false);
@@ -32,9 +33,19 @@ const CourseDetails = () => {
     const handleVideoCount = (video) => {
         setCountVideo(video);
     };
+    const { addToPilha } = useNavigation();
+
+    useEffect(() => {
+        // Adiciona a URL atual à pilha ao carregar
+        addToPilha(window.location.pathname);
+    }, [idModule]);
 
     const handleNavigation = (route) => {
-        navigate(route);
+        // Adiciona a próxima URL à pilha antes de navegar
+        addToPilha(route);  
+        navigate(route, {
+            state: { title, subtitle, criadoEm }  // Passa os dados do estado para a próxima rota
+        });
     };
 
     const handleAllCheckboxesChecked = () => {
@@ -49,9 +60,8 @@ const CourseDetails = () => {
                     if (data.pontuacao >= 75) {
                         setShowButtonQuestionnaire(false);
                     }
-
                     if (data && data.pontuacao < 75) {
-                        setShowSecondaryButton(true)
+                        setShowSecondaryButton(true);
                     }
                 })
                 .catch((e) => {
@@ -104,7 +114,7 @@ const CourseDetails = () => {
     }, [idRegistration, idQuestionnaire]);
 
     return (
-        <Main showReturnPages={true}>
+        <Main enableReturnPages={true}>
             <div className={styles["content__info"]}>
                 <BannerInfoModule
                     titleModule={title}

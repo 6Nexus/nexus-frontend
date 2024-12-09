@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import api from "./../../../api";
 import styles from './CourseModules.module.css';
 import Main from "../Main/Main";
@@ -7,6 +7,7 @@ import CardModules from "../../components/CardModules/CardModules";
 import BannerInfoCourse from "../../components/BannerInfoCourse/BannerInfoCourse";
 import { toast, ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useNavigation } from "../../../NavigationContext";
 
 const CourseModules = () => {
     const id = sessionStorage.getItem('userId');
@@ -14,6 +15,16 @@ const CourseModules = () => {
     const [modules, setModules] = useState([]);
     const [course, setCourse] = useState([]);
     const [registration, setRegistration] = useState(false);
+    const { addToPilha } = useNavigation();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        buscarCurso();
+        buscarModulos();
+
+        // Adiciona a URL atual à pilha ao carregar
+        addToPilha(window.location.pathname);
+    }, [idCurso]);
 
     const buscarCurso = () => {
         api.get(`/cursos/${idCurso}`)
@@ -48,12 +59,18 @@ const CourseModules = () => {
         buscarModulos();
     };
 
+    const handleNavigation = (idModule) => {
+        const nextUrl = `/detalhes-modulo/${idModule}`;
+        addToPilha(nextUrl); // Adiciona a próxima URL à pilha antes de navegar
+        navigate(nextUrl);
+    };
+
     useEffect(() => {
         atualizarDados();
     }, []);
 
     return (
-        <Main showReturnPages={true}>
+        <Main enableReturnPages={true}>
             <div className={styles["info"]}>
                 <ToastContainer/>
                 <BannerInfoCourse
@@ -76,6 +93,7 @@ const CourseModules = () => {
                         subtitle={module.descricao}
                         criadoEm={module.criadoEm}
                         showButton={registration}
+                        onClick={() => handleNavigation(module.id)}
                     />
                 ))}
             </div>
