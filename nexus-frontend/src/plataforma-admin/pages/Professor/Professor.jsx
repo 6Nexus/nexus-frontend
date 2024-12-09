@@ -1,17 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import SideBar from '../../componentes/SideBar/SideBar';
 import NavBar from '../../componentes/NavBar/NavBar';
 import Titulos from '../../componentes/Titulos/Titulos';
 import Card from '../../componentes/Card/Card';
 import styles from '../Pages.module.css';
-import { professoresEmAprovacao, professoresAprovados, professoresBloqueados } from '../../../data';
 import Pagination from '@mui/material/Pagination';
 
 function Professor() {
-    const [dados, setDados] = useState(professoresEmAprovacao);
+    const [dados, setDados] = useState([]);
     const [titulo, setTitulo] = useState('Professores');
     const [tipoSelecionado, setTipoSelecionado] = useState('emAprovacao-professor');
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(false);
     const cardsPerPage = 6;
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
@@ -19,30 +20,37 @@ function Professor() {
 
     useEffect(() => {
         setCurrentPage(1);
-    }, [dados]);
+        buscarDados(tipoSelecionado);
+    }, [tipoSelecionado]);
+
+    const buscarDados = async (tipo) => {
+        let url = '';
+        if (tipo === 'emAprovacao-professor') {
+            url = 'http://localhost:8080/administradores/professor/aprovadoFalse';
+        } else if (tipo === 'aprovados-professor') {
+            url = 'http://localhost:8080/administradores/professor/aprovadoTrue';
+        } else if (tipo === 'bloqueados-professor') {
+            url = 'http://localhost:8080/administradores/professor/aprovadoFalse';
+        }
+    
+        console.log(`Buscando dados da URL: ${url}`);  // Verifique a URL no console
+    
+        try {
+            const response = await axios.get(url);
+            console.log('Resposta da API:', response.data);  // Verifique a resposta da API
+            setDados(response.data);
+        } catch (error) {
+            console.error('Erro ao buscar dados:', error.message);
+            console.log('Detalhes do erro:', error);
+        }
+    };
+    
 
     const handleChange = (event, value) => {
         setCurrentPage(value);
     };
 
     const mostrarCards = (tipo) => {
-        let dadosSelecionados = [];
-
-        switch (tipo) {
-            case 'emAprovacao-professor':
-                dadosSelecionados = professoresEmAprovacao;
-                break;
-            case 'aprovados-professor':
-                dadosSelecionados = professoresAprovados;
-                break;
-            case 'bloqueados-professor':
-                dadosSelecionados = professoresBloqueados;
-                break;
-            default:
-                break;
-        }
-
-        setDados(dadosSelecionados);
         setTipoSelecionado(tipo);
         setTitulo('Professores');
     };
@@ -58,7 +66,13 @@ function Professor() {
             <div className={styles.content}>
                 <h1 className={styles.titulo}>{titulo}</h1>
                 <Titulos tipo={tipoSelecionado} mostrarCards={mostrarCards} />
-                <Card dados={currentCards} tipoSelecionado={tipoSelecionado} />
+
+                {loading ? (
+                    <p style={{ textAlign: 'center' }}>Carregando...</p>
+                ) : (
+                    <Card dados={currentCards} tipoSelecionado={tipoSelecionado} />
+                )}
+
                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
                     <Pagination
                         count={Math.ceil(dados.length / cardsPerPage)}
