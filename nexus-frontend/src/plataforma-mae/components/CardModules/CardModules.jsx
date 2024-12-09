@@ -31,7 +31,7 @@ const CardModules = ({ idModule, idCourse, title, subtitle, criadoEm, inProgress
                 ) : (
                     showButton && (
                         <button className={styles['card-curso-container__button']} onClick={() => handleNavigation(`/aluno/cursos/${idCourse}/modulos/${idModule}`)}>
-                            Começar
+                            Ver módulo
                         </button>
                     )
                 )}

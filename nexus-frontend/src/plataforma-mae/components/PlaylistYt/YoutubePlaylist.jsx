@@ -9,11 +9,12 @@ import ButtonMaterial from '../ButtonMaterial/ButtonMaterial';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 
-const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails, onVideoCount }) => {
+const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails, onVideoCount, onAllCheckboxesChecked }) => {
   const { idModule } = useParams();
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [checkboxes, setCheckboxes] = useState([]);
   const API_YOUTUBE_KEY = 'AIzaSyBWPdWoACygsmbt5jhGJ1ff-DWBV_8ojUY';
 
   useEffect(() => {
@@ -34,13 +35,14 @@ const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails, onVideoCou
           );
           if (res.data.items) {
             fetchedVideos = res.data.items.map((item) => ({
-              id: item.snippet.resourceId.videoId,
+              id: item.snippet.resourceId.videoId,  // Garantido que 'id' seja corretamente extraído
               titulo: item.snippet.title,
               youtubeUrl: item.snippet.resourceId.videoId,
               thumbnail: item.snippet.thumbnails?.medium?.url,
             }));
             setVideos(fetchedVideos);
             setSelectedVideo(fetchedVideos[0]);
+            setCheckboxes(new Array(fetchedVideos.length).fill(false));
           }
         } else {
           const res = await api.get(`/videos/modulo/${idModule}`);
@@ -48,11 +50,12 @@ const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails, onVideoCou
             fetchedVideos = res.data;
             setVideos(fetchedVideos);
             setSelectedVideo(fetchedVideos[0]);
+            setCheckboxes(new Array(fetchedVideos.length).fill(false));
           }
         }
 
         if (onVideoCount) {
-          onVideoCount(fetchedVideos.length);  // Corrigido para usar 'fetchedVideos' corretamente
+          onVideoCount(fetchedVideos.length);  // Correção para usar 'fetchedVideos' corretamente
         }
 
       } catch (error) {
@@ -64,6 +67,20 @@ const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails, onVideoCou
 
     fetchVideos();
   }, [playlistId, idModule, onVideoCount]);
+
+
+  const handleCheckboxChange = (index) => {
+    const updatedCheckboxes = [...checkboxes];
+    updatedCheckboxes[index] = !updatedCheckboxes[index];
+    setCheckboxes(updatedCheckboxes);
+
+    // Verifica se todas as checkboxes estão marcadas
+    if (updatedCheckboxes.every(checked => checked)) {
+      if (onAllCheckboxesChecked) {
+        onAllCheckboxesChecked(); // Dispara o alerta no componente pai
+      }
+    }
+  };
 
   if (loading) {
     return (
@@ -101,8 +118,8 @@ const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails, onVideoCou
       <div className={styles['playlist-container__videos']}>
         <h2 className={styles['videos__title']}>{titlePlaylist}</h2>
         <div className={styles['videos__container']}>
-          {videos.map((video) => {
-            const thumbnailUrl = video.thumbnail;  // Corrigido para usar o thumbnail correto
+          {videos.map((video, index) => {
+            const thumbnailUrl = video.thumbnail;  // Garantido que 'thumbnail' está corretamente extraído
             return (
               <div key={video.id} className={styles['videos__container__item']}>
                 <div className={styles['item__thumbnail']}>
@@ -131,7 +148,12 @@ const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails, onVideoCou
                 </div>
 
                 {isCursoDetails ? (
-                  <input type="checkbox" className={styles['checkbox']} />
+                  <input
+                    type="checkbox"
+                    className={styles['checkbox']}
+                    checked={checkboxes[index]}
+                    onChange={() => handleCheckboxChange(index)}
+                  />
                 ) : (
                   <PlayCircleOutlineIcon
                     onClick={(e) => {

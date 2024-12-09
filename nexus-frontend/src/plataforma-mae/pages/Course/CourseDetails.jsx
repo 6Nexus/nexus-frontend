@@ -24,16 +24,21 @@ const CourseDetails = () => {
     const userId = sessionStorage.getItem('userId');
     const [showButtonQuestionnaire, setShowButtonQuestionnaire] = useState(true);
     const [showSecondaryButton, setShowSecondaryButton] = useState(false);
+    const [allCheckboxesSelected, setAllCheckboxesSelected] = useState(false);
     const navigate = useNavigate();
 
     const [countVideo, setCountVideo] = useState(null);
 
     const handleVideoCount = (video) => {
-        setCountVideo(video); 
+        setCountVideo(video);
     };
 
     const handleNavigation = (route) => {
         navigate(route);
+    };
+
+    const handleAllCheckboxesChecked = () => {
+        setAllCheckboxesSelected(true);  
     };
 
     const verificarProgressoQuestionario = () => {
@@ -113,8 +118,10 @@ const CourseDetails = () => {
                 titlePlaylist="Próximas aulas"
                 isCursoDetails={true}
                 onVideoCount={handleVideoCount}
+                onAllCheckboxesChecked={handleAllCheckboxesChecked}
             />
 
+            {allCheckboxesSelected &&
             <div className={styles['content__questionnaire']}>
                 <div className={styles['questionnaire']}>
                     <WorkspacePremiumIcon
@@ -143,10 +150,10 @@ const CourseDetails = () => {
                         </button>
                     )
                 ) : (
-                    <p className={styles['questionnaire__text']}>Finalizado</p>
+                   <p className={styles['questionnaire__text']}>Finalizado</p>
                 )}
-
             </div>
+            }
         </Main>
     );
 };
