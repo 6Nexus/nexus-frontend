@@ -10,7 +10,7 @@ function Questao({ questao, atualizarQuestao, deletarQuestao, index }) {
     const handleTextoChange = (e) => {
         const novoTexto = e.target.value;
         setTexto(novoTexto);
-        atualizarQuestao({ ...questao, texto: novoTexto });
+        atualizarQuestao({ ...questao, texto: novoTexto }); 
     };
 
     const addAlternativa = () => {
@@ -97,44 +97,44 @@ function Questionario({ onClose, onSave}) {
     };
 
     // os dados daqui é passado para onSave no componente AdicionarModulos
-    const handleAdicionarQuestionario = () => {
-        if (questoes.length === 0) {
-            toast.warning('Adicione pelo menos uma questão antes de salvar.');
-            return;
-        }
+    // const handleAdicionarQuestionario = () => {
+    //     if (questoes.length === 0) {
+    //         toast.warning('Adicione pelo menos uma questão antes de salvar.');
+    //         return;
+    //     }
 
-        for (const [index, questao] of questoes.entries()) {
-            if (!questao.texto) {
-                toast.warning(`A questão "${index + 1}" precisa ter um texto!`);
-                return;
-            }
+    //     for (const [index, questao] of questoes.entries()) {
+    //         if (!questao.texto) {
+    //             toast.warning(`A questão "${index + 1}" precisa ter um texto!`);
+    //             return;
+    //         }
 
-            if (questao.alternativas.length === 0) {
-                toast.warning(`A questão "${index + 1}" não possui alternativas. Adicione pelo menos uma alternativa!`);
-                return;
-            }
-
-
-            for (const alternativa of questao.alternativas) {
-                if (!alternativa.texto) {
-                    toast.warning(`A alternativa da questão "${index + 1}" está vazia!`);
-                    return;
-                }
-            }
+    //         if (questao.alternativas.length === 0) {
+    //             toast.warning(`A questão "${index + 1}" não possui alternativas. Adicione pelo menos uma alternativa!`);
+    //             return;
+    //         }
 
 
-            const alternativaCorreta = questao.alternativas.find(alt => alt.correta);
-            if (!alternativaCorreta) {
-                toast.warning(`A questão "${index + 1}" precisa de uma alternativa correta!`);
-                return;
-            }
-        }
+    //         for (const alternativa of questao.alternativas) {
+    //             if (!alternativa.texto) {
+    //                 toast.warning(`A alternativa da questão "${index + 1}" está vazia!`);
+    //                 return;
+    //             }
+    //         }
 
-        // chama onSave do AdicionarModulos envia as questões de volta para AdicionarModulos
-        onSave(questoes);
-        console.log('Questionário Adicionado', questoes)
-        toast.success('Questionário Adicionado!')
-    };
+
+    //         const alternativaCorreta = questao.alternativas.find(alt => alt.correta);
+    //         if (!alternativaCorreta) {
+    //             toast.warning(`A questão "${index + 1}" precisa de uma alternativa correta!`);
+    //             return;
+    //         }
+    //     }
+
+    //     // chama onSave do AdicionarModulos envia as questões de volta para AdicionarModulos
+    //     onSave(questoes);
+    //     console.log('Questionário Adicionado', questoes)
+    //     toast.success('Questionário Adicionado!')
+    // };
 
     return (
         <div className='container-questionario'>
@@ -162,8 +162,9 @@ function Questionario({ onClose, onSave}) {
                         }}
                     />
                 ))}
+                
                 <button type="button" className='btn-add-questao' onClick={handleAddQuestao}>Adicionar Questão</button>
-                <button type="button" className='btn-salvar-questionario' onClick={handleAdicionarQuestionario}>Adicionar Questionário</button>
+                {/* <button type="button" className='btn-salvar-questionario' onClick={handleAdicionarQuestionario}>Adicionar Questionário</button> // manter comentado porque vai ser passado pro ButtonNovoCurso  */ } 
 
             </div>
         </div>
