@@ -26,7 +26,7 @@ const CardCertificate = ({ name, title, module, teacher, duration, date }) => {
         doc.text(lines, marginLeft, 70);
         
         setCommonFont("Helvetica", "bold", 12, [36, 80, 36]);
-        const text = `Concluiu com sucesso o módulo '${module}', ministrado por ${teacher}, com uma carga horária estimada de ${duration} horas.`;
+        const text = `Concluiu com êxito os módulos da categoria ${duration}, ministrados pelo(a) professor(a) ${teacher}.`;
         const lines2 = doc.splitTextToSize(text, maxWidth);
         doc.text(lines2, marginLeft, 78);
         
@@ -39,7 +39,7 @@ const CardCertificate = ({ name, title, module, teacher, duration, date }) => {
         const lines4 = doc.splitTextToSize(course, maxWidth);
         doc.text(lines4, marginLeft, 115);
         
-        doc.save(`${title} - ${module}.pdf`);
+        doc.save(`${title} - "Certificado".pdf`);
     };
 
     return (
@@ -52,7 +52,7 @@ const CardCertificate = ({ name, title, module, teacher, duration, date }) => {
 
                         <div className={styles['description__main']}>
                             <h4 className={styles['main__text']}>Professor(a): {teacher}</h4>
-                            <h4 className={styles['main__text']}>Duração: {duration}</h4>
+                            <h4 className={styles['main__text']}>Categoria: {duration}</h4>
                         </div>
 
                         <h4 className={styles['description__date']}>

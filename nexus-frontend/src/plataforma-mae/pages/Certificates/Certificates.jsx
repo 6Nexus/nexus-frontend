@@ -14,10 +14,10 @@ const Certificates = () => {
     const cardsPerPage = 5;
 
     function buscarCertificados() {
-        api.get(`/cursos/associado/${id}/certificados`).then((response) => {
+        api.get(`/certificados/${id}`).then((response) => {
             const { data } = response;
             setCardsData(data)
-
+           
         }).catch((e) => {
             console.log("Deu erro", e)
         })
@@ -42,21 +42,27 @@ const Certificates = () => {
 
                 <div className={styles["certificates-container__content"]}>
 
-                    <div className={styles['certificates-container__content__cardCertificateList']}>
+                <div className={styles['certificates-container__content__cardCertificateList']}>
                         <p className={styles["cardCertificateList__title"]}>Certificados encontrados</p>
                         {currentCards && currentCards.length > 0 ? (
-                            currentCards.map((data, _) => (
-                                <CardCertificate
-                                    id={data.id}
-                                    name={name}
-                                    module="Culinária Italiana"
-                                    title={data.titulo}
-                                    teacher={data.professor}
-                                    duration="4"
-                                    date={data.dataFim}
-                                />
+                            currentCards.map((data, _) => {
+                                const date = new Date(data.dataConclusao);
+                                const formattedDate = new Intl.DateTimeFormat('pt-BR', {
+                                    dateStyle: 'short'
+                                }).format(date);
 
-                            ))
+                                return (
+                                    <CardCertificate
+                                        id={data.id}
+                                        name={name}
+                                        module="Culinária Italiana"
+                                        title={data.curso.titulo}
+                                        teacher={data.curso.professorNome}
+                                        duration={data.curso.categoria}
+                                        date={formattedDate} 
+                                    />
+                                );
+                            })
                         ) : (
                             <ContentNotFound content="Desculpe, não encontramos nenhum certificado." />
                         )}

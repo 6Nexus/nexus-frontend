@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import api from "./../../../api";
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import styles from './CourseDetails.module.css';
@@ -10,6 +10,14 @@ import { useNavigation } from "../../../NavigationContext";
 
 const CourseDetails = () => {
     const { idModule, idCurso } = useParams();
+    const location = useLocation();
+    const { title, subtitle, criadoEm } = location.state || {};  // Pegando os dados do estado
+
+    const date = criadoEm ? new Date(criadoEm) : null;
+    const formattedDate = date ? new Intl.DateTimeFormat('pt-BR', {
+        dateStyle: 'short'
+    }).format(date) : 'Data inválida';
+
     const [idRegistration, setIdRegistration] = useState(null);
     const [idQuestionnaire, setIdQuestionnaire] = useState(null);
     const [questionnaireTitle, setQuestionnaireTitle] = useState("Certificado de React");
@@ -17,7 +25,14 @@ const CourseDetails = () => {
     const userId = sessionStorage.getItem('userId');
     const [showButtonQuestionnaire, setShowButtonQuestionnaire] = useState(true);
     const [showSecondaryButton, setShowSecondaryButton] = useState(false);
+    const [allCheckboxesSelected, setAllCheckboxesSelected] = useState(false);
     const navigate = useNavigate();
+
+    const [countVideo, setCountVideo] = useState(null);
+
+    const handleVideoCount = (video) => {
+        setCountVideo(video);
+    };
     const { addToPilha } = useNavigation();
 
     useEffect(() => {
@@ -26,8 +41,15 @@ const CourseDetails = () => {
     }, [idModule]);
 
     const handleNavigation = (route) => {
-        addToPilha(route); // Adiciona a próxima URL à pilha antes de navegar
-        navigate(route);
+        // Adiciona a próxima URL à pilha antes de navegar
+        addToPilha(route);  
+        navigate(route, {
+            state: { title, subtitle, criadoEm }  // Passa os dados do estado para a próxima rota
+        });
+    };
+
+    const handleAllCheckboxesChecked = () => {
+        setAllCheckboxesSelected(true);  
     };
 
     const verificarProgressoQuestionario = () => {
@@ -54,7 +76,7 @@ const CourseDetails = () => {
                 if (response.data && response.data.id) {
                     setIdQuestionnaire(response.data.id);
                     setQuestionnaireTitle(response.data.titulo);
-                    setQuestionnaireDescription(response.data.descricao);
+                    setQuestionnaireDescription(response.data.descricao)
                 }
             })
             .catch((e) => {
@@ -95,19 +117,21 @@ const CourseDetails = () => {
         <Main enableReturnPages={true}>
             <div className={styles["content__info"]}>
                 <BannerInfoModule
-                    titleModule="Módulo 1"
-                    descriptionModule="Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam!"
-                    duration="20"
-                    date="24/09/2023"
+                    titleModule={title}
+                    descriptionModule={subtitle}
+                    duration={countVideo}
+                    date={formattedDate}
                 />
             </div>
 
             <YoutubePlaylist
                 titlePlaylist="Próximas aulas"
-                playlistId="PL29TaWXah3iaqOejItvW--TaFr9NcruyQ"
                 isCursoDetails={true}
+                onVideoCount={handleVideoCount}
+                onAllCheckboxesChecked={handleAllCheckboxesChecked}
             />
 
+            {allCheckboxesSelected &&
             <div className={styles['content__questionnaire']}>
                 <div className={styles['questionnaire']}>
                     <WorkspacePremiumIcon
@@ -136,9 +160,10 @@ const CourseDetails = () => {
                         </button>
                     )
                 ) : (
-                    <p className={styles['questionnaire__text']}>Finalizado</p>
+                   <p className={styles['questionnaire__text']}>Finalizado</p>
                 )}
             </div>
+            }
         </Main>
     );
 };

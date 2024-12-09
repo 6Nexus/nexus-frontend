@@ -3,7 +3,7 @@ import api from "./../../../api";
 import styles from './Questionnaire.module.css';
 import Main from "../Main/Main";
 import { Checkbox, Radio } from "@mui/material";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useLocation  } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
@@ -24,6 +24,10 @@ const Questionnaire = () => {
     const [correctAnswers, setCorrectAnswers] = useState([]);
     const [isNewProgress, setIsNewProgress] = useState(true)
     const [idProgress, setIdProgress] = useState(null);
+
+    const location = useLocation();
+
+    const { title, subtitle, criadoEm } = location.state || {};
 
     const buscarDadosQuestionario = () => {
         api.get(`/questionarios/modulo/${idModule}`)
@@ -54,16 +58,14 @@ const Questionnaire = () => {
             }
 
             api.post(`/progresso-questionarios`, progressData)
-                .then((response) => {
-                    const { data } = response;
-                
+                .then((response) => {                
                     if (response.status == 201 && response.data) {
                         toast.success(`Suas respostas foram enviadas!`, {
                             position: "bottom-right",
                             autoClose: 10000,
                         })
                     }
-                    verificarAprovacaoPontuacao(data);
+                    verificarAprovacaoPontuacao();
                 })
                 .catch(() => {
                     toast.error(`Ocorreu um erro ao enviar as respostas. Tente novamente!`, {
@@ -75,16 +77,14 @@ const Questionnaire = () => {
         } else {
             const pontuacaoAtualizada = calcularPontuacao();
             api.patch(`progresso-questionarios/pontuacao/${idProgress}/${pontuacaoAtualizada}`)
-                .then((response) => {
-                    const { data } = response;
-                    
+                .then((response) => { 
                     if (response.status == 200 && response.data) {
                         toast.success(`Suas respostas foram enviadas!`, {
                             position: "bottom-right",
                             autoClose: 10000,
                         })
                     }
-                    verificarAprovacaoPontuacao(data);
+                    verificarAprovacaoPontuacao();
                 })
                 .catch(() => {
                     toast.error(`Ocorreu um erro ao enviar as respostas. Tente novamente!`, {
@@ -96,7 +96,8 @@ const Questionnaire = () => {
     }
 
     
-    const verificarAprovacaoPontuacao = (pontuacao) => {
+    const verificarAprovacaoPontuacao = () => {
+        const pontuacao = calcularPontuacao();
         if (pontuacao >= 75) {
             Swal.fire({
                 title: "Parabéns!",
@@ -127,7 +128,7 @@ const Questionnaire = () => {
                 if (result.isConfirmed) {
                     window.location.reload();
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    const url = `/aluno/cursos/${idCurso}/modulos/${idModule}`
+                    const url = `/aluno/cursos/${idCurso}/modulos`
                     window.location.href = url;
                 }
             });
@@ -227,9 +228,9 @@ const Questionnaire = () => {
         if (pilha.length > 1) {
             const previousUrl = pilha[pilha.length - 2]; // Recupera a URL anterior na pilha
             removeFromPilha(); // Remove a URL atual da pilha
-            navigate(previousUrl); // Navega para a página anterior
+            navigate(previousUrl, { state: { title, subtitle, criadoEm } }); // Passando os dados para o estado
         } else {
-            navigate('/aluno/cursos'); // Caso não tenha pilha vai para cursos
+            navigate('/aluno/cursos', { state: { title, subtitle, criadoEm } }); // Caso não tenha pilha vai para cursos
         }
     };
 
