@@ -8,14 +8,15 @@ import SchoolIcon from '@mui/icons-material/School';
 import InfoIcon from '@mui/icons-material/Info';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useEffect } from 'react';
+import Swal from 'sweetalert2';
 
 const SideBar = ({backgroundColor}) => {
-    const [isExpanded, setExpanded] = useState(false);
+    const [isExpanded, setExpanded] = useState(false); 
     const [activeItem, setActiveItem] = useState('');
     const navigate = useNavigate();
     const location = useLocation();  
@@ -56,6 +57,28 @@ const SideBar = ({backgroundColor}) => {
         navigate(route);
     };
 
+    const logout = () => {
+        Swal.fire({
+            title: "Confirmar saída",
+            text: "Deseja sair de sua conta?",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3B9D3B",
+            cancelButtonColor: "#dadada",
+            cancelTextColor: "#00000",
+            cancelButtonText: "Cancelar",
+            confirmButtonText: "Sair",
+        }).then((result) => {
+
+            if(result.value == true) {
+                sessionStorage.clear();
+                window.location.href = '/login';
+            }
+            
+        
+        });
+    }
+
     return (
         <>
             <nav className={`${styles.SideBar} ${isExpanded ? styles.expanded : ''}`} style={{ backgroundColor }} aria-label="Menu de opções da plataforma">
@@ -77,7 +100,7 @@ const SideBar = ({backgroundColor}) => {
 
                         <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('instructions', '/aluno/instrucoes')}>
                             <InfoIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'instructions' ? styles["active"] : ""}`}/>
-                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Instruções</span>}
+                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Ajuda</span>}
                         </div>
 
                         <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('profileSettings', '/aluno/perfil')}>
@@ -95,14 +118,14 @@ const SideBar = ({backgroundColor}) => {
                         </div>
 
                         <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('saved', '/aluno/cursos-salvos')}>
-                            <FavoriteIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'saved' ? styles["active"] : ""}`}/>
-                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Salvos</span>}
+                            <BookmarkAddedIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'saved' ? styles["active"] : ""}`}/>
+                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Matrículas</span>}
                         </div>
                     </div>
                 </div>
 
                 <div className={styles["menuIconLogout"]}>
-                    <div className={styles["menuOptions__item"]}>
+                    <div className={styles["menuOptions__item"]} onClick={() => logout()}>
                         <LogoutIcon sx={{ fontSize: 32, color: '#fff'}}/>
                         {isExpanded && <span className={styles["menuOptions__item__text"]}>Sair</span>}
                     </div>

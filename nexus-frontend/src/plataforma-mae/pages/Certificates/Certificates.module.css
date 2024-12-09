@@ -1,25 +1,26 @@
-.certificates-container {
-    display: flex;
-    flex-direction: row;
-}
-
 .certificates-container__content {
-    width: 94%; 
-    margin-left: 6%; 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 96px;
-    padding: 32px;
+    gap: 80px;
+    margin-top: 64px;
 }
 
 .certificates-container__content__cardCertificateList{
-    width: 80%;
     height: max-content;
     display: flex;
     flex-direction: column;
     gap: 48px;
-    /* background-color: aquamarine; */
+    width: 100%;
+}
+
+.cardCertificateList__title {
+    font-family: 'Inter-Medium', sans-serif;
+    color: var(--secondary-green);
+    font-size: 24px;
+    border-left: 5px solid var(--primary-green);
+    padding: 0px 8px;
+    margin: 0px;  
 }
 
 

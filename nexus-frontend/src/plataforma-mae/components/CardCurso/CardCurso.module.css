@@ -1,6 +1,6 @@
 .card-curso-container {
     display: flex;
-    flex-direction: column;
+    flex-direction: column; 
     justify-content: space-between;
     background-color: var(--secondary-text-color);
     height: 580px;;
@@ -58,7 +58,6 @@
     font-size: 16px;
 }
 
-
 .card-curso-container__info__content__button button {
     display: flex;
     flex-direction: column;
@@ -66,13 +65,9 @@
     align-items: center;
     gap: 8px;
     background-color: transparent;
-    color: var(--secondary-green);
     cursor: pointer;
 }
 
-.content__button__icon {
-    color: #ededed;
-}
 
 .content__button__icon-liked {
     color: var(--primary-green);

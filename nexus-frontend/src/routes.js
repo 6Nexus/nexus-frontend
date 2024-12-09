@@ -19,7 +19,18 @@ import Professor from './plataforma-admin/pages/Professor/Professor';
 import Mae from './plataforma-admin/pages/Mae/Mae';
 import Curso from './plataforma-admin/pages/Curso/Curso';
 
+import Perfil from "./plataforma-professor/paginas/Perfil/Perfil";
+import LoginProfessor from './plataforma-professor/paginas/Login/Login';
+import CadastroProfessor from "./plataforma-professor/paginas/CadastroProfessor/CadastroProfessor";
+import CursoSetup from "./plataforma-professor/paginas/CursoSetup/CursoSetup";
+import MeusCursos from "./plataforma-professor/paginas/MeusCursos/MeusCursos";
+import Ajuda from "./plataforma-professor/paginas/Ajuda/Ajuda";
+
+
 function Rotas() {
+
+    
+
     return (
         <BrowserRouter>
             <Routes>
@@ -32,8 +43,8 @@ function Rotas() {
                 <Route path="/aluno/inicio" element={<Home />} />
                 <Route path="/aluno/cursos" element={<Course />} />
                 <Route path="/aluno/cursos/:idCurso/modulos" element={<CourseModules />} />
-                <Route path="/aluno/cursos/:idCurso/modulos/:idModulo" element={<CourseDetails />} />
-                <Route path="/aluno/questionario/:idCurso" element={<Questionnaire />} />
+                <Route path="/aluno/cursos/:idCurso/modulos/:idModule" element={<CourseDetails />} />
+                <Route path="/aluno/questionario/:idCurso/:idModule" element={<Questionnaire />} />
                 <Route path="/aluno/instrucoes" element={<Instructions />} />
                 <Route path="/aluno/perfil" element={<ProfileSettings />} />
                 <Route path="/aluno/certificados" element={<Certificates />} />
@@ -43,6 +54,14 @@ function Rotas() {
                 <Route path="/admin/professores" element={<Professor />} />
                 <Route path="/admin/maes" element={<Mae />} />
                 <Route path="/admin/cursos" element={<Curso />} />
+
+                {/* plataforma-professor */}
+                <Route path="/perfil-professor" element={<Perfil/>}/>
+                <Route path="/login-professor" element={<LoginProfessor/>}/>
+                <Route path="/cadastro-professor" element={<CadastroProfessor/>}/>
+                <Route path="/curso-setup" element={<CursoSetup/>}/>
+                <Route path="/meus-cursos" element={<MeusCursos/>}/>
+                <Route path="/ajuda" element={<Ajuda/>}/>
             </Routes>
         </BrowserRouter>
     );

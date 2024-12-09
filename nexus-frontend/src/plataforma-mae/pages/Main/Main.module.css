@@ -1,0 +1,23 @@
+.container {
+    display: flex;
+    height: 90vh;
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 52px;
+    padding: 32px;
+    width: 94%;
+    margin-left: 6%;
+    height: fit-content;
+}
+
+.pageContent {
+    display: flex;
+    flex-direction: column;
+    gap: 80px;
+    width: 80%;
+}

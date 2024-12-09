@@ -1,0 +1,30 @@
+.file-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #fff;
+    margin-top: 10px;
+    transition: background-color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.file-item:hover {
+    background-color: #f0f0f0;
+}
+
+.file-item span {
+    flex-grow: 1;
+    margin-left: 10px;
+    color: #555;
+}   
+
+.icon-play {
+    color: #9d0208;
+}
+
+.icon-pdf {
+    color: #800f2f;
+}

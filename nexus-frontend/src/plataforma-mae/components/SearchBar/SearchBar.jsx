@@ -15,7 +15,7 @@ const SearchBar = () => {
     const navigate = useNavigate();
     const goToHome = () => {
         setActiveItem('home'); 
-        navigate('/');
+        navigate('/aluno/inicio');
     };
 
     return (
@@ -39,11 +39,11 @@ const SearchBar = () => {
                 </div>
 
                 <div className={styles["search-bar-container__preferences"]}>
-
+{/* 
                     <button>
                         <TextIncreaseIcon className={styles["icon-preference"]}/>
                         Aumentar fonte
-                    </button>
+                    </button> */}
                     
                    
                 </div>

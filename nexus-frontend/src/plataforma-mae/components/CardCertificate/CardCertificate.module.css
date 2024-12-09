@@ -1,7 +1,6 @@
 .card-curso-container {
     display: flex;
     flex-direction: row;
-    width: 100%;
     background-color: #fff;
     border-radius: 20px;
     padding: 20px;
@@ -13,6 +12,11 @@
     display: flex;
     flex-direction: row;
     gap: 32px;
+}
+
+.card-curso-container__informations img{
+    width: 330px;
+    height: 227px;
 }
 
 .informations__description {

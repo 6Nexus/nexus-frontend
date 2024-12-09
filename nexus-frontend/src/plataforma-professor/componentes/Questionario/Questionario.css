@@ -1,0 +1,121 @@
+
+
+.questionario::-webkit-scrollbar {
+  width: 6px;
+}
+
+.container-questionario {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.questionario {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  overflow-y: auto;
+  max-height: 80vh;
+}
+
+.header-questionario {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.header-questionario h2 {
+  color: #333;
+}
+
+.btn-fechar-questionario {
+  background: none;
+  color: #9d0208;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s;
+}
+
+.btn-fechar-questionario:hover {
+  color: #430a01;
+}
+
+.header-questao {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+}
+
+.header-questao h4 {
+  color: #333;
+}
+
+.container-alternativa {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 5px;
+}
+
+.btn-add-questao,
+.btn-add-alternativa {
+  margin-top: 10px;
+  padding: 7px;
+  /* background-color: #3B9D3B; */
+  background-color: #80b918;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-bottom: 10px;
+  font-family: 'Inter-Medium', sans-serif;
+  transition: background-color 0.3s ease;
+}
+
+.btn-add-questao:hover,
+.btn-add-alternativa:hover {
+  background-color: #006400;
+}
+
+.btn-salvar-questionario {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #3B9D3B;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  margin-top: 20px;
+  transition: background-color 0.3s ease;
+  font-family: 'Inter-Medium', sans-serif;
+}
+
+.btn-salvar-questionario:hover {
+  background-color: #006400;
+}
+
+.titulo-questionario {
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #333;
+  text-align: center;
+}
+
+
+.btn-remover {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #dc3545;
+}
+
+.btn-remover:hover {
+  color: #780000;
+}
