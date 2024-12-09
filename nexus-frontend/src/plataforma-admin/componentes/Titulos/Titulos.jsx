@@ -65,10 +65,6 @@ function Titulos({ tipo, mostrarCards }) {
                         <div className={stylesTitulos.titulos}>
                             <div className={stylesTitulos.subItem} onClick={() => handleTituloClick('ativos-curso')}>
                                 <p style={{ color: tituloAtivo === 'ativos-curso' ? '#66AF53' : '#000' }}>Ativos</p>
-                                <div className={stylesTitulos.divVerde}></div>
-                            </div>
-                            <div className={stylesTitulos.subItem} onClick={() => handleTituloClick('bloqueados-curso')}>
-                                <p style={{ color: tituloAtivo === 'bloqueados-curso' ? '#66AF53' : '#000' }}>Bloqueados</p>
                             </div>
                         </div>
                     </>
