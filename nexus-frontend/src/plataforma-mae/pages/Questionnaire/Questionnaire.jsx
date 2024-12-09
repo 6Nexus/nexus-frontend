@@ -50,16 +50,14 @@ const Questionnaire = () => {
             }
 
             api.post(`/progresso-questionarios`, progressData)
-                .then((response) => {
-                    const { data } = response;
-                
+                .then((response) => {                
                     if (response.status == 201 && response.data) {
                         toast.success(`Suas respostas foram enviadas!`, {
                             position: "bottom-right",
                             autoClose: 10000,
                         })
                     }
-                    verificarAprovacaoPontuacao(data);
+                    verificarAprovacaoPontuacao();
                 })
                 .catch(() => {
                     toast.error(`Ocorreu um erro ao enviar as respostas. Tente novamente!`, {
@@ -71,16 +69,14 @@ const Questionnaire = () => {
         } else {
             const pontuacaoAtualizada = calcularPontuacao();
             api.patch(`progresso-questionarios/pontuacao/${idProgress}/${pontuacaoAtualizada}`)
-                .then((response) => {
-                    const { data } = response;
-                    
+                .then((response) => { 
                     if (response.status == 200 && response.data) {
                         toast.success(`Suas respostas foram enviadas!`, {
                             position: "bottom-right",
                             autoClose: 10000,
                         })
                     }
-                    verificarAprovacaoPontuacao(data);
+                    verificarAprovacaoPontuacao();
                 })
                 .catch(() => {
                     toast.error(`Ocorreu um erro ao enviar as respostas. Tente novamente!`, {
@@ -92,7 +88,8 @@ const Questionnaire = () => {
     }
 
     
-    const verificarAprovacaoPontuacao = (pontuacao) => {
+    const verificarAprovacaoPontuacao = () => {
+        const pontuacao = calcularPontuacao();
         if (pontuacao >= 75) {
             Swal.fire({
                 title: "Parabéns!",
@@ -123,7 +120,7 @@ const Questionnaire = () => {
                 if (result.isConfirmed) {
                     window.location.reload();
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    const url = `/aluno/cursos/${idCurso}/modulos/${idModule}`
+                    const url = `/aluno/cursos/${idCurso}/modulos`
                     window.location.href = url;
                 }
             });

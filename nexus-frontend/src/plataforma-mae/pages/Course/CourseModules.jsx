@@ -58,7 +58,7 @@ const CourseModules = () => {
                 <ToastContainer/>
                 <BannerInfoCourse
                     courseName={course.titulo}
-                    teacherName={course.professor}
+                    teacherName={course.professorNome}
                     description={course.descricao}
                     showButton={!registration}
                     onMatriculaConcluida={atualizarDados}
@@ -73,7 +73,8 @@ const CourseModules = () => {
                         idModule={module.id}
                         idCourse={idCurso}
                         title={module.titulo}
-                        subtitle={module.titulo}
+                        subtitle={module.descricao}
+                        criadoEm={module.criadoEm}
                         showButton={registration}
                     />
                 ))}

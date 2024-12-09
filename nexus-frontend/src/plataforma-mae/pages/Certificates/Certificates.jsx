@@ -14,7 +14,7 @@ const Certificates = () => {
     const cardsPerPage = 5;
 
     function buscarCertificados() {
-        api.get(`/cursos/associado/${id}/certificados`).then((response) => {
+        api.get(`/certificados/${id}`).then((response) => {
             const { data } = response;
             setCardsData(data)
 

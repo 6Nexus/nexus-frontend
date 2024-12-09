@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import api from "./../../../api";
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import styles from './CourseDetails.module.css';
@@ -9,6 +9,14 @@ import BannerInfoModule from "../../components/BannerInfoModule/BannerInfoModule
 
 const CourseDetails = () => {
     const { idModule, idCurso } = useParams();
+    const location = useLocation();
+    const { title, subtitle, criadoEm } = location.state || {};
+    const date = new Date(criadoEm);
+
+    const formattedDate = new Intl.DateTimeFormat('pt-BR', {
+        dateStyle: 'short'
+    }).format(date);
+
     const [idRegistration, setIdRegistration] = useState(null);
     const [idQuestionnaire, setIdQuestionnaire] = useState(null);
     const [questionnaireTitle, setQuestionnaireTitle] = useState(null);
@@ -17,6 +25,12 @@ const CourseDetails = () => {
     const [showButtonQuestionnaire, setShowButtonQuestionnaire] = useState(true);
     const [showSecondaryButton, setShowSecondaryButton] = useState(false);
     const navigate = useNavigate();
+
+    const [countVideo, setCountVideo] = useState(null);
+
+    const handleVideoCount = (video) => {
+        setCountVideo(video); 
+    };
 
     const handleNavigation = (route) => {
         navigate(route);
@@ -48,7 +62,7 @@ const CourseDetails = () => {
                     setIdQuestionnaire(response.data.id);
                     setQuestionnaireTitle(response.data.titulo);
                     setQuestionnaireDescription(response.data.descricao)
-                } 
+                }
             })
             .catch((e) => {
                 console.log("Erro ao buscar dados do questionário:", e);
@@ -60,7 +74,7 @@ const CourseDetails = () => {
             .then((response) => {
                 if (response.status === 200 && response.data) {
                     setIdRegistration(response.data);
-                } 
+                }
             })
             .catch((e) => {
                 console.log("Erro ao buscar dados da matrícula:", e);
@@ -88,16 +102,17 @@ const CourseDetails = () => {
         <Main showReturnPages={true}>
             <div className={styles["content__info"]}>
                 <BannerInfoModule
-                    titleModule="Modulo 1"
-                    descriptionModule="Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam! Aut impedit assumenda rem odio quibusdam id nulla doloribus quo reprehenderit nisi in distinctio amet qui consequuntur sequi sit natus dolorem."
-                    duration="20"
-                    date="24/09/2023"
+                    titleModule={title}
+                    descriptionModule={subtitle}
+                    duration={countVideo}
+                    date={formattedDate}
                 />
             </div>
 
             <YoutubePlaylist
                 titlePlaylist="Próximas aulas"
                 isCursoDetails={true}
+                onVideoCount={handleVideoCount}
             />
 
             <div className={styles['content__questionnaire']}>

@@ -2,11 +2,11 @@ import * as React from "react";
 import styles from './CardModules.module.css'
 import { useNavigate } from 'react-router-dom';
 
-const CardModules = ({ idModule, idCourse, title, subtitle, inProgress, showButton }) => {
+const CardModules = ({ idModule, idCourse, title, subtitle, criadoEm, inProgress, showButton }) => {
     const navigate = useNavigate();
 
     const handleNavigation = (route) => {
-        navigate(route);
+        navigate(route, {state: {title, subtitle, criadoEm}});
     };
     return (
         <>
