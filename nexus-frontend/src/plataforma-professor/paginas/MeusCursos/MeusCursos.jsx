@@ -31,7 +31,9 @@ function MeusCursos() {
                     setCursos(response.data); 
                 } 
             } finally {
-                setLoading(false); 
+                setTimeout(() => {
+                    setLoading(false); 
+                }, 1000);
             }
         };
 
@@ -39,8 +41,14 @@ function MeusCursos() {
     }, []); 
 
     if (loading) {
-        return <p>Carregando...</p>;
+        return (
+            <div className="carregando">
+                <SideBar backgroundColor={'#94065E'} />
+                <div class="loader"></div>
+            </div>
+        )
     }
+
 
     
 
