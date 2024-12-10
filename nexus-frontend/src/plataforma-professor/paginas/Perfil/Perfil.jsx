@@ -76,7 +76,7 @@ function Perfil() {
             }
         });
     
-        api.patch(`professores/${id}`, payload, {
+        api.put(`professores/${id}`, payload, {
             headers: {
                 'Content-Type': 'application/json'
             }
