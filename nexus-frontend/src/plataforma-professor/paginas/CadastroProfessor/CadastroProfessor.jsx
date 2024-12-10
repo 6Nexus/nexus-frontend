@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import api from "../../../api.js";
 import { cpf } from 'cpf-cnpj-validator';
-
+ 
 function Cadastro() {
     
     const validationSchema = Yup.object().shape({
@@ -63,7 +63,7 @@ function Cadastro() {
                     toast.success('Cadastro realizado com sucesso!')
                     console.log(values)
                     resetForm()
-                    navigate('/curso-setup')
+                    navigate('/login-professor')
                 } else {
                     throw new Error('Ops! Ocorreu um erro interno, tente mais tarde.');
                 } 

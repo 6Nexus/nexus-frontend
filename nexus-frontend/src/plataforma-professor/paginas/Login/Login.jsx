@@ -58,6 +58,8 @@ function Login() {
                     sessionStorage.setItem('username', response.data.nome)
                     sessionStorage.setItem('authToken', response.data.token)
                     sessionStorage.setItem('userId', response.data.userId) 
+                    const {tipoUusario} = response.data
+                    sessionStorage.setItem('tipoUsuario', tipoUusario)
 
                     // alert("Login sucess")
                     toast.success('Login realizado com sucesso!');
@@ -68,11 +70,17 @@ function Login() {
                     
                 }
             })
+            
             .catch(error => {
-                toast.error('Ops! Ocorreu um erro interno.');
-                // alert(error.message)
-
-            });
+                // Verifica se o erro é de autenticação (401)
+                if (error.response?.status === 401) {
+                  toast.error('Usuário ou senha inválidos. Por favor, tente novamente.');
+                } else {
+                  // Para outros erros, exibe uma mensagem genérica
+                  toast.error('Erro ao fazer login. Tente novamente mais tarde.');
+                  console.error(error);
+                }
+              });
     };
 
 

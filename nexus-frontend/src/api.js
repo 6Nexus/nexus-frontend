@@ -24,7 +24,6 @@ api.interceptors.response.use(
   },
   (error) => {
     if (error.response?.status === 401) {
-      
       Swal.fire({
         title: "Sessão expirada",
         text: "Sua sessão expirou. Por favor, realize o login novamente",
@@ -32,7 +31,13 @@ api.interceptors.response.use(
         timer: 10000,  
         timerProgressBar: true,  
         willClose: () => {
-          window.location.href = '/login';
+          const tipoUsuario = sessionStorage.getItem('tipoUsuario'); 
+          
+          if (tipoUsuario === 'PROFESSOR') {
+            window.location.href = '/login-professor';
+          } else if (tipoUsuario === 'ASSOCIADO') {
+            window.location.href = '/login';
+          } 
         }
       });
     }

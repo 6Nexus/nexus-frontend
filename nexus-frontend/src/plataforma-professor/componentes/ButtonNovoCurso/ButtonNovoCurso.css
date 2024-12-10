@@ -15,7 +15,7 @@ input[type="file"]::-webkit-file-upload-button {
   cursor: pointer;
   }
 
-.form-container::-webkit-scrollbar{
+.form-container::-webkit-scrollbar{ 
   width: 6px;
 }
 

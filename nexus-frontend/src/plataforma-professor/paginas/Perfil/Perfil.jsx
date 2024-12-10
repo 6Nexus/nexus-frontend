@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './Perfil.css';
 import UploadImagem from "../../componentes/UploadImagem/UploadImagem";
 import SideBar from "../../componentes/SideBar/SideBar";
@@ -8,115 +8,124 @@ import { toast } from 'react-toastify';
 import api from "../../../api";
 import { cpf } from 'cpf-cnpj-validator';
 
-
 function Perfil() {
+    const [initialValues, setInitialValues] = useState({
+        nome: '',
+        sobrenome: '',
+        cpf: '',
+        areaAtuacao: '',
+        email: '',
+        senha: '',
+        confirmeSenha: ''
+    });
 
     const validationSchemaPerfil = Yup.object().shape({
         nome: Yup.string()
             .min(3, "O nome deve ter mais de 3 letras")
             .nullable(),
-
         sobrenome: Yup.string()
             .min(3, "O sobrenome deve ter mais de 3 letras")
             .nullable(),
-
         cpf: Yup.string()
             .test('valid-cpf', 'CPF inválido', (value) => !value || cpf.isValid(value))
             .nullable(),
-
         areaAtuacao: Yup.string()
             .nullable(),
-
         email: Yup.string()
             .email("Formato de email inválido")
-            .matches(
-                /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.(com|org|net|edu|gov|mil|int|biz|info|br|com\.br|org\.br|edu\.br)$/,
-                "Por favor, insira um email com um domínio válido."
-            )
             .nullable(),
-
         senha: Yup.string()
             .min(6, "A senha deve ter pelo menos 6 caracteres")
             .nullable(),
-
         confirmeSenha: Yup.string()
             .oneOf([Yup.ref('senha'), null], 'As senhas devem ser iguais')
             .nullable()
     });
 
+    const id = sessionStorage.getItem('userId'); // Recupera o ID do sessionStorage
+
+    // Carrega os dados do professor ao montar o componente
+    useEffect(() => {
+        if (id) {
+            api.get(`/professores/${id}`)
+                .then(response => {
+                    console.log('Dados recebidos do backend:', response.data); // Para depuração
+                    setInitialValues({
+                        nome: response.data.nome || '',
+                        sobrenome: response.data.sobrenome || '',
+                        cpf: response.data.cpf || '', // Certifique-se de que isso só aparece se o backend retornar
+                        areaAtuacao: response.data.areaAtuacao || '',
+                        email: response.data.email || '',
+                        senha: '', // Não tente carregar a senha aqui
+                        confirmeSenha: ''
+                    });
+                })
+                .catch(error => {
+                    toast.error('Erro ao carregar dados do professor.');
+                    console.error(error);
+                });
+        }
+    }, [id]);
+
+    const handleSalvarAlteracoesPerfil = (values, { setSubmitting, resetForm }) => {
+        // Cria um payload contendo apenas os campos preenchidos (ou modificados)
+        const payload = {};
+        Object.keys(values).forEach((key) => {
+            if (values[key] !== undefined && values[key] !== '') {
+                payload[key] = values[key];
+            }
+        });
     
-    const id = sessionStorage.getItem('userId')
-
-    const handleSlvarAlteracoesPerfil = (values, { setSubmitting, resetForm }) => {
-
-        
-
-        api.put(`professores/${id}`, values, {
+        api.patch(`professores/${id}`, payload, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-
             .then(response => {
                 if (response.status === 200) {
-                    toast.success('Dados atualizados com sucesso')
-                    
-                    sessionStorage.setItem('usuario', response.data.nome);
-                    sessionStorage.setItem('email', response.data.email)
-
-                    console.log(values)
-                    resetForm()
+                    toast.success('Dados atualizados com sucesso');
+                    sessionStorage.setItem('username', response.data.nome);
+                    sessionStorage.setItem('email', response.data.email);
+                    console.log(payload); // Para depuração, exibe o que foi enviado
+                    resetForm();
                 } else {
                     throw new Error('Ops! Ocorreu um erro interno, tente mais tarde.');
                 }
             })
-
             .catch(error => {
                 const errorMessage = 'Erro ao atualizar dados.';
                 toast.error(errorMessage);
-                console.log(error.response?.data?.message)
+                console.error(error);
             })
-
-            .finally(() => setSubmitting(false))
-
-        console.log(JSON.stringify(values));
-
-    }
-
+            .finally(() => setSubmitting(false));
+    };
+    
 
     return (
         <>
-
             <SideBar backgroundColor={'#94065E'} />
             <div>
                 <div className="container-geral">
                     <div className="container-info">
                         <Formik
-                            initialValues={{ nome: '', sobrenome: '', cpf: '', areaAtuacao: '', email: '', senha: '', confirmeSenha: '' }}
+                            initialValues={initialValues}
+                            enableReinitialize // Permite que o formulário re-inicialize com os valores do state
                             validationSchema={validationSchemaPerfil}
-                            onSubmit={handleSlvarAlteracoesPerfil}
+                            onSubmit={handleSalvarAlteracoesPerfil}
                         >
                             {({ isSubmitting, errors, touched }) => (
                                 <Form className="infos">
                                     <h4>Informações Pessoais</h4>
-
 
                                     <Field type="text" name="nome" placeholder="Nome"
                                         className={touched.nome ? errors.nome ? 'input-erro' : 'input-success' : ''}
                                     />
                                     <ErrorMessage name="nome" component="div" className="error-message" />
 
-                                    <Field type="text" name="sobrenome" placeholder="Sobrenome"
-                                        className={touched.sobrenome ? errors.sobrenome ? 'input-erro' : 'input-success' : ''}
-                                    />
-                                    <ErrorMessage name="sobrenome" component="div" className="error-message" />
-
-
                                     <Field type="text" name="cpf" placeholder="CPF"
                                         className={touched.cpf ? errors.cpf ? 'input-erro' : 'input-success' : ''}
                                     />
                                     <ErrorMessage name="cpf" component="div" className="error-message" />
-
 
                                     <Field type="text" name="areaAtuacao" placeholder="Área de atuação"
                                         className={touched.areaAtuacao ? errors.areaAtuacao ? 'input-erro' : 'input-success' : ''}
@@ -150,7 +159,7 @@ function Perfil() {
                 </div>
             </div>
         </>
-
-    )
+    );
 }
+
 export default Perfil;

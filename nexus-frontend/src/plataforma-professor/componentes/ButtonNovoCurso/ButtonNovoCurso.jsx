@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './ButtonNovoCurso.css';
 import SideBar from "../../componentes/SideBar/SideBar";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
@@ -6,7 +6,7 @@ import AdicionarModulos from "../Modulos/AdicionarModulos";
 import { toast } from 'react-toastify';
 import api from "../../../api.js";
 
-function ButtonNovoCurso({ onClose }) {
+function ButtonNovoCurso({ onClose, idCurso, isEditando, cursoExistente }) {
     const [curso, setCurso] = useState({
         titulo: '',
         descricao: '',
@@ -57,131 +57,72 @@ function ButtonNovoCurso({ onClose }) {
 
 
 
-    const handleSalvarCurso = (e) => {
-        e.preventDefault();
-        const { titulo, descricao, categoria } = curso;
-
-        // if (!titulo || !descricao || !categoria) {
-        //     toast.warning('Por favor, preencha todos os campos obrigatórios!')
-        //     return;
-        // }
-
-        if (!titulo || !descricao || !categoria) {
-            toast.warning('Por favor, preencha todos os campos obrigatórios!')
-            return;
-        }
-
-        // if (modulos.length === 0) {
-        //     toast.warning('Por favor, adicione pelo menos um módulo ao curso!');
-        //     return;
-        // }
-
-        // // Log para verificar o estado dos módulos
-        // console.log("Módulos no momento da validação:", modulos);
-
-        // // Validação dos módulos
-        // for (let i = 0; i < modulos.length; i++) {
-        //     console.log("Validando módulo:", modulos[i]); // Log do módulo
-        //     if (!modulos[i].titulo || !modulos[i].descricao) {
-        //         toast.warning(`Por favor, preencha todos os campos do módulo ${i + 1}`);
-        //         return;
-        //     }
-
-        //     // Verificação das aulas
-        //     if (modulos[i].aulas.length === 0) {
-        //         toast.warning(`O módulo ${i + 1} não possui aulas. Por favor, adicione pelo menos uma aula!`);
-        //         return;
-        //     }
-
-        //     for (let j = 0; j < modulos[i].aulas.length; j++) {
-
-        //         console.log("Validando aula:", modulos[i].aulas[j]); // Log da aula 
-
-        //         if (!modulos[i].aulas[j].titulo || !modulos[i].aulas[j].descricao) {
-        //             toast.warning(`Por favor, preencha todos os campos da aula ${j + 1} no módulo ${i + 1}`);
-        //             return;
-        //         }
-
-        //         if(!modulos[i].aulas[j].conteudos.video){
-        //             toast.warning(`A aula ${j + 1} não possui um vídeo. Adicione um conteúdo de vídeo!`)
-        //         }
-
-
-        //     }
-
-        //     // Verificação se não tem questionário no módulo 
-        //     if (modulos[i].questionario.length === 0) {
-        //         toast.warning(`O módulo ${i + 1} não possui questionário. Por favor, adicione pelo menos uma questão!`);
-        //         return;
-        //     }   
-        // }
-
-        
-
-        api.post('/cursos', curso, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then((response) => {
-            console.log('Resposta da API:', response.data); // Verifique o conteúdo aqui
-            if (response.status === 201) {
-                const createdCourse = response.data;
-                console.log('Curso criado retornado pela API:', createdCourse); // Adicione para depuração
-        
-                const cursosCriados = JSON.parse(localStorage.getItem('cursos')) || [];
-                const updatedCourses = [...cursosCriados, createdCourse];
-                localStorage.setItem('cursos', JSON.stringify(updatedCourses));
-                console.log('Cursos atualizados no localStorage:', updatedCourses);
-        
-                // Atualizando o estado do curso com o id
-                setCurso((prevCurso) => ({
-                    ...prevCurso,
-                    idCurso: createdCourse.id,
-                }));
-        
-                setModulos((prevModulos) =>
-                    prevModulos.map((modulo) => ({
-                        ...modulo,
-                        idCurso: createdCourse.id,
-                    }))
-                );
-        
-                toast.success('Curso criado com sucesso!');
-                resetForm();
-            } else {
-                throw new Error('Ops! Ocorreu um erro interno, tente mais tarde.');
+    useEffect(() => {
+        const carregarCurso = async () => {
+            try {
+                if (idCurso) {
+                    const response = await api.get(`/cursos/${idCurso}`);
+                    if (response.status === 200) {
+                        setCurso(response.data); // Preenche os dados do curso
+                    }
+                }
+            } catch (error) {
+                console.error('Erro ao carregar curso:', error);
+                toast.error('Erro ao carregar o curso.');
             }
-        })
-        .catch((error) => {
-            console.error('Erro ao criar o curso:', error); // Log para verificar o erro
-            toast.error(error.message);
-        });
-        
+        };
 
-        
+        carregarCurso();
+    }, [idCurso]);
 
-        console.log('Curso Criado', curso);
-        resetForm();
+    useEffect(() => {
+        if (cursoExistente) {
+            setCurso(cursoExistente); // Preenche os dados do curso para edição
+        }
+    }, [cursoExistente]);
+    
+    idCurso = cursoExistente?.id; // Obtem o ID do curso para atualizar
+    
 
+    const handleSalvarCurso = async (e) => {
+        e.preventDefault();
+        try {
+            if (idCurso) {
+                // Atualiza o curso
+                await api.patch(`/cursos/titulo/${idCurso}/${curso.titulo}`);
+                await api.patch(`/cursos/categoria/${idCurso}/${curso.categoria}`);
+                await api.patch(`/cursos/descricao/${idCurso}/${curso.descricao}`);
+                toast.success('Curso atualizado com sucesso!');
+            } else {
+                // Cria um novo curso
+                const response = await api.post('/cursos', curso);
+                if (response.status === 201) {
+                    toast.success('Curso criado com sucesso!'); 
+                }
+            }
+            onClose();
+        } catch (error) {
+            console.error('Erro ao salvar curso:', error);
+            toast.error('Erro ao salvar o curso.');
+        }
     };
 
-    const resetForm = () => {
-        setCurso({
-            titulo: '',
-            descricao: '',
-            // imagem: null,
-            categoria: '',
-            // modulos: []
-        });
-    };
+    // const resetForm = () => {
+    //     setCurso({
+    //         titulo: '',
+    //         descricao: '',
+    //         // imagem: null,
+    //         categoria: '',
+    //         // modulos: []
+    //     });
+    // };
 
     return (
         <>
             <SideBar />
             <div className="form-container">
                 <div className="form-header">
-                    <h2>Criar Curso</h2>
+                    <h2>{isEditando ? "Atualizar Curso" : "Criar Curso"}</h2>
                     <button className="btn-remover" onClick={onClose}>
                         <CloseRoundedIcon />
                     </button>
@@ -253,7 +194,7 @@ function ButtonNovoCurso({ onClose }) {
                         />
                     ))}
 
-                    <button type="submit" className="btn-submit">Salvar Curso</button>
+                    <button type="submit" className="btn-submit">{isEditando ? "Atualizar Curso" : "Salvar Curso"}</button>
                 </form>
             </div>
         </>
