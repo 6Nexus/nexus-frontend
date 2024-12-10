@@ -36,10 +36,10 @@ function Perfil() {
             .nullable(),
         senha: Yup.string()
             .min(6, "A senha deve ter pelo menos 6 caracteres")
-            .nullable(),
+            .required('insira a senha'),
         confirmeSenha: Yup.string()
             .oneOf([Yup.ref('senha'), null], 'As senhas devem ser iguais')
-            .nullable()
+            .required('insira a senha')
     });
 
     const id = sessionStorage.getItem('userId'); // Recupera o ID do sessionStorage
