@@ -54,6 +54,16 @@ function MeusCursos() {
         );
     }
 
+    const handleSalvarEdicao = (cursoEditado) => {
+        setCursos((prevCursos) => 
+            prevCursos.map((curso) => 
+                curso.id === cursoEditado.id ? cursoEditado : curso
+            )
+        );
+        setEditando(false);
+    };
+    
+
     return (
         <>
             <SideBar backgroundColor={'#94065E'} />
@@ -84,6 +94,7 @@ function MeusCursos() {
                             onClose={handleFecharEdicao}
                             cursoExistente={cursoSelecionado}
                             isEditando={true}
+                            onCursoEditado={handleSalvarEdicao}
                         />
                     </div>
                 </div>
