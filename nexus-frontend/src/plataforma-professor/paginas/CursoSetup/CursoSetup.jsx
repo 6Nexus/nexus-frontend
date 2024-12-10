@@ -26,7 +26,8 @@ function CursoSetup() {
             const novosModulos = [...prevCurso.modulos];
 
             if (indexModulo === -1) {
-                novosModulos.push({ ordem: 0, titulo: '', descricao: '', aulas: [], questionario: [] });
+                novosModulos.push({ ordem: 0, titulo: '', descricao: '', aulas: [], 
+                    questionario: { titulo: 'Questionário', descricao: 'Descrição do questionário', perguntas: [] }});
             } else {
                 novosModulos[indexModulo] = {
                     ...novosModulos[indexModulo],
@@ -50,6 +51,71 @@ function CursoSetup() {
             } else {
                 novosModulos[indexModulo].aulas[indexAula] = {
                     ...novosModulos[indexModulo].aulas[indexAula],
+                    [campo]: valor
+                };
+            }
+
+            return {
+                ...prevCurso,
+                modulos: novosModulos
+            };
+        });
+    };
+
+    // const atualizarQuestionario = (indexModulo, indexQuestionario, campo, valor) => {
+    //     setCurso((prevCurso) => {
+    //         const novosModulos = [...prevCurso.modulos];
+
+    //         novosModulos[indexModulo].questionario[indexQuestionario] = {
+    //             ...novosModulos[indexModulo].questionario[indexQuestionario],
+    //             [campo]: valor
+    //         };
+
+    //         return {
+    //             ...prevCurso,
+    //             modulos: novosModulos
+    //         };
+    //     });
+    // };
+
+    const atualizarPergunta = (indexModulo, indexPergunta, campo, valor) => {
+        setCurso((prevCurso) => {
+            const novosModulos = [...prevCurso.modulos];
+
+            if (indexPergunta === -1) {
+                novosModulos[indexModulo].questionario.perguntas.push({ pergunta: '', respostas: [] });
+            } else {
+                novosModulos[indexModulo].questionario.perguntas[indexPergunta] = {
+                    ...novosModulos[indexModulo].questionario.perguntas[indexPergunta],
+                    [campo]: valor
+                };
+            }
+
+            return {
+                ...prevCurso,
+                modulos: novosModulos
+            };
+        });
+    };
+
+    const atualizarResposta = (indexModulo, indexPergunta, indexResposta, campo, valor, tipo) => {
+        setCurso((prevCurso) => {
+            const novosModulos = [...prevCurso.modulos];
+
+            if (indexResposta === -1) {
+                novosModulos[indexModulo].questionario.perguntas[indexPergunta].respostas.push({ resposta: '', respostaCerta: false });
+            
+            } else if (tipo === 'radio') {
+                novosModulos[indexModulo].questionario.perguntas[indexPergunta].respostas = novosModulos[indexModulo].questionario.perguntas[indexPergunta].respostas.map((resposta, index) => {
+                    return {
+                        ...resposta,
+                        respostaCerta: index === indexResposta
+                    };
+                });
+            
+            } else {
+                novosModulos[indexModulo].questionario.perguntas[indexPergunta].respostas[indexResposta] = {
+                    ...novosModulos[indexModulo].questionario.perguntas[indexPergunta].respostas[indexResposta],
                     [campo]: valor
                 };
             }
@@ -90,8 +156,10 @@ function CursoSetup() {
                             atualizarCurso={atualizarCurso}
                             atualizarModulo={atualizarModulo}
                             atualizarAula={atualizarAula}
+                            atualizarPergunta={atualizarPergunta}
+                            atualizarResposta={atualizarResposta}
                             onClose={fecharCriadorCurso}
-                            // onSave={salvarCurso}
+                            // onSave={salvarCurso
                         /> 
                     )}
                 </div>

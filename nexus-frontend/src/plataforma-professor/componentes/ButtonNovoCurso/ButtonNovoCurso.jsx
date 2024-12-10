@@ -6,7 +6,7 @@ import AdicionarModulos from "../Modulos/AdicionarModulos";
 import { toast } from 'react-toastify';
 import api from "../../../api.js";
 
-function ButtonNovoCurso({ curso, atualizarCurso, atualizarModulo, atualizarAula, onClose }) {
+function ButtonNovoCurso({ curso, atualizarCurso, atualizarModulo, atualizarAula, atualizarPergunta, atualizarResposta, onClose }) {
     const handleCursoChange = (e) => {
         const { name, value } = e.target;
         if (name == "imagem") {
@@ -93,6 +93,8 @@ function ButtonNovoCurso({ curso, atualizarCurso, atualizarModulo, atualizarAula
                             modulo={modulo}
                             atualizarModulo={atualizarModulo}
                             atualizarAula={atualizarAula}
+                            atualizarPergunta={atualizarPergunta}
+                            atualizarResposta={atualizarResposta}
                             // removerModulo=
                         />
                     ))}

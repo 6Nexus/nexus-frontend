@@ -8,7 +8,7 @@
     import { toast } from 'react-toastify';
 import ButtonNovoCurso from '../ButtonNovoCurso/ButtonNovoCurso';
 
-    function AdicionarModulos({ moduloIndex, modulo, atualizarModulo, atualizarAula
+    function AdicionarModulos({ moduloIndex, modulo, atualizarModulo, atualizarAula, atualizarPergunta, atualizarResposta
         // , removerModulo
     }) {
         const handleModuloChange = (e) => {
@@ -89,7 +89,10 @@ import ButtonNovoCurso from '../ButtonNovoCurso/ButtonNovoCurso';
 
                 {mostrarQuestionario &&
                     <Questionario
-                        idModulo={modulo.id}
+                        moduloIndex={moduloIndex}
+                        questionario={modulo.questionario}
+                        atualizarPergunta={atualizarPergunta}
+                        atualizarResposta={atualizarResposta}
                         // onSave={handleSalvarQuestionario}
                         onClose={toggleQuestionario}
                     />
