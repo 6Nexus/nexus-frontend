@@ -1,9 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './CursoSetup.css';
 import SideBar from "../../componentes/SideBar/SideBar";
 import ButtonNovoCurso from "../../componentes/ButtonNovoCurso/ButtonNovoCurso";
 import Swal from 'sweetalert2';
-
 
 function CursoSetup() {
     const [mostrarCriarCurso, setMostrarCriarCurso] = useState(false);
@@ -12,9 +11,59 @@ function CursoSetup() {
         descricao: '',
         imagem: null,
         categoria: '',
-        modulos: [],
-
+        modulos: []
     }); 
+
+    const atualizarCurso = (campo, valor) => {
+        setCurso((prevCurso) => ({
+            ...prevCurso,
+            [campo]: valor
+        }));
+    };
+
+    const atualizarModulo = (indexModulo, campo, valor) => {
+        setCurso((prevCurso) => {
+            const novosModulos = [...prevCurso.modulos];
+
+            if (indexModulo === -1) {
+                novosModulos.push({ ordem: 0, titulo: '', descricao: '', aulas: [], questionario: [] });
+            } else {
+                novosModulos[indexModulo] = {
+                    ...novosModulos[indexModulo],
+                    [campo]: valor
+                };
+            }
+
+            return {
+                ...prevCurso,
+                modulos: novosModulos
+            };
+        });
+    };
+
+    const atualizarAula = (indexModulo, indexAula, campo, valor) => {
+        setCurso((prevCurso) => {
+            const novosModulos = [...prevCurso.modulos];
+
+            if (indexAula === -1) {
+                novosModulos[indexModulo].aulas.push({ ordem: 0, titulo: '', descricao: '', video: '' });
+            } else {
+                novosModulos[indexModulo].aulas[indexAula] = {
+                    ...novosModulos[indexModulo].aulas[indexAula],
+                    [campo]: valor
+                };
+            }
+
+            return {
+                ...prevCurso,
+                modulos: novosModulos
+            };
+        });
+    };
+
+    useEffect(() => {
+        console.log("Estado atualizado:", curso);
+    }, [curso]);
 
     const abrirCriadorCurso = () => {
         setMostrarCriarCurso(true);
@@ -22,19 +71,7 @@ function CursoSetup() {
 
     const fecharCriadorCurso = () => {
         setMostrarCriarCurso(false);
-    };
-
-
-    const atualizarCurso = (novosDados) => {
-        setCurso((cursoAtual) => ({
-            ...cursoAtual,
-            ...novosDados
-        }));
-    };
-
-    // Função para salvar o curso 
-    // ainda vai ser passado os propriedades para salvar módulos e aulas
-    
+    };    
 
     return (
         <>
@@ -48,8 +85,11 @@ function CursoSetup() {
 
                     {mostrarCriarCurso && (
                         <ButtonNovoCurso
+                            key={curso.id}
                             curso={curso}
                             atualizarCurso={atualizarCurso}
+                            atualizarModulo={atualizarModulo}
+                            atualizarAula={atualizarAula}
                             onClose={fecharCriadorCurso}
                             // onSave={salvarCurso}
                         /> 

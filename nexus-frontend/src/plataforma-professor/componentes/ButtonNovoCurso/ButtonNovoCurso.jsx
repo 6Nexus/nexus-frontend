@@ -6,176 +6,20 @@ import AdicionarModulos from "../Modulos/AdicionarModulos";
 import { toast } from 'react-toastify';
 import api from "../../../api.js";
 
-function ButtonNovoCurso({ onClose }) {
-    const [curso, setCurso] = useState({
-        titulo: '',
-        descricao: '',
-        // imagem: null,
-        categoria: '',
-        idProfessor: Number(sessionStorage.getItem('userId'))
-        // modulos: [] 
-    });
-
-
-
-    const handleInputChange = (e) => {
+function ButtonNovoCurso({ curso, atualizarCurso, atualizarModulo, atualizarAula, onClose }) {
+    const handleCursoChange = (e) => {
         const { name, value } = e.target;
-        setCurso((prevCurso) => ({
-            ...prevCurso,
-            [name]: value
-        }));
-    };
-
-    const handleFileChange = (e) => {
-        setCurso((prevCurso) => ({
-            ...prevCurso,
-            imagem: e.target.files[0],
-        }));
-    };
-
-    // const handleAddModulo = () => {
-    //     setCurso((prevCurso) => ({
-    //         ...prevCurso,
-    //         modulos: [...prevCurso.modulos, { titulo: '', descricao: '', aulas: [], questionario: [] }],
-    //     }));
-    // };
-
-    // separando o modulo do objeto de curso
-   const [modulos, setModulos] = useState([]);
-
-    const handleAddModulo = () => {
-        setModulos((prevModulos) => [
-            ...prevModulos,
-            { titulo: '', idCurso: curso.id, ordem: prevModulos.length + 1},
-        ]);
-    };
-
-    const handleAtualizarModulo = (index, updatedModulo) => {
-        setModulos((prevModulos) =>
-            prevModulos.map((modulo, i) => (i === index ? updatedModulo : modulo))
-        );
-    };
-
-
-
-    const handleSalvarCurso = (e) => {
-        e.preventDefault();
-        const { titulo, descricao, categoria } = curso;
-
-        // if (!titulo || !descricao || !categoria) {
-        //     toast.warning('Por favor, preencha todos os campos obrigatórios!')
-        //     return;
-        // }
-
-        if (!titulo || !descricao || !categoria) {
-            toast.warning('Por favor, preencha todos os campos obrigatórios!')
-            return;
+        if (name == "imagem") {
+            atualizarCurso(name, e.target.files[0]);
+        } else {
+            atualizarCurso(name, value);
         }
-
-        // if (modulos.length === 0) {
-        //     toast.warning('Por favor, adicione pelo menos um módulo ao curso!');
-        //     return;
-        // }
-
-        // // Log para verificar o estado dos módulos
-        // console.log("Módulos no momento da validação:", modulos);
-
-        // // Validação dos módulos
-        // for (let i = 0; i < modulos.length; i++) {
-        //     console.log("Validando módulo:", modulos[i]); // Log do módulo
-        //     if (!modulos[i].titulo || !modulos[i].descricao) {
-        //         toast.warning(`Por favor, preencha todos os campos do módulo ${i + 1}`);
-        //         return;
-        //     }
-
-        //     // Verificação das aulas
-        //     if (modulos[i].aulas.length === 0) {
-        //         toast.warning(`O módulo ${i + 1} não possui aulas. Por favor, adicione pelo menos uma aula!`);
-        //         return;
-        //     }
-
-        //     for (let j = 0; j < modulos[i].aulas.length; j++) {
-
-        //         console.log("Validando aula:", modulos[i].aulas[j]); // Log da aula 
-
-        //         if (!modulos[i].aulas[j].titulo || !modulos[i].aulas[j].descricao) {
-        //             toast.warning(`Por favor, preencha todos os campos da aula ${j + 1} no módulo ${i + 1}`);
-        //             return;
-        //         }
-
-        //         if(!modulos[i].aulas[j].conteudos.video){
-        //             toast.warning(`A aula ${j + 1} não possui um vídeo. Adicione um conteúdo de vídeo!`)
-        //         }
-
-
-        //     }
-
-        //     // Verificação se não tem questionário no módulo 
-        //     if (modulos[i].questionario.length === 0) {
-        //         toast.warning(`O módulo ${i + 1} não possui questionário. Por favor, adicione pelo menos uma questão!`);
-        //         return;
-        //     }   
-        // }
-
-        
-
-        api.post('/cursos', curso, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-        .then((response) => {
-            console.log('Resposta da API:', response.data); // Verifique o conteúdo aqui
-            if (response.status === 201) {
-                const createdCourse = response.data;
-                console.log('Curso criado retornado pela API:', createdCourse); // Adicione para depuração
-        
-                const cursosCriados = JSON.parse(localStorage.getItem('cursos')) || [];
-                const updatedCourses = [...cursosCriados, createdCourse];
-                localStorage.setItem('cursos', JSON.stringify(updatedCourses));
-                console.log('Cursos atualizados no localStorage:', updatedCourses);
-        
-                // Atualizando o estado do curso com o id
-                setCurso((prevCurso) => ({
-                    ...prevCurso,
-                    idCurso: createdCourse.id,
-                }));
-        
-                setModulos((prevModulos) =>
-                    prevModulos.map((modulo) => ({
-                        ...modulo,
-                        idCurso: createdCourse.id,
-                    }))
-                );
-        
-                toast.success('Curso criado com sucesso!');
-                resetForm();
-            } else {
-                throw new Error('Ops! Ocorreu um erro interno, tente mais tarde.');
-            }
-        })
-        .catch((error) => {
-            console.error('Erro ao criar o curso:', error); // Log para verificar o erro
-            toast.error(error.message);
-        });
-        
-
-        
-
-        console.log('Curso Criado', curso);
-        resetForm();
-
     };
 
-    const resetForm = () => {
-        setCurso({
-            titulo: '',
-            descricao: '',
-            // imagem: null,
-            categoria: '',
-            // modulos: []
-        });
+    const handleModuloAdd = () => {
+        atualizarModulo(-1, '', '')
     };
+
 
     return (
         <>
@@ -187,15 +31,16 @@ function ButtonNovoCurso({ onClose }) {
                         <CloseRoundedIcon />
                     </button>
                 </div>
-                <form onSubmit={handleSalvarCurso} className="form-curso-criacao">
+                <form
+                    // onSubmit={handleSalvarCurso} 
+                className="form-curso-criacao">
                     <label>Título do Curso<span style={{ color: 'red' }}>*</span></label>
                     <input
                         type="text"
                         name="titulo"
                         value={curso.titulo}
-                        onChange={handleInputChange}
+                        onChange={handleCursoChange}
                         placeholder="Digite o título do curso"
-                        // required
                         style={{ width: '40%' }}
                     />
 
@@ -203,16 +48,16 @@ function ButtonNovoCurso({ onClose }) {
                     <input
                         name="descricao"
                         value={curso.descricao}
-                        onChange={handleInputChange}
+                        onChange={handleCursoChange}
                         placeholder="Digite a descrição do curso"
-                        // required
                         className="input-descricao"
                     />
 
                     <label>Imagem de Capa:</label>
                     <input
                         type="file"
-                        onChange={handleFileChange}
+                        name="imagem"
+                        onChange={handleCursoChange}
                         accept="image/*"
                         className="file-imagem-capa"
                     />
@@ -221,8 +66,7 @@ function ButtonNovoCurso({ onClose }) {
                     <select
                         name="categoria"
                         value={curso.categoria}
-                        onChange={handleInputChange}
-                    // required
+                        onChange={handleCursoChange}
                     >
                         <option value="">Selecione uma categoria</option>
                         <option value="Cidadania">Cidadania</option>
@@ -237,20 +81,19 @@ function ButtonNovoCurso({ onClose }) {
                     <button
                         type="button"
                         className="btn-add-modulo"
-                        onClick={handleAddModulo}
+                        onClick={handleModuloAdd}
                     >
                         + Módulo
                     </button>
 
-                    {modulos.map((modulo, index) => (
+                    {curso.modulos.map((modulo, index) => (
                         <AdicionarModulos
                             key={index}
                             moduloIndex={index}
                             modulo={modulo}
-                            atualizarModulo={handleAtualizarModulo}
-                            removerModulo={() => {
-                                setModulos((prevModulos) => prevModulos.filter((_, i) => i !== index));
-                            }}
+                            atualizarModulo={atualizarModulo}
+                            atualizarAula={atualizarAula}
+                            // removerModulo=
                         />
                     ))}
 
