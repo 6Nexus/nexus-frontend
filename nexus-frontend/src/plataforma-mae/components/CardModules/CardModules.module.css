@@ -13,9 +13,8 @@
     flex-direction: column;
     gap: 24px;
     width: 70%;
+    justify-content: center;
 }
-
-
 
 .description__title {
     font-family: 'Inter-Regular';
@@ -29,6 +28,15 @@
     font-family: 'Inter-Regular';
     color: var(--primary-grey);
     margin: 0px;
+}
+
+.disable {
+    background-color: #EDEBEB;
+    cursor: not-allowed;
+}
+
+.disable__text {
+    color: var(--secondary-grey);
 }
 
 .main__text, .description__date {
@@ -54,6 +62,10 @@
     align-self: center;
 }
 
+.card-curso-container__text {
+    color: var(--secondary-green);
+    margin-left: 20px;
+}
 
 
 .card-curso-container__actions {

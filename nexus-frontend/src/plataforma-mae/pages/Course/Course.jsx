@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import api from "./../../../api";
-import styles from './Course.module.css'
-import SideBar from "../../components/SideBar/SideBar";
-import SearchBar from "../../components/SearchBar/SearchBar";
+import styles from "./Course.module.css";
 import CardCurso from "../../components/CardCurso/CardCurso";
 import HeaderCategory from "../../components/HeaderCategory/HeaderCategory";
-import Pagination from '@mui/material/Pagination';
+import Pagination from "@mui/material/Pagination";
 import ContentNotFound from "../../components/ContentNotFound/ContentNotFound";
+import Main from "../Main/Main";
+import imagemCapaDefault from '../../../utils/assets/capa_curso.jpg'
 
 const Course = () => {
     const [cardsData, setCardsData] = useState([]);
@@ -17,6 +17,8 @@ const Course = () => {
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const currentCards = cardsData.slice(indexOfFirstCard, indexOfLastCard);
+
+    const [imageUrls, setImageUrls] = useState({});
 
     const handleChange = (event, value) => {
         setCurrentPage(value);
@@ -36,50 +38,83 @@ const Course = () => {
     };
 
     useEffect(() => {
+        const fetchImages = async () => {
+          const newImageUrls = {};
+
+          for (const data of currentCards) {
+            try {
+              const response = await api.get(`/cursos/capa/${data.id}`, { responseType: 'blob' });
+              const contentType = response.headers['content-type'];
+
+          if (contentType && contentType.startsWith('image/')) {
+            const imageUrl = URL.createObjectURL(response.data);
+            newImageUrls[data.id] = imageUrl;
+          } else {
+            newImageUrls[data.id] = imagemCapaDefault;
+          }
+              
+            } catch (error) {
+              console.error('Erro ao buscar a imagem para o curso', data.id, error);
+              newImageUrls[data.id] = imagemCapaDefault; 
+            }
+          }
+    
+          setImageUrls(newImageUrls);
+        };
+    
+        if (currentCards && currentCards.length > 0) {
+          fetchImages();
+        }
+      }, [currentCards]);
+
+    useEffect(() => {
         buscarCursos(activeCategory);
     }, [activeCategory]);
 
+
     return (
-        <>
+        <Main showReturnPages={false}>
             <div className={styles["course-container"]}>
-                <SideBar backgroundColor={'#245024'} />
 
                 <div className={styles["course-container__content"]}>
-                    <SearchBar />
+
 
                     <HeaderCategory
                         activeCategory={activeCategory}
                         setActiveCategory={setActiveCategory}
                     />
 
-                    <div className={`${styles["course-container__content__courseList"]} ${currentCards.length === 0 ? styles.noContent : ''}`}>
+                    <div
+                        className={`${styles["course-container__content__courseList"]} ${currentCards.length === 0 ? styles.noContent : ""
+                            }`}
+                    >
                         <p className={styles["courseList__title"]}>Cursos encontrados</p>
-                        <div 
-                         className={`${currentCards.length > 0 ? styles.courseList__cards : ''}`}
+                        <div
+                            className={`${currentCards.length > 0 ? styles.courseList__cards : ""
+                                }`}
                         >
-                            {
-                                currentCards && currentCards.length > 0 ? (
-                                    currentCards.map((data, _) => (
-                                        <CardCurso
-                                            key={data.id}
-                                            id={data.id}
-                                            title={data.titulo}
-                                            subtitle={data.descricao}
-                                            category={data.categoria}
-                                            inProgress={data.emProgresso}
-                                            liked={data.curtido}
-                                            imageUrl={data.imagem}
-                                            progress={data.progreso}
-                                        />
-                                    ))
-                                ) : (
-                                   <ContentNotFound content="cursos"/>
-                                )
-                            }
+                            {currentCards && currentCards.length > 0 ? (
+                                currentCards.map((data) => (
+                                    <CardCurso
+                                        key={data.id}
+                                        id={data.id}
+                                        title={data.titulo}
+                                        subtitle={data.descricao}
+                                        category={data.categoria}
+                                        inProgress={data.emProgresso}
+                                        liked={data.curtido}
+                                        imageUrl={imageUrls[data.id] || imagemCapaDefault}
+                                        progress={data.progreso}
+                                    />
+                                ))
+                            ) : (
+                                <ContentNotFound content="Desculpe, não encontramos cursos disponíveis para essa categoria no momento." />
+                            )}
+
                         </div>
                     </div>
 
-                    {cardsData &&
+                    {cardsData && (
                         <Pagination
                             count={Math.ceil(cardsData.length / cardsPerPage)}
                             page={currentPage}
@@ -87,26 +122,26 @@ const Course = () => {
                             variant="outlined"
                             shape="rounded"
                             sx={{
-
-                                backgroundColor: '#F3F3F3',
-                                padding: '8px',
-                                borderRadius: '30px',
-                                '& .MuiPaginationItem-root': {
-                                    color: '#245024',
-                                    border: 'none',
-                                    borderRadius: '50%',
-                                    fontSize: '16px'
+                                backgroundColor: "#F3F3F3",
+                                padding: "8px",
+                                borderRadius: "30px",
+                                "& .MuiPaginationItem-root": {
+                                    color: "#245024",
+                                    border: "none",
+                                    borderRadius: "50%",
+                                    fontSize: "16px",
                                 },
-                                '& .MuiPaginationItem-root.Mui-selected': {
-                                    backgroundColor: '#3B9D3B',
-                                    color: 'white',
+                                "& .MuiPaginationItem-root.Mui-selected": {
+                                    backgroundColor: "#3B9D3B",
+                                    color: "white",
                                 },
                             }}
                         />
-                    }
+                    )}
                 </div>
             </div>
-        </>
+        </Main>
     );
 };
-export default Course
+
+export default Course;

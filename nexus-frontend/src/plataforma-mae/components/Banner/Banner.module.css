@@ -1,5 +1,4 @@
     .banner-container {
-        width: 80%;
         position: relative;
         height: 311px;
         background-image: url('../../../utils/assets/fundo-banner.svg');
@@ -12,6 +11,8 @@
         gap: 40px;
         justify-content: center;
         border-radius: 20px;
+        width: 100%;
+        margin-top: 52px;
     }
  
     .banner-container__text {
