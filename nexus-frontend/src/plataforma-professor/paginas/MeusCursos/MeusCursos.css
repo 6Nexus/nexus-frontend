@@ -110,6 +110,12 @@
     background-color: #5d033a;
 }
 
+.button-editar-curso {
+    display: flex;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
 .carregando {
     display: flex;
     align-items: center;

@@ -36,27 +36,28 @@ function Perfil() {
             .nullable(),
         senha: Yup.string()
             .min(6, "A senha deve ter pelo menos 6 caracteres")
-            .required('insira a senha'),
+            .required('Insira sua senha para confirmar atualização'),
         confirmeSenha: Yup.string()
             .oneOf([Yup.ref('senha'), null], 'As senhas devem ser iguais')
-            .required('insira a senha')
+            .required('Insira sua senha para confirmar atualização')
     });
 
-    const id = sessionStorage.getItem('userId'); // Recupera o ID do sessionStorage
+    const id = sessionStorage.getItem('userId');
+    
 
     // Carrega os dados do professor ao montar o componente
     useEffect(() => {
         if (id) {
             api.get(`/professores/${id}`)
                 .then(response => {
-                    console.log('Dados recebidos do backend:', response.data); // Para depuração
+                    console.log('Dados recebidos do backend:', response.data);
                     setInitialValues({
                         nome: response.data.nome || '',
                         sobrenome: response.data.sobrenome || '',
-                        cpf: response.data.cpf || '', // Certifique-se de que isso só aparece se o backend retornar
+                        cpf: response.data.cpf || '',
                         areaAtuacao: response.data.areaAtuacao || '',
                         email: response.data.email || '',
-                        senha: '', // Não tente carregar a senha aqui
+                        senha: '',
                         confirmeSenha: ''
                     });
                 })
@@ -67,8 +68,7 @@ function Perfil() {
         }
     }, [id]);
 
-    const handleSalvarAlteracoesPerfil = (values, { setSubmitting, resetForm }) => {
-        // Cria um payload contendo apenas os campos preenchidos (ou modificados)
+    const handleSalvarAlteracoesPerfil = (values, { setSubmitting, resetForm, setValues }) => {
         const payload = {};
         Object.keys(values).forEach((key) => {
             if (values[key] !== undefined && values[key] !== '') {
@@ -82,24 +82,28 @@ function Perfil() {
             }
         })
             .then(response => {
-                if (response.status === 200) {
-                    toast.success('Dados atualizados com sucesso');
-                    sessionStorage.setItem('username', response.data.nome);
-                    sessionStorage.setItem('email', response.data.email);
-                    console.log(payload); // Para depuração, exibe o que foi enviado
-                    resetForm();
-                } else {
-                    throw new Error('Ops! Ocorreu um erro interno, tente mais tarde.');
+                console.log('Resposta recebida:', response); 
+                if (response.status >= 200 && response.status < 300) {
+                    try {
+                        toast.success('Dados atualizados com sucesso');
+                        sessionStorage.setItem('username', response.data.nome);
+                        sessionStorage.setItem('email', response.data.email);
+                        console.log('Payload enviado:', payload); 
+                        
+                        setValues(response.data);
+                    } catch (formError) {
+                        console.error('Erro ao redefinir o formulário:', formError);
+                    }
                 }
             })
             .catch(error => {
-                const errorMessage = 'Erro ao atualizar dados.';
-                toast.error(errorMessage);
-                console.error(error);
+                console.error('Erro ao atualizar perfil:', error); 
+                toast.error('Erro ao atualizar os dados.');
             })
             .finally(() => setSubmitting(false));
     };
     
+
 
     return (
         <>
