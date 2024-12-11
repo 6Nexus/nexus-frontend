@@ -8,7 +8,7 @@ import SchoolIcon from '@mui/icons-material/School';
 import InfoIcon from '@mui/icons-material/Info';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-import FavoriteIcon from '@mui/icons-material/Favorite'; 
+import BookmarkAddedIcon from '@mui/icons-material/BookmarkAdded';
 import LogoutIcon from '@mui/icons-material/Logout';
 
 import { useNavigate, useLocation } from 'react-router-dom';
@@ -100,7 +100,7 @@ const SideBar = ({backgroundColor}) => {
 
                         <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('instructions', '/aluno/instrucoes')}>
                             <InfoIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'instructions' ? styles["active"] : ""}`}/>
-                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Instruções</span>}
+                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Ajuda</span>}
                         </div>
 
                         <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('profileSettings', '/aluno/perfil')}>
@@ -118,8 +118,8 @@ const SideBar = ({backgroundColor}) => {
                         </div>
 
                         <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('saved', '/aluno/cursos-salvos')}>
-                            <FavoriteIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'saved' ? styles["active"] : ""}`}/>
-                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Salvos</span>}
+                            <BookmarkAddedIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'saved' ? styles["active"] : ""}`}/>
+                            {isExpanded && <span className={styles["menuOptions__item__text"]}>Matrículas</span>}
                         </div>
                     </div>
                 </div>

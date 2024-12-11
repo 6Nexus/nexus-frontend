@@ -1,20 +1,10 @@
-.profileSettings-container {
-    display: flex;
-    flex-direction: row;
-}
-
 .profileSettings-container__content {
-    width: 94%; 
-    margin-left: 6%; 
     display: flex;
     flex-direction: column;
-    align-items: center;
     gap: 80px;
-    padding: 32px;
 }
 
 .profileSettings-container__content__sectionData  {
-    width: 80%;
     background-color: #fff;
     padding: 32px;
     border-radius: 20px;

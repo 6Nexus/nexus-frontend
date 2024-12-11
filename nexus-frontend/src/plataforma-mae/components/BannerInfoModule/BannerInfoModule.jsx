@@ -1,6 +1,6 @@
 import * as React from "react";
 import styles from './BannerInfoModule.module.css';
-import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 
 const BannerInfoModule = ({ titleModule, descriptionModule, duration, date }) => {
@@ -8,8 +8,8 @@ const BannerInfoModule = ({ titleModule, descriptionModule, duration, date }) =>
         <>
             <div className={styles["bannerInfoModule-container"]}>
                 <div className={styles["bannerInfoModule-container__infoDuration"]}>
-                    <AccessTimeIcon sx={{ fontSize: 52 }}/>
-                    <p>Duração: {duration} horas</p>
+                    <OndemandVideoIcon sx={{ fontSize: 52 }}/>
+                    <p>Duração: {duration} aulas</p>
                 </div>
                 <div className={styles["bannerInfoModule-container__line"]}></div>
                 <div className={styles["bannerInfoModule-container__text"]}>

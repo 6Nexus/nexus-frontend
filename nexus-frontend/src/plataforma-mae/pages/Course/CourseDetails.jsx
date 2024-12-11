@@ -1,57 +1,171 @@
-import React from "react";
-import { useParams } from 'react-router-dom';
-import styles from './CourseDetails.module.css'
-import SideBar from "../../components/SideBar/SideBar";
-import SearchBar from "../../components/SearchBar/SearchBar";
-import YoutubePlaylist from "../../components/PlaylistYt/YoutubePlaylist";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import React, { useEffect, useState } from "react";
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import api from "./../../../api";
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
+import styles from './CourseDetails.module.css';
+import Main from "../Main/Main";
+import YoutubePlaylist from "../../components/PlaylistYt/YoutubePlaylist";
 import BannerInfoModule from "../../components/BannerInfoModule/BannerInfoModule";
-import { useNavigate } from 'react-router-dom';
+import { useNavigation } from "../../../NavigationContext";
 
 const CourseDetails = () => {
-    const { idCurso, idModule } = useParams();
+    const { idModule, idCurso } = useParams();
+    const location = useLocation();
+    const { title, subtitle, criadoEm } = location.state || {};  // Pegando os dados do estado
 
+    const date = criadoEm ? new Date(criadoEm) : null;
+    const formattedDate = date ? new Intl.DateTimeFormat('pt-BR', {
+        dateStyle: 'short'
+    }).format(date) : 'Data inválida';
+
+    const [idRegistration, setIdRegistration] = useState(null);
+    const [idQuestionnaire, setIdQuestionnaire] = useState(null);
+    const [questionnaireTitle, setQuestionnaireTitle] = useState("Certificado de React");
+    const [questionnaireDescription, setQuestionnaireDescription] = useState("10 perguntas sobre os conhecimentos adquiridos durante as aulas");
+    const userId = sessionStorage.getItem('userId');
+    const [showButtonQuestionnaire, setShowButtonQuestionnaire] = useState(true);
+    const [showSecondaryButton, setShowSecondaryButton] = useState(false);
+    const [allCheckboxesSelected, setAllCheckboxesSelected] = useState(false);
     const navigate = useNavigate();
-    const handleNavigation = (route) => {
-        navigate(route);
+
+    const [countVideo, setCountVideo] = useState(null);
+
+    const handleVideoCount = (video) => {
+        setCountVideo(video);
     };
-    
+    const { addToPilha } = useNavigation();
+
+    useEffect(() => {
+        // Adiciona a URL atual à pilha ao carregar
+        addToPilha(window.location.pathname);
+    }, [idModule]);
+
+    const handleNavigation = (route) => {
+        // Adiciona a próxima URL à pilha antes de navegar
+        addToPilha(route);  
+        navigate(route, {
+            state: { title, subtitle, criadoEm }  // Passa os dados do estado para a próxima rota
+        });
+    };
+
+    const handleAllCheckboxesChecked = () => {
+        setAllCheckboxesSelected(true);  
+    };
+
+    const verificarProgressoQuestionario = () => {
+        if (idRegistration && idQuestionnaire) {
+            api.get(`/progresso-questionarios/${idRegistration}/${idQuestionnaire}`)
+                .then((response) => {
+                    const { data } = response;
+                    if (data.pontuacao >= 75) {
+                        setShowButtonQuestionnaire(false);
+                    }
+                    if (data && data.pontuacao < 75) {
+                        setShowSecondaryButton(true);
+                    }
+                })
+                .catch((e) => {
+                    console.log("Erro ao verificar progresso:", e);
+                });
+        }
+    };
+
+    const buscarDadosQuestionario = () => {
+        return api.get(`/questionarios/modulo/${idModule}`)
+            .then((response) => {
+                if (response.data && response.data.id) {
+                    setIdQuestionnaire(response.data.id);
+                    setQuestionnaireTitle(response.data.titulo);
+                    setQuestionnaireDescription(response.data.descricao)
+                }
+            })
+            .catch((e) => {
+                console.log("Erro ao buscar dados do questionário:", e);
+            });
+    };
+
+    const buscarDadosDaMatricula = () => {
+        return api.get(`/matriculas/${userId}/${idCurso}`)
+            .then((response) => {
+                if (response.status === 200 && response.data) {
+                    setIdRegistration(response.data);
+                }
+            })
+            .catch((e) => {
+                console.log("Erro ao buscar dados da matrícula:", e);
+            });
+    };
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                await Promise.all([buscarDadosQuestionario(), buscarDadosDaMatricula()]);
+            } catch (e) {
+                console.error("Erro ao carregar dados", e);
+            }
+        };
+        fetchData();
+    }, [idCurso, idModule, userId]);
+
+    useEffect(() => {
+        if (idRegistration && idQuestionnaire) {
+            verificarProgressoQuestionario();
+        }
+    }, [idRegistration, idQuestionnaire]);
+
     return (
-        <>
-            <div className={styles["courseDetails-container"]}>
-                <SideBar backgroundColor={'#245024'} />
+        <Main enableReturnPages={true}>
+            <div className={styles["content__info"]}>
+                <BannerInfoModule
+                    titleModule={title}
+                    descriptionModule={subtitle}
+                    duration={countVideo}
+                    date={formattedDate}
+                />
+            </div>
 
-                <div className={styles["courseDetails-container__content"]}>
-                    <SearchBar />
+            <YoutubePlaylist
+                titlePlaylist="Próximas aulas"
+                isCursoDetails={true}
+                onVideoCount={handleVideoCount}
+                onAllCheckboxesChecked={handleAllCheckboxesChecked}
+            />
 
-                    <div className={styles['courseDetails-container__content__info']}>
-                        <div className={styles['info__return']}>
-                            <ArrowBackIcon className={styles['return__icon']} onClick={() => handleNavigation(`/aluno/cursos/${idCurso}/modulos`)}/>
-                            <p className={styles['return__text']}>Voltar</p>
-                        </div>
-                        <BannerInfoModule titleModule="Modulo 1" descriptionModule="Lorem ipsum dolor sit amet. Et ullam fugiat qui neque laboriosam ut molestiae officia rem quaerat numquam! Aut impedit assumenda rem odio quibusdam id nulla doloribus quo reprehenderit nisi in distinctio amet qui consequuntur sequi sit natus dolorem." duration="20" date="24/09/2023"/>
-                    </div>
-
-                    <YoutubePlaylist titlePlaylist="Próximas aulas" playlistId="PL29TaWXah3iaqOejItvW--TaFr9NcruyQ" isCursoDetails={true} />
-
-
-                    <div className={styles['courseDetails-container__content__questionnaire']}>
-                        <div className={styles['questionnaire']}>
-                            <WorkspacePremiumIcon className={styles['questionnaire__icon']} sx={{ fontSize: 48}}/>
-                            <div className={styles['questionnaire__info']}>
-                                <h2>Certificado de React</h2>
-                                <p>10 perguntas sobre os conhecimentos adquiridos durante as aulas</p>
-                            </div>
-                        </div>
-
-                        <button className={styles['questionnaire__button']} onClick={() => handleNavigation(`/aluno/questionario/${idModule}`)}>
-                            Iniciar
-                        </button>
+            {allCheckboxesSelected &&
+            <div className={styles['content__questionnaire']}>
+                <div className={styles['questionnaire']}>
+                    <WorkspacePremiumIcon
+                        className={styles['questionnaire__icon']}
+                        sx={{ fontSize: 48 }}
+                    />
+                    <div className={styles['questionnaire__info']}>
+                        <h2>{questionnaireTitle}</h2>
+                        <p>{questionnaireDescription}</p>
                     </div>
                 </div>
+                {showButtonQuestionnaire ? (
+                    showSecondaryButton ? (
+                        <button
+                            className={`${styles['questionnaire__button']} ${styles['questionnaire__button-custom']}`}
+                            onClick={() => handleNavigation(`/aluno/questionario/${idCurso}/${idModule}`)}
+                        >
+                            Tentar novamente
+                        </button>
+                    ) : (
+                        <button
+                            className={styles['questionnaire__button']}
+                            onClick={() => handleNavigation(`/aluno/questionario/${idCurso}/${idModule}`)}
+                        >
+                            Iniciar
+                        </button>
+                    )
+                ) : (
+                   <p className={styles['questionnaire__text']}>Finalizado</p>
+                )}
             </div>
-        </>
+            }
+        </Main>
     );
 };
-export default CourseDetails
+
+export default CourseDetails;

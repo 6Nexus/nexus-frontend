@@ -128,9 +128,9 @@ function CursoSetup() {
         });
     };
 
-    useEffect(() => {
-        console.log("Estado atualizado:", curso);
-    }, [curso]);
+    // useEffect(() => {
+    //     console.log("Estado atualizado:", curso);
+    // }, [curso]);
 
     const [mostrarCriarCurso, setMostrarCriarCurso] = useState(false);
 
@@ -182,19 +182,38 @@ function CursoSetup() {
                 const respostaModulo = await api.post('/modulos', moduloRequisicao);
                 const idModulo = respostaModulo.data;
 
-                // if (modulo.aulas.length > 0) {
-                //     //itera sobre as aulas e cadastra
+                if (modulo.aulas.length > 0) {
+                    for (const aula of modulo.aulas) {
+                        const aulaRequisicao = {
+                            titulo: aula.titulo,
+                            descricao: descricao.descricao,
+                            ordem: modulo.aulas.indexOf(aula) + 1,
+                            idModulo
+                        };
 
+                        const formDataAula = new FormData();
+                        formDataAula.append('json', JSON.stringify(aulaRequisicao));
+                        formDataAula.append('arquivo', aula.video);
 
-                // }
+                        api.post(`/videos`, formDataAula, {headers: {
+                            'Content-Type': 'multipart/form-data',
+                        }});
+                    }
+                }
 
-                // if 
+                if (modulo.questionario.perguntas.length > 0) {
+                    const questionarioRequisicao = {
+                        titulo: "Título do Questionário",
+                        descricao: "Descrição do Questionário",
+                        idModulo,
+                        perguntas: modulo.questionario.perguntas
+                    };
+                    await api.post('/questionarios', questionarioRequisicao);
+                }
                 
             }
 
             
-
-
 
         } catch (error) {
             console.error('Ocorreu um erro:', error);
