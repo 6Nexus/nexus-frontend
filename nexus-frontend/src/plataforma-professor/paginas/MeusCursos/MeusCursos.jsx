@@ -10,11 +10,11 @@ function MeusCursos() {
     const [loading, setLoading] = useState(true);
     const [editando, setEditando] = useState(false); // Controla se estamos editando um curso
     const [cursoSelecionado, setCursoSelecionado] = useState(null); // Dados do curso selecionado para edição
-
+    const idProfessor = sessionStorage.getItem('userId'); 
     useEffect(() => {
         const buscarCursos = async () => {
             try {
-                const response = await api.get('/cursos');
+                const response = await api.get(`/cursos/professor/${idProfessor}`);
                 if (response.status === 200) {
                     setCursos(response.data);
                 }
