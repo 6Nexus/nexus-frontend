@@ -14,15 +14,15 @@ function AdicionarAula({ moduloIndex, aulaIndex, aula, atualizarAula}) {
         }
     };
 
-    const handleRemoverAula = () => {
-        console.log('Aula removida');
+    const handleAulaRemove = () => {
+        atualizarAula(moduloIndex, aulaIndex, 'delete', '');
     };
 
     return (
             <div className='container-aulas'>
                 <div className='container-header'>
                     <h3>Aula {aulaIndex + 1}</h3>
-                    <button className='btn-remover' onClick={handleRemoverAula}>
+                    <button className='btn-remover' onClick={handleAulaRemove}>
                         <CloseRoundedIcon />
                     </button>
                 </div>

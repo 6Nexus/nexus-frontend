@@ -6,7 +6,7 @@ import AdicionarModulos from "../Modulos/AdicionarModulos";
 import { toast } from 'react-toastify';
 import api from "../../../api.js";
 
-function ButtonNovoCurso({ curso, atualizarCurso, atualizarModulo, atualizarAula, atualizarPergunta, atualizarResposta, onClose }) {
+function ButtonNovoCurso({ curso, atualizarCurso, atualizarModulo, atualizarAula, atualizarPergunta, atualizarResposta, onClose, onSave }) {
     const handleCursoChange = (e) => {
         const { name, value } = e.target;
         if (name == "imagem") {
@@ -20,7 +20,6 @@ function ButtonNovoCurso({ curso, atualizarCurso, atualizarModulo, atualizarAula
         atualizarModulo(-1, '', '')
     };
 
-
     return (
         <>
             <SideBar />
@@ -31,9 +30,7 @@ function ButtonNovoCurso({ curso, atualizarCurso, atualizarModulo, atualizarAula
                         <CloseRoundedIcon />
                     </button>
                 </div>
-                <form
-                    // onSubmit={handleSalvarCurso} 
-                className="form-curso-criacao">
+                <form onSubmit={onSave} className="form-curso-criacao">
                     <label>Título do Curso<span style={{ color: 'red' }}>*</span></label>
                     <input
                         type="text"
@@ -95,7 +92,6 @@ function ButtonNovoCurso({ curso, atualizarCurso, atualizarModulo, atualizarAula
                             atualizarAula={atualizarAula}
                             atualizarPergunta={atualizarPergunta}
                             atualizarResposta={atualizarResposta}
-                            // removerModulo=
                         />
                     ))}
 

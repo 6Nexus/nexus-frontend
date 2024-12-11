@@ -3,12 +3,14 @@ import './Questionario.css';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { toast } from 'react-toastify';
 
-function Questao({moduloIndex, perguntaIndex, pergunta, atualizarPergunta, atualizarResposta 
-    // deletarQuestao
-}) {
+function Questao({ moduloIndex, perguntaIndex, pergunta, atualizarPergunta, atualizarResposta }) {
     const handlePerguntaChange = (e) => {
         const { name, value } = e.target;
         atualizarPergunta(moduloIndex, perguntaIndex, name, value);
+    };
+
+    const handlePerguntaRemove = () => {
+        atualizarPergunta(moduloIndex, perguntaIndex, 'delete', '');
     };
 
     const handleRepostaAdd = () => {
@@ -20,15 +22,17 @@ function Questao({moduloIndex, perguntaIndex, pergunta, atualizarPergunta, atual
         atualizarResposta(moduloIndex, perguntaIndex, respostaIndex, name, value, type);
     };
 
+    const handleRepostaRemove = (respostaIndex) => {
+        atualizarResposta(moduloIndex, perguntaIndex, respostaIndex, 'delete', '', '');
+    };
+
 
     return (
         <div className="question-container">
             <div className='header-questao'>
                 <h4>Questão {perguntaIndex + 1}</h4>
 
-                <button className="btn-remover" type="button"
-                // onClick={deletarQuestao}
-                >
+                <button className="btn-remover" type="button" onClick={handlePerguntaRemove}>
                     <CloseRoundedIcon />
                 </button>
             </div>
@@ -62,11 +66,7 @@ function Questao({moduloIndex, perguntaIndex, pergunta, atualizarPergunta, atual
                         onChange={(e) => (handleRespostaChange(index, e))}
                     /> Correta
 
-                    <button className="btn-remover" type="button" 
-                    // onClick={() => {
-                    //     setAlternativas(alternativas.filter((item) => item.id !== alt.id));
-                    // }}
-                    >
+                    <button className="btn-remover" type="button" onClick={() => handleRepostaRemove(index)}>
                         <CloseRoundedIcon />
                     </button>
 
@@ -77,7 +77,7 @@ function Questao({moduloIndex, perguntaIndex, pergunta, atualizarPergunta, atual
     );
 }
 
-function Questionario({ moduloIndex, questionario, atualizarPergunta, atualizarResposta, onClose, onSave}) {
+function Questionario({ moduloIndex, questionario, atualizarPergunta, atualizarResposta, onClose }) {
     const handlePerguntaAdd = () => {
         atualizarPergunta(moduloIndex, -1, '', '')
     };
@@ -100,7 +100,6 @@ function Questionario({ moduloIndex, questionario, atualizarPergunta, atualizarR
                         pergunta={pergunta}
                         atualizarPergunta={atualizarPergunta}
                         atualizarResposta={atualizarResposta}
-                        // deletarQuestao=
                     />
                 ))}
                 

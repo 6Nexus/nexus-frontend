@@ -8,16 +8,14 @@
     import { toast } from 'react-toastify';
 import ButtonNovoCurso from '../ButtonNovoCurso/ButtonNovoCurso';
 
-    function AdicionarModulos({ moduloIndex, modulo, atualizarModulo, atualizarAula, atualizarPergunta, atualizarResposta
-        // , removerModulo
-    }) {
+    function AdicionarModulos({ moduloIndex, modulo, atualizarModulo, atualizarAula, atualizarPergunta, atualizarResposta }) {
         const handleModuloChange = (e) => {
             const { name, value } = e.target;
             atualizarModulo(moduloIndex, name, value)
         };
 
         const handleModuloRemove = () => {
-
+            atualizarModulo(moduloIndex, 'delete', '')
         };
 
         const handleAulaAdd = () => {
@@ -35,9 +33,7 @@ import ButtonNovoCurso from '../ButtonNovoCurso/ButtonNovoCurso';
             <div className="container-modulo">
                 <div className='container-header'>
                     <h3>Módulo {moduloIndex + 1}</h3>
-                    <button className='btn-remover'
-                    // onClick={handleModuloRemove}
-                    >
+                    <button className='btn-remover' onClick={handleModuloRemove}>
                         <CloseRoundedIcon />
                     </button>
                 </div>
@@ -79,7 +75,6 @@ import ButtonNovoCurso from '../ButtonNovoCurso/ButtonNovoCurso';
                         aulaIndex={index}
                         aula={aula}
                         atualizarAula={atualizarAula}
-                        // removerAula=
                     />
                 ))}
 
@@ -93,7 +88,6 @@ import ButtonNovoCurso from '../ButtonNovoCurso/ButtonNovoCurso';
                         questionario={modulo.questionario}
                         atualizarPergunta={atualizarPergunta}
                         atualizarResposta={atualizarResposta}
-                        // onSave={handleSalvarQuestionario}
                         onClose={toggleQuestionario}
                     />
                 }
