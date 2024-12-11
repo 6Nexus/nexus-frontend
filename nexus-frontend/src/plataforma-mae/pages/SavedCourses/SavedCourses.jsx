@@ -6,6 +6,7 @@ import HeaderCategory from "../../components/HeaderCategory/HeaderCategory";
 import Pagination from '@mui/material/Pagination';
 import Main from "../Main/Main";
 import ContentNotFound from "../../components/ContentNotFound/ContentNotFound";
+import imagemCapaDefault from '../../../utils/assets/capa_curso.jpg'
 
 const SavedCourses = () => {
     const id = sessionStorage.getItem('userId');
@@ -17,6 +18,8 @@ const SavedCourses = () => {
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const currentCards = cardsData.slice(indexOfFirstCard, indexOfLastCard);
+
+    const [imageUrls, setImageUrls] = useState({});
 
     const handleChange = (event, value) => {
         setCurrentPage(value);
@@ -34,6 +37,36 @@ const SavedCourses = () => {
                 console.log("Erro ao buscar cursos:", e);
             });
     };
+
+    useEffect(() => {
+        const fetchImages = async () => {
+          const newImageUrls = {};
+
+          for (const data of currentCards) {
+            try {
+              const response = await api.get(`/cursos/capa/${data.id}`, { responseType: 'blob' });
+              const contentType = response.headers['content-type'];
+
+          if (contentType && contentType.startsWith('image/')) {
+            const imageUrl = URL.createObjectURL(response.data);
+            newImageUrls[data.id] = imageUrl;
+          } else {
+            newImageUrls[data.id] = imagemCapaDefault;
+          }
+              
+            } catch (error) {
+              console.error('Erro ao buscar a imagem para o curso', data.id, error);
+              newImageUrls[data.id] = imagemCapaDefault; 
+            }
+          }
+    
+          setImageUrls(newImageUrls);
+        };
+    
+        if (currentCards && currentCards.length > 0) {
+          fetchImages();
+        }
+      }, [currentCards]);
 
     useEffect(() => {
         buscarCursos(activeCategory);
@@ -70,7 +103,7 @@ const SavedCourses = () => {
                                         category={data.categoria}
                                         inProgress={data.emProgresso}
                                         liked={data.curtido}
-                                        imageUrl={data.imagem}
+                                        imageUrl={imageUrls[data.id] || imagemCapaDefault}
                                         progress={data.progreso}
                                         showIcon="true"
                                     />

@@ -77,6 +77,7 @@ input:focus {
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    visibility: hidden;
 }
 
 .search-bar-container__preferences button {
