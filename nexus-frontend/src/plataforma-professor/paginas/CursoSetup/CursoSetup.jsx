@@ -210,11 +210,7 @@ function CursoSetup() {
                     };
                     await api.post('/questionarios', questionarioRequisicao);
                 }
-                
-            }
-
-            
-
+            }           
         } catch (error) {
             console.error('Ocorreu um erro:', error);
         }
