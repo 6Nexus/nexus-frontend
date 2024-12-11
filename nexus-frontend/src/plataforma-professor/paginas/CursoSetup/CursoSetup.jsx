@@ -3,6 +3,7 @@ import './CursoSetup.css';
 import SideBar from "../../componentes/SideBar/SideBar";
 import ButtonNovoCurso from "../../componentes/ButtonNovoCurso/ButtonNovoCurso";
 import api from "../../../api";
+import { toast } from 'react-toastify';
 import Swal from 'sweetalert2';
 
 function CursoSetup() {
@@ -128,9 +129,9 @@ function CursoSetup() {
         });
     };
 
-    // useEffect(() => {
-    //     console.log("Estado atualizado:", curso);
-    // }, [curso]);
+    useEffect(() => {
+        console.log("Estado atualizado:", curso);
+    }, [curso]);
 
     const [mostrarCriarCurso, setMostrarCriarCurso] = useState(false);
 
@@ -210,9 +211,10 @@ function CursoSetup() {
                     };
                     await api.post('/questionarios', questionarioRequisicao);
                 }
-            }           
+            }
+            toast.success('Curso criado com sucesso!');           
         } catch (error) {
-            console.error('Ocorreu um erro:', error);
+            toast.error(error.message);
         }
     }
 

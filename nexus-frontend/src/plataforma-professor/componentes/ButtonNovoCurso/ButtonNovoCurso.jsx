@@ -3,7 +3,6 @@ import './ButtonNovoCurso.css';
 import SideBar from "../../componentes/SideBar/SideBar";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AdicionarModulos from "../Modulos/AdicionarModulos";
-import { toast } from 'react-toastify';
 import api from "../../../api.js";
 
 function ButtonNovoCurso({ curso, atualizarCurso, atualizarModulo, atualizarAula, atualizarPergunta, atualizarResposta, onClose, onSave }) {
