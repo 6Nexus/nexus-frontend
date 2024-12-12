@@ -9,7 +9,7 @@ import ButtonMaterial from '../ButtonMaterial/ButtonMaterial';
 import Skeleton from '@mui/material/Skeleton';
 import Stack from '@mui/material/Stack';
 
-const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails, onVideoCount, onAllCheckboxesChecked }) => {
+const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails, onVideoCount, onAllCheckboxesChecked, idRegistration}) => {
   const { idModule } = useParams();
   const [videos, setVideos] = useState([]);
   const [selectedVideo, setSelectedVideo] = useState(null);
@@ -70,16 +70,20 @@ const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails, onVideoCou
 
 
   const handleCheckboxChange = (index) => {
-    const updatedCheckboxes = [...checkboxes];
-    updatedCheckboxes[index] = !updatedCheckboxes[index];
-    setCheckboxes(updatedCheckboxes);
-
+    setCheckboxes((prevCheckboxes) => {
+      const updatedCheckboxes = [...prevCheckboxes];
+      updatedCheckboxes[index] = !updatedCheckboxes[index];
+      return updatedCheckboxes;
+    });
+  
     // Verifica se todas as checkboxes estão marcadas
-    if (updatedCheckboxes.every(checked => checked)) {
-      if (onAllCheckboxesChecked) {
-        onAllCheckboxesChecked(); // Dispara o alerta no componente pai
+    setCheckboxes((prevCheckboxes) => {
+      const areAllChecked = prevCheckboxes.every((checked) => checked);
+      if (areAllChecked && onAllCheckboxesChecked) {
+        onAllCheckboxesChecked();
       }
-    }
+      return prevCheckboxes; // Retorna o estado inalterado após a verificação
+    });
   };
 
   if (loading) {
@@ -111,7 +115,7 @@ const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails, onVideoCou
             title={selectedVideo.titulo}
             style={{ objectFit: 'cover' }}
           ></iframe>
-          {isCursoDetails && <ButtonMaterial />}
+          {/* {isCursoDetails && <ButtonMaterial />} */}
         </div>
       )}
 
@@ -149,11 +153,11 @@ const YoutubePlaylist = ({ titlePlaylist, playlistId, isCursoDetails, onVideoCou
 
                 {isCursoDetails ? (
                   <input
-                    type="checkbox"
-                    className={styles['checkbox']}
-                    checked={checkboxes[index]}
-                    onChange={() => handleCheckboxChange(index)}
-                  />
+                  type="checkbox"
+                  className={styles['checkbox']}
+                  checked={checkboxes[index] || false} 
+                  onChange={() => handleCheckboxChange(index)}
+                />                
                 ) : (
                   <PlayCircleOutlineIcon
                     onClick={(e) => {
