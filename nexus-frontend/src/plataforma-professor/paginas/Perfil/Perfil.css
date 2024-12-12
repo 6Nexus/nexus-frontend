@@ -1,24 +1,24 @@
-* {
-    font-family: 'Inter-Medium', sans-serif;
-}
-
 :root {
     --corPrimaria: #94065E;
     --fundoNeutro: #F7F3F5;
     --corDeContorno: #FE5D9F;
-
+    --verdeSucesso: #4CAF50;
+    --vermelhoErro: #e74c3c;
+    --corDeFundo: #ececf1;
+    --corInputBackground: #fafafa;
 }
+
 
 .container-geral {
     display: flex;
-    align-items: start;
+    align-items: flex-start;
     justify-content: center;
-    width: 95%;
-    min-height: 100vh;  
-    margin-left: 5%; 
+    width: 100%;
+    min-height: 100vh;
     padding: 2rem;
     gap: 1.5rem;
-    background-color: #ececf1;
+    background-color: var(--corDeFundo);
+    margin: 0 auto;
 }
 
 
@@ -26,51 +26,69 @@
     background-color: #ffffff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
-    padding: 1.5rem;   
+    padding: 2rem;
     width: 100%;
-    max-width: 1200px;
+    max-width: 900px; 
+    margin-top: 2rem;
 }
 
 .infos h4 {
     color: var(--corPrimaria);
-    font-family: 'Inter-Medium', sans-serif;
     font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
 }
+
 
 .infos label {
     font-weight: 400;
     color: #666;
-    margin-bottom: 0.2rem;
-    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
     display: block;
     font-size: 14px;
-    font-family: 'Inter-Medium', sans-serif;
-    margin-left: 3px;
-
 }
+
 
 .infos input {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ddd; 
+    border: 1px solid #ddd;
     border-radius: 6px;
     margin-bottom: 15px;
     font-size: 16px;
-    background-color: #fafafa;
+    background-color: var(--corInputBackground);
+    transition: border 0.3s ease, background-color 0.3s ease;
 }
+
 
 .infos input::placeholder {
     font-size: 14px;
+    color: #aaa;
 }
 
 .infos .input-success {
-    border: 1px solid #4CAF50;
+    border: 1px solid var(--verdeSucesso);
+    
+}
+
+
+.infos .input-erro {
+    border: 1px solid var(--vermelhoErro);
+}
+
+.error-message {
+    color: var(--vermelhoErro);
+    font-size: 14px;
+    margin-top: -8px;
+    margin-bottom: 10px;
+    font-weight: 500;
 }
 
 .btn-editar-info {
     display: flex;
     justify-content: flex-end;
-    margin-top: 1rem;
+    margin-top: 2rem;
 }
 
 .btn-editar-info button {
@@ -85,15 +103,9 @@
 }
 
 
-
-.btn-editar-info:hover button {
+.btn-editar-info button:hover {
     background-color: #7A0049;
 }
-
-.sidebar.collapsed+.container-geral {
-    margin-left: 5%;
-}
-
 
 .sidebar {
     height: 100vh;
@@ -110,4 +122,40 @@
     z-index: 1000;
     border-top-right-radius: 16px;
     border-bottom-right-radius: 16px;
+}
+
+
+.sidebar.collapsed + .container-geral {
+    margin-left: 5%;
+}
+
+@media (max-width: 768px) {
+    .container-geral {
+        flex-direction: column;
+        padding: 1rem;
+    }
+
+    .container-info {
+        padding: 1.5rem;
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .btn-editar-info button {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .infos h4 {
+        font-size: 20px;
+    }
+
+    .infos input {
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .error-message {
+        font-size: 12px;
+    }
 }
