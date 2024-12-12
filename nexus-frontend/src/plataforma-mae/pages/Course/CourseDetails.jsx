@@ -137,6 +137,7 @@ const CourseDetails = () => {
                 isCursoDetails={true}
                 onVideoCount={handleVideoCount}
                 onAllCheckboxesChecked={handleAllCheckboxesChecked}
+                idRegistration={idRegistration}
             />
 
             {allCheckboxesSelected &&
