@@ -1,4 +1,3 @@
-
 .header-cursos-criados {
     width: 80%;
     height: max-content;
@@ -18,19 +17,16 @@
     /* margin: 16px 0 0; */
 }
 
-
 .cursos-criados {
-    display: grid; 
+    display: grid;
     grid-template-columns: repeat(4, 1fr);
-    align-items: center; 
+    align-items: center;
     padding: 24px;
     border-radius: 8px;
     margin: 20px;
-    gap: 15px; 
+    gap: 15px;
     margin-left: 8rem;
-    
 }
-
 
 .curso-criados-info {
     display: flex;
@@ -50,14 +46,15 @@
     border-top-left-radius: 20px;
     border-top-right-radius: 20px;
     object-fit: cover;
-} 
+}
 
 .info-cards {
     padding: 16px;
     margin-bottom: 5rem;
 }
 
-.info-cards h2, .info-cards h4 {
+.info-cards h2,
+.info-cards h4 {
     margin: 0;
     color: var(--secondary-green);
 }
@@ -127,31 +124,58 @@
 
 /* HTML: <div class="loader"></div> */
 .loader {
-  width: 50px;
-  aspect-ratio: 1;
-  display:grid;
-  -webkit-mask: conic-gradient(from 15deg,#0000,#000);
-  animation: l26 1s infinite steps(12);
+    width: 50px;
+    aspect-ratio: 1;
+    display: grid;
+    -webkit-mask: conic-gradient(from 15deg, #0000, #000);
+    animation: l26 1s infinite steps(12);
 }
+
 .loader,
 .loader:before,
-.loader:after{
-  background:
-    radial-gradient(closest-side at 50% 12.5%,
-     #f03355 96%,#0000) 50% 0/20% 80% repeat-y,
-    radial-gradient(closest-side at 12.5% 50%,
-     #f03355 96%,#0000) 0 50%/80% 20% repeat-x;
+.loader:after {
+    background:
+        radial-gradient(closest-side at 50% 12.5%,
+            #f03355 96%, #0000) 50% 0/20% 80% repeat-y,
+        radial-gradient(closest-side at 12.5% 50%,
+            #f03355 96%, #0000) 0 50%/80% 20% repeat-x;
 }
+
 .loader:before,
 .loader:after {
-  content: "";
-  grid-area: 1/1;
-  transform: rotate(30deg);
+    content: "";
+    grid-area: 1/1;
+    transform: rotate(30deg);
 }
+
 .loader:after {
-  transform: rotate(60deg);
+    transform: rotate(60deg);
 }
 
 @keyframes l26 {
-  100% {transform:rotate(1turn)}
+    100% {
+        transform: rotate(1turn)
+    }
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 7%;
+    width: 93%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999; 
+    background: rgba(0, 0, 0, 0.5); 
+}
+
+.modal-content {
+    /* background: #fff;  */
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    /* max-width: 900px; */
+    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
 }

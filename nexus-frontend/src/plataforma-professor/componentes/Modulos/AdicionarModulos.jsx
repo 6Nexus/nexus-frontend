@@ -22,7 +22,7 @@ import ButtonNovoCurso from '../ButtonNovoCurso/ButtonNovoCurso';
             atualizarAula(moduloIndex, -1, '', '')
         };
 
-        const [mostrarQuestionario, setMostrarQuestionario] = useState(false);
+        const [mostrarQuestionario, setMostrarQuestionario] = useState(true);
 
         const toggleQuestionario = () => {
             setMostrarQuestionario((prevMostrar) => !prevMostrar);
