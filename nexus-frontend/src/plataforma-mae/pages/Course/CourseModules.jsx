@@ -22,7 +22,6 @@ const CourseModules = () => {
         buscarCurso();
         buscarModulos();
 
-        // Adiciona a URL atual à pilha ao carregar
         addToPilha(window.location.pathname);
     }, [idCurso]);
 
@@ -61,7 +60,7 @@ const CourseModules = () => {
 
     const handleNavigation = (idModule) => {
         const nextUrl = `/detalhes-modulo/${idModule}`;
-        addToPilha(nextUrl); // Adiciona a próxima URL à pilha antes de navegar
+        addToPilha(nextUrl); 
         navigate(nextUrl);
     };
 

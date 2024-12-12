@@ -3,11 +3,11 @@ import api from "./../../../api";
 import styles from './Questionnaire.module.css';
 import Main from "../Main/Main";
 import { Checkbox, Radio } from "@mui/material";
-import { useParams, useNavigate, useLocation  } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Swal from 'sweetalert2';
-import { useNavigation } from "../../../NavigationContext"; // Hook de navegação
+import { useNavigation } from "../../../NavigationContext"; 
 
 const Questionnaire = () => {
     const { idModule } = useParams();
@@ -16,18 +16,13 @@ const Questionnaire = () => {
     const [idRegistration, setIdRegistration] = useState(null);
     const [idQuestionnaire, setIdQuestionnaire] = useState(null);
     const navigate = useNavigate();
-    const { pilha, removeFromPilha } = useNavigation(); // Gerenciamento da pilha de navegação
-
+    const { pilha, removeFromPilha } = useNavigation(); 
     const [dataQuestionnaire, setDataQuestionnaire] = useState(null);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [selectedAnswers, setSelectedAnswers] = useState([]);
     const [correctAnswers, setCorrectAnswers] = useState([]);
     const [isNewProgress, setIsNewProgress] = useState(true)
     const [idProgress, setIdProgress] = useState(null);
-
-    const location = useLocation();
-
-    const { title, subtitle, criadoEm } = location.state || {};
 
     const buscarDadosQuestionario = () => {
         api.get(`/questionarios/modulo/${idModule}`)
@@ -111,8 +106,6 @@ const Questionnaire = () => {
                     const url = `/aluno/cursos/${idCurso}/modulos`
                     window.location.href = url;
                 }
-                
-            
             });
         } else {
             Swal.fire({
@@ -223,17 +216,16 @@ const Questionnaire = () => {
         return percentageScore;
     };
 
-    // Lógica de navegação de "Voltar"
     const handleBackNavigation = () => {
         if (pilha.length > 1) {
-            const previousUrl = pilha[pilha.length - 2]; // Recupera a URL anterior na pilha
-            removeFromPilha(); // Remove a URL atual da pilha
-            navigate(previousUrl, { state: { title, subtitle, criadoEm } }); // Passando os dados para o estado
+            const previousUrl = pilha[pilha.length - 2]; 
+            removeFromPilha(); 
+            navigate(previousUrl); 
         } else {
-            navigate('/aluno/cursos', { state: { title, subtitle, criadoEm } }); // Caso não tenha pilha vai para cursos
+            navigate('/aluno/cursos'); 
         }
     };
-
+    
     return (
         <Main enableReturnPages={true}>
             <div className={styles['content__info']}>

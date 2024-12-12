@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, useNavigate, useLocation } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import api from "./../../../api";
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import styles from './CourseDetails.module.css';
@@ -10,13 +10,12 @@ import { useNavigation } from "../../../NavigationContext";
 
 const CourseDetails = () => {
     const { idModule, idCurso } = useParams();
-    const location = useLocation();
-    const { title, subtitle, criadoEm } = location.state || {};  // Pegando os dados do estado
+    const [moduleData, setModuleData] = useState({});
+    const date = moduleData?.criadoEm ? new Date(moduleData.criadoEm) : null;
 
-    const date = criadoEm ? new Date(criadoEm) : null;
-    const formattedDate = date ? new Intl.DateTimeFormat('pt-BR', {
-        dateStyle: 'short'
-    }).format(date) : 'Data inválida';
+    const formattedDate = date && !isNaN(date.getTime())
+        ? new Intl.DateTimeFormat('pt-BR', { dateStyle: 'short' }).format(date)
+        : 'Data inválida';
 
     const [idRegistration, setIdRegistration] = useState(null);
     const [idQuestionnaire, setIdQuestionnaire] = useState(null);
@@ -36,20 +35,16 @@ const CourseDetails = () => {
     const { addToPilha } = useNavigation();
 
     useEffect(() => {
-        // Adiciona a URL atual à pilha ao carregar
         addToPilha(window.location.pathname);
     }, [idModule]);
 
     const handleNavigation = (route) => {
-        // Adiciona a próxima URL à pilha antes de navegar
-        addToPilha(route);  
-        navigate(route, {
-            state: { title, subtitle, criadoEm }  // Passa os dados do estado para a próxima rota
-        });
+        addToPilha(route);
+        navigate(route);
     };
 
     const handleAllCheckboxesChecked = () => {
-        setAllCheckboxesSelected(true);  
+        setAllCheckboxesSelected(true);
     };
 
     const verificarProgressoQuestionario = () => {
@@ -96,10 +91,23 @@ const CourseDetails = () => {
             });
     };
 
+    const buscarDetalhesDoModulo = () => {
+        return api.get(`/modulos/${idModule}`)
+            .then((response) => {
+                if (response.status === 200 && response.data) {
+                    setModuleData(response.data)
+                }
+            })
+            .catch((e) => {
+                console.log("Erro ao buscar dados do módulo:", e);
+            });
+    };
+
     useEffect(() => {
         const fetchData = async () => {
             try {
-                await Promise.all([buscarDadosQuestionario(), buscarDadosDaMatricula()]);
+                await Promise.all([buscarDadosQuestionario(), buscarDadosDaMatricula(), buscarDetalhesDoModulo()]);
+                console.log(moduleData)
             } catch (e) {
                 console.error("Erro ao carregar dados", e);
             }
@@ -117,8 +125,8 @@ const CourseDetails = () => {
         <Main enableReturnPages={true}>
             <div className={styles["content__info"]}>
                 <BannerInfoModule
-                    titleModule={title}
-                    descriptionModule={subtitle}
+                    titleModule={moduleData.titulo}
+                    descriptionModule={moduleData.descricao}
                     duration={countVideo}
                     date={formattedDate}
                 />
@@ -132,37 +140,37 @@ const CourseDetails = () => {
             />
 
             {allCheckboxesSelected &&
-            <div className={styles['content__questionnaire']}>
-                <div className={styles['questionnaire']}>
-                    <WorkspacePremiumIcon
-                        className={styles['questionnaire__icon']}
-                        sx={{ fontSize: 48 }}
-                    />
-                    <div className={styles['questionnaire__info']}>
-                        <h2>{questionnaireTitle}</h2>
-                        <p>{questionnaireDescription}</p>
+                <div className={styles['content__questionnaire']}>
+                    <div className={styles['questionnaire']}>
+                        <WorkspacePremiumIcon
+                            className={styles['questionnaire__icon']}
+                            sx={{ fontSize: 48 }}
+                        />
+                        <div className={styles['questionnaire__info']}>
+                            <h2>{questionnaireTitle}</h2>
+                            <p>{questionnaireDescription}</p>
+                        </div>
                     </div>
-                </div>
-                {showButtonQuestionnaire ? (
-                    showSecondaryButton ? (
-                        <button
-                            className={`${styles['questionnaire__button']} ${styles['questionnaire__button-custom']}`}
-                            onClick={() => handleNavigation(`/aluno/questionario/${idCurso}/${idModule}`)}
-                        >
-                            Tentar novamente
-                        </button>
+                    {showButtonQuestionnaire ? (
+                        showSecondaryButton ? (
+                            <button
+                                className={`${styles['questionnaire__button']} ${styles['questionnaire__button-custom']}`}
+                                onClick={() => handleNavigation(`/aluno/questionario/${idCurso}/${idModule}`)}
+                            >
+                                Tentar novamente
+                            </button>
+                        ) : (
+                            <button
+                                className={styles['questionnaire__button']}
+                                onClick={() => handleNavigation(`/aluno/questionario/${idCurso}/${idModule}`)}
+                            >
+                                Iniciar
+                            </button>
+                        )
                     ) : (
-                        <button
-                            className={styles['questionnaire__button']}
-                            onClick={() => handleNavigation(`/aluno/questionario/${idCurso}/${idModule}`)}
-                        >
-                            Iniciar
-                        </button>
-                    )
-                ) : (
-                   <p className={styles['questionnaire__text']}>Finalizado</p>
-                )}
-            </div>
+                        <p className={styles['questionnaire__text']}>Finalizado</p>
+                    )}
+                </div>
             }
         </Main>
     );
