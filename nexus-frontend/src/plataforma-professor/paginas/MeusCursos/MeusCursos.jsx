@@ -4,6 +4,7 @@ import SideBar from "../../componentes/SideBar/SideBar";
 import ButtonNovoCurso from "../../componentes/ButtonNovoCurso/ButtonNovoCurso"
 import imagemCapa from '../../../utils/assets/capa_curso.jpg';
 import api from "../../../api";
+import { toast } from "react-toastify";
 
 function MeusCursos() {
     const [cursos, setCursos] = useState([]);
@@ -79,8 +80,24 @@ function MeusCursos() {
     };
 
     const handleFecharEdicao = () => {
-        setEditando(false);
-        // setCursoSelecionado(null); 
+        setEditando(false); 
+    };
+
+
+    const deletarCurso = async (idCurso) => {
+        try {
+            const response = await api.delete(`/cursos/${idCurso}`);
+            if (response.status === 204) {
+                
+                setCursos(cursos.filter(curso => curso.id !== idCurso));
+                toast.success('Curso deletado com sucesso!')
+            } else {
+                console.error("Falha ao deletar o curso");
+            }
+        } catch (error) {
+            console.error('Erro ao deletar o curso', error);
+            toast.error('Erro ao exlcuir o curso, tente novamente mais tarde')
+        }
     };
 
     return (
@@ -101,6 +118,11 @@ function MeusCursos() {
                         </div>
                         <div className="button-editar-curso">
                             <button onClick={() => handleEditarCurso(curso)}>Editar</button>
+                            <button 
+                            onClick={() => deletarCurso(curso.id)}
+                            style={{backgroundColor: '#9e2a2b'}}
+                            > Deletar
+                            </button>
                         </div>
                     </div>
                 ))}
