@@ -5,6 +5,7 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AdicionarModulos from "../Modulos/AdicionarModulos";
 import api from "../../../api.js";
 import { toast } from 'react-toastify';
+import { Navigate, useNavigate } from "react-router-dom";
 
 function ButtonNovoCurso({ onClose, cursoAEditar }) {   
     const [curso, setCurso] = useState({
@@ -14,6 +15,8 @@ function ButtonNovoCurso({ onClose, cursoAEditar }) {
         categoria: '',
         modulos: []
     }); 
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         if (cursoAEditar) {
@@ -31,7 +34,7 @@ function ButtonNovoCurso({ onClose, cursoAEditar }) {
                                 const questionario = questionarioResposta.data;
                                 modulo.questionario = questionario;
                             } catch (error) {
-                                toast.error(error.message);
+                                // toast.error(error.message);
                                 modulo.questionario = { perguntas: [ { respostas: [] } ] };
                             }
                             
@@ -197,9 +200,11 @@ function ButtonNovoCurso({ onClose, cursoAEditar }) {
             if (curso.id) {
                 idCurso = curso.id;
                 await api.put(`/cursos/${idCurso}`, cursoRequisicao);
+                
             } else {
                 const respostaCurso = await api.post('/cursos', cursoRequisicao);
                 idCurso = respostaCurso.data;
+                navigate('/meus-cursos')
             }
 
             if (imagem) {

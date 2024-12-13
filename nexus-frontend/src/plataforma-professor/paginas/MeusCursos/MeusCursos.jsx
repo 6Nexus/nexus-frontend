@@ -5,8 +5,16 @@ import ButtonNovoCurso from "../../componentes/ButtonNovoCurso/ButtonNovoCurso"
 import imagemCapa from '../../../utils/assets/capa_curso.jpg';
 import api from "../../../api";
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 
 function MeusCursos() {
+    const navigate = useNavigate();
+    useEffect(() => {
+        if(!(sessionStorage.getItem('userId'))){
+            // console.log("sem id")
+            navigate('/login-professor')
+        }
+    }, []); 
     const [cursos, setCursos] = useState([]);
     const [loading, setLoading] = useState(true); 
     const [imageUrls, setImageUrls] = useState({});
@@ -14,7 +22,6 @@ function MeusCursos() {
     const [editando, setEditando] = useState(false); // Controla se estamos editando um curso
     const [cursoSelecionado, setCursoSelecionado] = useState(null); // Dados do curso selecionado para edição
     const idProfessor = sessionStorage.getItem('userId'); 
-    
 
     useEffect(() => {
         const buscarCursos = async () => {
@@ -23,7 +30,9 @@ function MeusCursos() {
                 if (response.status === 200) {
                     setCursos(response.data); 
                 } 
-            } finally {
+            } catch(error){
+                toast.error('Usuario não autenticado')
+            }finally {
                 setTimeout(() => {
                     setLoading(false); 
                 }, 1000);
@@ -132,8 +141,8 @@ function MeusCursos() {
                 <div className="modal-overlay">
                     <div className="modal-content">
                         <ButtonNovoCurso
-                            onClose={handleFecharEdicao}
                             cursoAEditar={cursoSelecionado}
+                            onClose={handleFecharEdicao}
                             // onCursoEditado={handleSalvarEdicao}
                         />
                     </div>
