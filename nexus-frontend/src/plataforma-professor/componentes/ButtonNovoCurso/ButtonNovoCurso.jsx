@@ -31,7 +31,7 @@ function ButtonNovoCurso({ onClose, cursoAEditar }) {
                                 const questionario = questionarioResposta.data;
                                 modulo.questionario = questionario;
                             } catch (error) {
-                                toast.error(error.message);
+                               // toast.error(error.message);
                                 modulo.questionario = { perguntas: [ { respostas: [] } ] };
                             }
                             

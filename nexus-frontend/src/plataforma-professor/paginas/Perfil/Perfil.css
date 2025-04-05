@@ -17,7 +17,7 @@
     min-height: 100vh;
     padding: 2rem;
     gap: 1.5rem;
-    background-color: var(--corDeFundo);
+    background-color: var(--bg-color-light);
     margin: 0 auto;
 }
 
@@ -159,3 +159,5 @@
         font-size: 12px;
     }
 }
+
+

@@ -109,7 +109,9 @@ function Perfil() {
         <>
             <SideBar backgroundColor={'#94065E'} />
             <div>
+                
                 <div className="container-geral">
+                    
                     <div className="container-info">
                         <Formik
                             initialValues={initialValues}

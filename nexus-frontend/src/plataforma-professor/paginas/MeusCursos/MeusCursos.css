@@ -33,11 +33,12 @@
     flex-direction: column;
     justify-content: space-between;
     background-color: var(--secondary-text-color);
-    /* height: 400px; */
+    min-height: 300px; 
+    max-height: 350px;
     height: auto;
     width: 100%;
     border-radius: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 8px 8px rgba(0, 0, 0, 0.3);
 }
 
 .img-capa img {
@@ -84,22 +85,19 @@
 .button-editar-curso {
     display: flex;
     gap: 10px;
-    flex-direction: column;
-    padding: 20px;
+    padding: 5px;
 }
 
 .button-editar-curso button {
     background-color: var(--corPrimaria);
     color: var(--secondary-text-color);
-    border: none;
-    padding: 12px;
     font-size: 16px;
-    height: min-content;
-    width: min-content;
-    border-radius: 8px;
+    border: none;
     cursor: pointer;
+    border-radius: 8px;
     width: 100%;
-    font-family: 'Inter-Medium', sans-serif;
+    height: 45px;
+    transition: 0.3s;
 }
 
 .button-editar-curso button:hover {
@@ -111,15 +109,9 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    border: solid 3px green;
     padding: 2rem;
 }
 
-.carregando p {
-    font-family: 'Inter-Medium', sans-serif;
-    color: #5d033a;
-    font-size: 24px;
-}
 
 /* HTML: <div class="loader"></div> */
 .loader {
@@ -162,20 +154,29 @@
     top: 0;
     left: 7%;
     width: 93%;
-    height: 100%;
+    height: 100%; 
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 9999; 
-    background: rgba(0, 0, 0, 0.5); 
+    background: rgba(0, 0, 0, 0.5);    
+    padding: 40px 0;
+    box-sizing: border-box;
 }
 
 .modal-content {
-    /* background: #fff;  */
-    padding: 20px;
     border-radius: 8px;
-    width: 80%;
-    /* max-width: 900px; */
-    /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); */
+    width: 70%;
+    max-height: 100%;
+    overflow: auto;
+}
+
+.modal-content::-webkit-scrollbar {
+    width: 8px;
+    height: 0px;
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: rgb(93, 89, 89);
 }
 

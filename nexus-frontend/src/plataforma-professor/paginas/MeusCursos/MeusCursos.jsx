@@ -1,4 +1,4 @@
-import React, {useState, useEffect}  from "react";
+import React, { useState, useEffect } from "react";
 import './MeusCursos.css';
 import SideBar from "../../componentes/SideBar/SideBar";
 import ButtonNovoCurso from "../../componentes/ButtonNovoCurso/ButtonNovoCurso"
@@ -8,61 +8,61 @@ import { toast } from "react-toastify";
 
 function MeusCursos() {
     const [cursos, setCursos] = useState([]);
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
     const [imageUrls, setImageUrls] = useState({});
 
     const [editando, setEditando] = useState(false); // Controla se estamos editando um curso
     const [cursoSelecionado, setCursoSelecionado] = useState(null); // Dados do curso selecionado para edição
-    const idProfessor = sessionStorage.getItem('userId'); 
-    
+    const idProfessor = sessionStorage.getItem('userId');
+
 
     useEffect(() => {
         const buscarCursos = async () => {
             try {
-                const response = await api.get(`/cursos/professor/${idProfessor}`); 
+                const response = await api.get(`/cursos/professor/${idProfessor}`);
                 if (response.status === 200) {
-                    setCursos(response.data); 
-                } 
+                    setCursos(response.data);
+                }
             } finally {
                 setTimeout(() => {
-                    setLoading(false); 
+                    setLoading(false);
                 }, 1000);
             }
         };
 
         buscarCursos();
-    }, []); 
+    }, []);
 
 
     useEffect(() => {
         const fetchImages = async () => {
-          const newImageUrls = {};
+            const newImageUrls = {};
 
-          for (const curso of cursos) {
-            try {
-              const response = await api.get(`/cursos/capa/${curso.id}`, { responseType: 'blob' });
-              const contentType = response.headers['content-type'];
+            for (const curso of cursos) {
+                try {
+                    const response = await api.get(`/cursos/capa/${curso.id}`, { responseType: 'blob' });
+                    const contentType = response.headers['content-type'];
 
-          if (contentType && contentType.startsWith('image/')) {
-            const imageUrl = URL.createObjectURL(response.data);
-            newImageUrls[curso.id] = imageUrl;
-          } else {
-            newImageUrls[curso.id] = imagemCapa;
-          }
-              
-            } catch (error) {
-              console.error('Erro ao buscar a imagem para o curso', curso.id, error);
-              newImageUrls[curso.id] = imagemCapa; 
+                    if (contentType && contentType.startsWith('image/')) {
+                        const imageUrl = URL.createObjectURL(response.data);
+                        newImageUrls[curso.id] = imageUrl;
+                    } else {
+                        newImageUrls[curso.id] = imagemCapa;
+                    }
+
+                } catch (error) {
+                    console.error('Erro ao buscar a imagem para o curso', curso.id, error);
+                    newImageUrls[curso.id] = imagemCapa;
+                }
             }
-          }
-    
-          setImageUrls(newImageUrls);
+
+            setImageUrls(newImageUrls);
         };
-    
+
         if (cursos && cursos.length > 0) {
-          fetchImages();
+            fetchImages();
         }
-      }, [cursos]);
+    }, [cursos]);
 
 
     if (loading) {
@@ -80,7 +80,7 @@ function MeusCursos() {
     };
 
     const handleFecharEdicao = () => {
-        setEditando(false); 
+        setEditando(false);
     };
 
 
@@ -88,7 +88,7 @@ function MeusCursos() {
         try {
             const response = await api.delete(`/cursos/${idCurso}`);
             if (response.status === 204) {
-                
+
                 setCursos(cursos.filter(curso => curso.id !== idCurso));
                 toast.success('Curso deletado com sucesso!')
             } else {
@@ -104,7 +104,7 @@ function MeusCursos() {
         <>
             <SideBar backgroundColor={'#94065E'} />
             <div className="header-cursos-criados">
-                <p className="title-cursos">Cursos criados</p>
+                <p className="title-cursos">Cursos Criados</p>
             </div>
             <div className="cursos-criados">
                 {cursos.map((curso, index) => (
@@ -115,26 +115,26 @@ function MeusCursos() {
                         <div className="info-cards">
                             <h2>{curso.titulo}</h2>
                             <p>{curso.categoria}</p>
-                        </div>
-                        <div className="button-editar-curso">
-                            <button onClick={() => handleEditarCurso(curso)}>Editar</button>
-                            <button 
-                            onClick={() => deletarCurso(curso.id)}
-                            style={{backgroundColor: '#9e2a2b'}}
-                            > Deletar
-                            </button>
+                            <div className="button-editar-curso">
+                                <button onClick={() => handleEditarCurso(curso)}>Editar</button>
+                                <button
+                                    onClick={() => deletarCurso(curso.id)}
+                                    style={{ backgroundColor: '#9e2a2b' }}
+                                > Deletar
+                                </button>
+                            </div>
                         </div>
                     </div>
                 ))}
             </div>
-            
+
             {editando && (
                 <div className="modal-overlay">
                     <div className="modal-content">
                         <ButtonNovoCurso
                             onClose={handleFecharEdicao}
                             cursoAEditar={cursoSelecionado}
-                            // onCursoEditado={handleSalvarEdicao}
+                        // onCursoEditado={handleSalvarEdicao}
                         />
                     </div>
                 </div>
