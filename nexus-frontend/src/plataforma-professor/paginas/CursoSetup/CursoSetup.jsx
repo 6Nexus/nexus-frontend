@@ -1,10 +1,21 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import './CursoSetup.css';
 import SideBar from "../../componentes/SideBar/SideBar";
 import ButtonNovoCurso from "../../componentes/ButtonNovoCurso/ButtonNovoCurso";
 import Swal from 'sweetalert2';
+import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom'
 
 function CursoSetup() {
+    const navigate = useNavigate();
+    useEffect(() => {
+        if(!(sessionStorage.getItem('userId'))){
+            // console.log("sem id")
+            toast.error('Usuario não autenticado')
+            navigate('/login-professor')
+        }
+    }, []); 
+
     const [mostrarCriarCurso, setMostrarCriarCurso] = useState(false);
 
     const abrirCriadorCurso = () => {

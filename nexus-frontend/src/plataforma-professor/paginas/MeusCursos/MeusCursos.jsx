@@ -5,15 +5,24 @@ import ButtonNovoCurso from "../../componentes/ButtonNovoCurso/ButtonNovoCurso"
 import imagemCapa from '../../../utils/assets/capa_curso.jpg';
 import api from "../../../api";
 import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom';
 
 function MeusCursos() {
+    const navigate = useNavigate();
+    useEffect(() => {
+        if(!(sessionStorage.getItem('userId'))){
+            // console.log("sem id")
+            navigate('/login-professor')
+        }
+    }, []); 
     const [cursos, setCursos] = useState([]);
     const [loading, setLoading] = useState(true);
     const [imageUrls, setImageUrls] = useState({});
 
     const [editando, setEditando] = useState(false); // Controla se estamos editando um curso
     const [cursoSelecionado, setCursoSelecionado] = useState(null); // Dados do curso selecionado para edição
-    const idProfessor = sessionStorage.getItem('userId');
+    const idProfessor = sessionStorage.getItem('userId'); 
+    
 
 
     useEffect(() => {
@@ -21,8 +30,8 @@ function MeusCursos() {
             try {
                 const response = await api.get(`/cursos/professor/${idProfessor}`);
                 if (response.status === 200) {
-                    setCursos(response.data);
-                }
+                    setCursos(response.data); 
+                } 
             } finally {
                 setTimeout(() => {
                     setLoading(false);
@@ -132,9 +141,8 @@ function MeusCursos() {
                 <div className="modal-overlay">
                     <div className="modal-content">
                         <ButtonNovoCurso
-                            onClose={handleFecharEdicao}
                             cursoAEditar={cursoSelecionado}
-                        // onCursoEditado={handleSalvarEdicao}
+                            // onCursoEditado={handleSalvarEdicao}
                         />
                     </div>
                 </div>
