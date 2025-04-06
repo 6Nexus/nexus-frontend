@@ -141,6 +141,7 @@ function MeusCursos() {
                 <div className="modal-overlay">
                     <div className="modal-content">
                         <ButtonNovoCurso
+                            onClose={handleFecharEdicao}
                             cursoAEditar={cursoSelecionado}
                             // onCursoEditado={handleSalvarEdicao}
                         />

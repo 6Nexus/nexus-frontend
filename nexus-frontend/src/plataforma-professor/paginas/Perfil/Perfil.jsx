@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import './Perfil.css';
 import UploadImagem from "../../componentes/UploadImagem/UploadImagem";
 import SideBar from "../../componentes/SideBar/SideBar";
@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 import api from "../../../api";
 import { cpf } from 'cpf-cnpj-validator';
+import CameraAltRoundedIcon from '@mui/icons-material/CameraAltRounded';
 
 function Perfil() {
     const [initialValues, setInitialValues] = useState({
@@ -43,7 +44,7 @@ function Perfil() {
     });
 
     const id = sessionStorage.getItem('userId');
-    
+
 
     // Carrega os dados do professor ao montar o componente
     useEffect(() => {
@@ -75,95 +76,143 @@ function Perfil() {
                 payload[key] = values[key];
             }
         });
-    
+
         api.put(`professores/${id}`, payload, {
             headers: {
                 'Content-Type': 'application/json'
             }
         })
             .then(response => {
-                console.log('Resposta recebida:', response); 
+                console.log('Resposta recebida:', response);
                 if (response.status >= 200 && response.status < 300) {
                     try {
                         toast.success('Dados atualizados com sucesso');
                         sessionStorage.setItem('username', response.data.nome);
                         sessionStorage.setItem('email', response.data.email);
-                        console.log('Payload enviado:', payload); 
-                        
+                        console.log('Payload enviado:', payload);
+
                         setValues(response.data);
+                        setInitialValues(response.data);
+
                     } catch (formError) {
                         console.error('Erro ao redefinir o formulário:', formError);
                     }
                 }
             })
             .catch(error => {
-                console.error('Erro ao atualizar perfil:', error); 
+                console.error('Erro ao atualizar perfil:', error);
                 toast.error('Erro ao atualizar os dados.');
             })
             .finally(() => setSubmitting(false));
     };
-    
+
+
+
+    // incluir depois função para salvar a foto de perfil no back
+    const fileInputRef = useRef(null);
+    const [previewSrc, setPreviewSrc] = useState("https://via.placeholder.com/150");
+
+    const handleCameraClick = () => {
+        fileInputRef.current.click();
+    };
+
+    const handleFileChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                setPreviewSrc(e.target.result);
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
 
 
     return (
         <>
             <SideBar backgroundColor={'#94065E'} />
-            <div>
-                
-                <div className="container-geral">
-                    
-                    <div className="container-info">
-                        <Formik
-                            initialValues={initialValues}
-                            enableReinitialize 
-                            validationSchema={validationSchemaPerfil}
-                            onSubmit={handleSalvarAlteracoesPerfil}
-                        >
-                            {({ isSubmitting, errors, touched }) => (
-                                <Form className="infos">
-                                    <h4>Informações Pessoais</h4>
+            <div className="header-titulo">
+                <p className="title-perfil">Perfil</p>
+            </div>
 
-                                    <Field type="text" name="nome" placeholder="Nome"
-                                        className={touched.nome ? errors.nome ? 'input-erro' : 'input-success' : ''}
-                                    />
-                                    <ErrorMessage name="nome" component="div" className="error-message" />
 
-                                    <Field type="text" name="cpf" placeholder="CPF"
-                                        className={touched.cpf ? errors.cpf ? 'input-erro' : 'input-success' : ''}
-                                    />
-                                    <ErrorMessage name="cpf" component="div" className="error-message" />
-
-                                    <Field type="text" name="areaAtuacao" placeholder="Área de atuação"
-                                        className={touched.areaAtuacao ? errors.areaAtuacao ? 'input-erro' : 'input-success' : ''}
-                                    />
-                                    <ErrorMessage name="areaAtuacao" component="div" className="error-message" />
-
-                                    <Field type="text" name="email" placeholder="Email"
-                                        className={touched.email ? errors.email ? 'input-erro' : 'input-success' : ''}
-                                    />
-                                    <ErrorMessage name="email" component="div" className="error-message" />
-
-                                    <Field type="password" name="senha" placeholder="Senha"
-                                        className={touched.senha ? errors.senha ? 'input-erro' : 'input-success' : ''}
-                                    />
-                                    <ErrorMessage name="senha" component="div" className="error-message" />
-
-                                    <Field type="password" name="confirmeSenha" placeholder="Confirme sua senha"
-                                        className={touched.confirmeSenha ? errors.confirmeSenha ? 'input-erro' : 'input-success' : ''}
-                                    />
-                                    <ErrorMessage name="confirmeSenha" component="div" className="error-message" />
-
-                                    <div className="btn-editar-info">
-                                        <button type="submit" disabled={isSubmitting}>
-                                            {isSubmitting ? 'Salvando...' : 'Salvar'}
-                                        </button>
-                                    </div>
-                                </Form>
-                            )}
-                        </Formik>
+            <div className="container-content-perfil">
+                <div className="container-foto">
+                    <img id="preview" className="preview" src={previewSrc} />
+                    <input
+                        type="file"
+                        accept="image/*"
+                        id="fileInput"
+                        className="inputFotoPerfil"
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                    />
+                    <div className="icone-camera" id="cameraIcon" onClick={handleCameraClick}>
+                        <CameraAltRoundedIcon />
                     </div>
                 </div>
+                <div className="infos">
+                    <label style={{ fontSize: '20px', fontWeight: 'bold', color: '#313131' }}>{initialValues.nome}</label>
+                    <label>{initialValues.email}</label>
+                </div>
             </div>
+            <hr className="line-perfil" />
+
+            <div className="container-geral">
+
+                <div className="container-info">
+                    <Formik
+                        initialValues={initialValues}
+                        enableReinitialize
+                        validationSchema={validationSchemaPerfil}
+                        onSubmit={handleSalvarAlteracoesPerfil}
+                    >
+                        {({ isSubmitting, errors, touched }) => (
+                            <Form className="infos">
+                                <h4> Editar Informações</h4>
+
+                                <Field type="text" name="nome" placeholder="Nome"
+                                    className={touched.nome ? errors.nome ? 'input-erro' : 'input-success' : ''}
+                                />
+                                <ErrorMessage name="nome" component="div" className="error-message" />
+
+                                <Field type="text" name="cpf" placeholder="CPF"
+                                    className={touched.cpf ? errors.cpf ? 'input-erro' : 'input-success' : ''}
+                                />
+                                <ErrorMessage name="cpf" component="div" className="error-message" />
+
+                                <Field type="text" name="areaAtuacao" placeholder="Área de atuação"
+                                    className={touched.areaAtuacao ? errors.areaAtuacao ? 'input-erro' : 'input-success' : ''}
+                                />
+                                <ErrorMessage name="areaAtuacao" component="div" className="error-message" />
+
+                                <Field type="text" name="email" placeholder="Email"
+                                    className={touched.email ? errors.email ? 'input-erro' : 'input-success' : ''}
+                                />
+                                <ErrorMessage name="email" component="div" className="error-message" />
+
+                                <Field type="password" name="senha" placeholder="Senha"
+                                    className={touched.senha ? errors.senha ? 'input-erro' : 'input-success' : ''}
+                                />
+                                <ErrorMessage name="senha" component="div" className="error-message" />
+
+                                <Field type="password" name="confirmeSenha" placeholder="Confirme sua senha"
+                                    className={touched.confirmeSenha ? errors.confirmeSenha ? 'input-erro' : 'input-success' : ''}
+                                />
+                                <ErrorMessage name="confirmeSenha" component="div" className="error-message" />
+
+                                <div className="btn-editar-info">
+                                    <button type="submit" disabled={isSubmitting}>
+                                        {isSubmitting ? 'Salvando...' : 'Salvar'}
+                                    </button>
+                                </div>
+                            </Form>
+                        )}
+                    </Formik>
+                </div>
+            </div>
+
         </>
     );
 }
