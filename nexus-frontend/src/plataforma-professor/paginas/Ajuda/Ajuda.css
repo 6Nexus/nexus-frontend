@@ -63,9 +63,9 @@
     transition: background-color 0.3s ease;
  }
 
-button:hover {
-    background-color: #7A0049;
-}
+    /* button:hover {
+        background-color: #7A0049;
+    } */
 
  input[type="file"] {
     border: none;
