@@ -19,14 +19,12 @@ const SavedCourses = () => {
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const currentCards = cardsData.slice(indexOfFirstCard, indexOfLastCard);
 
-    const [imageUrls, setImageUrls] = useState({});
-
     const handleChange = (event, value) => {
         setCurrentPage(value);
     };
 
     const buscarCursos = (categoria = "Todos") => {
-        const endpoint = categoria === "Todos" ? `/cursos/associado/${id}` : `/cursos/categoria/${categoria}`;
+        const endpoint = categoria === "Todos" ? `/cursos/associado/${id}` : `/cursos/associado/${id}/categoria/${categoria}`;
         api.get(endpoint)
             .then((response) => {
                 const { data } = response;
@@ -37,36 +35,6 @@ const SavedCourses = () => {
                 console.log("Erro ao buscar cursos:", e);
             });
     };
-
-    useEffect(() => {
-        const fetchImages = async () => {
-          const newImageUrls = {};
-
-          for (const data of currentCards) {
-            try {
-              const response = await api.get(`/cursos/capa/${data.id}`, { responseType: 'blob' });
-              const contentType = response.headers['content-type'];
-
-          if (contentType && contentType.startsWith('image/')) {
-            const imageUrl = URL.createObjectURL(response.data);
-            newImageUrls[data.id] = imageUrl;
-          } else {
-            newImageUrls[data.id] = imagemCapaDefault;
-          }
-              
-            } catch (error) {
-              console.error('Erro ao buscar a imagem para o curso', data.id, error);
-              newImageUrls[data.id] = imagemCapaDefault; 
-            }
-          }
-    
-          setImageUrls(newImageUrls);
-        };
-    
-        if (currentCards && currentCards.length > 0) {
-          fetchImages();
-        }
-      }, [currentCards]);
 
     useEffect(() => {
         buscarCursos(activeCategory);
@@ -103,7 +71,7 @@ const SavedCourses = () => {
                                         category={data.categoria}
                                         inProgress={data.emProgresso}
                                         liked={data.curtido}
-                                        imageUrl={imageUrls[data.id] || imagemCapaDefault}
+                                        imageUrl={data.capaUrl || imagemCapaDefault}
                                         progress={data.progreso}
                                         showIcon="true"
                                     />
