@@ -208,17 +208,15 @@ function ButtonNovoCurso({ onClose, cursoAEditar }) {
             }
 
             if (imagem) {
-                const reader = new FileReader();
-
-                reader.addEventListener("load", () => {
-                    api.patch(`/cursos/capa/${idCurso}`, reader.result, {headers: {
-                        "Accept": "application/json, image/*, */*",
-                        'Content-Type': imagem.type
-                    }});
+                const formData = new FormData();
+                formData.append('file', imagem); 
+              
+                await api.patch(`/cursos/capa/${idCurso}`, formData, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
                 });
-            
-                reader.readAsArrayBuffer(imagem);
-            }
+              }
 
             for (const modulo of modulos) {
                 const { titulo, descricao } = modulo;
