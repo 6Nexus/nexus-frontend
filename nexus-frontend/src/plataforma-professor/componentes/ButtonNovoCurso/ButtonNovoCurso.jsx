@@ -274,7 +274,8 @@ function ButtonNovoCurso({ onClose, cursoAEditar }) {
             }
             toast.success('Curso criado com sucesso!');           
         } catch (error) {
-            toast.error(error.message);
+           // toast.error(error.message);
+            console.log(error.message)
         }
     }
 
