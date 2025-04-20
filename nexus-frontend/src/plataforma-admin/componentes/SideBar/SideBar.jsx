@@ -94,10 +94,10 @@ const SideBar = ({ backgroundColor }) => {
                             {isExpanded && <span className={styles["menuOptions__item__text"]}>Mães</span>}
                         </div>
 
-                        <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('curso', '/admin/cursos')}>
+                        {/* <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('curso', '/admin/cursos')}>
                             <SchoolIcon sx={{ fontSize: 32, color: '#fff' }} className={`${activeItem === 'curso' ? styles["active"] : ""}`} />
                             {isExpanded && <span className={styles["menuOptions__item__text"]}>Cursos</span>}
-                        </div>
+                        </div> */}
                     </div>
 
                     <div className={styles["menuOptions__line"]}></div>

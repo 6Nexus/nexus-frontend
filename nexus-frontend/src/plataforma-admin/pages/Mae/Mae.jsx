@@ -51,7 +51,7 @@ function Mae() {
 
             <div className={styles.content}>
                 <h1 className={styles.titulo}>{titulo}</h1>
-                {/* <Titulos tipo={tipoSelecionado} mostrarCards={mostrarCards} /> */}
+                <Titulos tipo={tipoSelecionado} mostrarCards={mostrarCards} />
                 <Card dados={currentCards} tipoSelecionado={tipoSelecionado} />
                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
                     <Pagination

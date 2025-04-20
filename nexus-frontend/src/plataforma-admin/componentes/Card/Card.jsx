@@ -142,7 +142,15 @@ function renderBotao(tipoSelecionado, id, handleAprovar, handleBloquear, handleE
 		case 'ativos-aluno':
 			return (
 				<>
-					<button className={styles.btnBloq} onClick={() => handleExcluir(id)}>Excluir</button>
+					{/* <button className={styles.btnBloq} onClick={() => handleExcluir(id)}>Aprovar</button> */}
+                    <button className={styles.btnBloq} onClick={() => handleExcluir(id)}>Bloquear</button>
+				</>
+			);
+        case 'bloqueados-aluno':
+            return (
+				<>
+					<button className={styles.btn} onClick={() => handleExcluir(id)}>Aprovar</button>
+                    {/* <button className={styles.btnBloq} onClick={() => handleExcluir(id)}>Bloquear</button> */}
 				</>
 			);
 		default:
