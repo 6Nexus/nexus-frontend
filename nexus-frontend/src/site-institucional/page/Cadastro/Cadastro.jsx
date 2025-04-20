@@ -4,6 +4,10 @@ import logo from '../../../utils/assets/logotipoSemTexto.png';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { useNavigate } from 'react-router-dom';
 
+// 🟡 IMPORTAÇÕES ADICIONADAS
+import api from '../../../api';
+import { toast } from 'react-toastify';
+
 const Cadastro = () => {
     // const [step, setStep] = useState(1);
     const [image, setImage] = useState(null);
@@ -47,10 +51,30 @@ const Cadastro = () => {
     //     if (step > 1) setStep(step - 1);
     // };
 
-    const handleSubmit = (e) => {
+    // 🟡 FUNÇÃO ATUALIZADA PARA FAZER INTEGRAÇÃO COM BACKEND
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        alert("Cadastro realizado com sucesso!");
-        console.log("Formulário enviado!", formData);
+
+        const dadosEnvio = {
+            nome: formData.nomeCompleto,
+            email: formData.email,
+            senha: formData.senha,
+            telefone: formData.telefone
+        };
+
+        try {
+            const response = await api.post('/associados', dadosEnvio);
+
+            if (response.status === 201 || response.status === 200) {
+                toast.success("Cadastro realizado com sucesso!");
+                navigate('/login');
+            } else {
+                throw new Error("Erro ao realizar cadastro. Tente novamente.");
+            }
+        } catch (error) {
+            toast.error(error.response?.data?.message || "Erro ao realizar cadastro.");
+            console.error("Erro no cadastro:", error);
+        }
     };
 
     const handleChange = (e) => {
@@ -64,7 +88,6 @@ const Cadastro = () => {
     const handleNavigation = (item, route) => {
         navigate(route);
     };
-
 
     return (
         <section className={styles.cadastro}>
