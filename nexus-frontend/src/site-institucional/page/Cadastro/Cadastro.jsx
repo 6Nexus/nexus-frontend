@@ -3,8 +3,6 @@ import styles from './Cadastro.module.css';
 import logo from '../../../utils/assets/logotipoSemTexto.png';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import { useNavigate } from 'react-router-dom';
-
-// 🟡 IMPORTAÇÕES ADICIONADAS
 import api from '../../../api';
 import { toast } from 'react-toastify';
 
@@ -50,8 +48,6 @@ const Cadastro = () => {
     // const previousStep = () => {
     //     if (step > 1) setStep(step - 1);
     // };
-
-    // 🟡 FUNÇÃO ATUALIZADA PARA FAZER INTEGRAÇÃO COM BACKEND
     const handleSubmit = async (e) => {
         e.preventDefault();
 

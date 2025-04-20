@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import SideBar from '../../componentes/SideBar/SideBar';
 import NavBar from '../../componentes/NavBar/NavBar';
 import Titulos from '../../componentes/Titulos/Titulos';
 import Card from '../../componentes/Card/Card';
 import Pagination from '@mui/material/Pagination';
 import styles from '../Pages.module.css';
-import { alunosAtivos, alunosBloqueados } from '../../../data';
 
 function Mae() {
-    const [dados, setDados] = useState(alunosAtivos);
+    const [dados, setDados] = useState([]);
     const [titulo, setTitulo] = useState('Mães');
     const [tipoSelecionado, setTipoSelecionado] = useState('ativos-aluno');
     const [currentPage, setCurrentPage] = useState(1);
@@ -17,22 +17,29 @@ function Mae() {
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
     const currentCards = dados.slice(indexOfFirstCard, indexOfLastCard);
 
+    // Função para buscar dados da API
+    const fetchDados = async (tipo) => {
+        try {
+            const response = await axios.get(`http://localhost:8080/associados?tipo=${tipo}`);
+            setDados(response.data);
+        } catch (error) {
+            console.error('Erro ao carregar os dados:', error);
+        }
+    };
 
+    // Inicializa os dados com o tipo padrão
     useEffect(() => {
-        setCurrentPage(1);
-    }, [dados]);
+        fetchDados(tipoSelecionado);
+    }, [tipoSelecionado]);
 
     const handleChange = (event, value) => {
         setCurrentPage(value);
     };
 
     const mostrarCards = (tipo) => {
-        let dadosSelecionados = tipo === 'ativos-aluno' ? alunosAtivos : alunosBloqueados;
-        setDados(dadosSelecionados);
-        setTipoSelecionado(tipo); 
-        setTitulo('Mães');
+        setTipoSelecionado(tipo); // Isso acionará o useEffect para buscar os dados
+        setTitulo('Mães'); // Mantém o título fixo como 'Mães'
     };
-
 
     return (
         <div className={styles.container}>
@@ -44,7 +51,7 @@ function Mae() {
 
             <div className={styles.content}>
                 <h1 className={styles.titulo}>{titulo}</h1>
-                <Titulos tipo={tipoSelecionado} mostrarCards={mostrarCards} />
+                {/* <Titulos tipo={tipoSelecionado} mostrarCards={mostrarCards} /> */}
                 <Card dados={currentCards} tipoSelecionado={tipoSelecionado} />
                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
                     <Pagination
