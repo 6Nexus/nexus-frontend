@@ -59,6 +59,7 @@ function Cadastro() {
         
             .then( response => {
                 if(response.status === 201){
+                    sessionStorage.setItem('username', values.nome);
                     toast.success('Cadastro realizado com sucesso!')
                     console.log(values)
                     resetForm()
@@ -97,7 +98,7 @@ function Cadastro() {
 
                         
                             <div className="input-cadastro">
-                                <Field type="text" name="nome" placeholder="Nome" 
+                                <Field type="text" name="nome"  id="nome" placeholder="Nome" 
                                 className={touched.nome ? errors.nome ? 'input-erro' : 'input-success' : ''}
                                 />
                                 <ErrorMessage name="nome" component="div" className="error-message" />

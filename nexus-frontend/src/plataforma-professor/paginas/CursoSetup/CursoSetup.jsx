@@ -1,19 +1,22 @@
-import React, { useState } from "react";
+import React, { useState, useEffect} from "react";
 import './CursoSetup.css';
 import SideBar from "../../componentes/SideBar/SideBar";
 import ButtonNovoCurso from "../../componentes/ButtonNovoCurso/ButtonNovoCurso";
-
+import Swal from 'sweetalert2';
+import { toast } from "react-toastify";
+import { useNavigate } from 'react-router-dom'
 
 function CursoSetup() {
-    const [mostrarCriarCurso, setMostrarCriarCurso] = useState(false);
-    const [curso, setCurso] = useState({
-        titulo: '',
-        descricao: '',
-        imagem: null,
-        categoria: '',
-        modulos: [],
+    const navigate = useNavigate();
+    useEffect(() => {
+        if(!(sessionStorage.getItem('userId'))){
+            // console.log("sem id")
+            toast.error('Usuario não autenticado')
+            navigate('/login-professor')
+        }
+    }, []); 
 
-    });
+    const [mostrarCriarCurso, setMostrarCriarCurso] = useState(false);
 
     const abrirCriadorCurso = () => {
         setMostrarCriarCurso(true);
@@ -21,41 +24,6 @@ function CursoSetup() {
 
     const fecharCriadorCurso = () => {
         setMostrarCriarCurso(false);
-    };
-
-
-    const atualizarCurso = (novosDados) => {
-        setCurso((cursoAtual) => ({
-            ...cursoAtual,
-            ...novosDados
-        }));
-    };
-
-    // Função para salvar o curso 
-    // ainda vai ser passado os propriedades para salvar módulos e aulas
-    const salvarCurso = () => {
-        if (!curso.titulo || !curso.descricao || !curso.categoria) {
-            alert('Por favor, preencha todos os campos obrigatórios!');
-            return;
-        }
-
-        console.log("Curso salvo:", curso);
-        // implementar a lógica pro back aqui
-        alert('Curso criado com sucesso!');
-
-
-        setCurso({
-            titulo: '',
-            descricao: '',
-            imagem: null, 
-            categoria: '',
-            modulos: [],
-            aulas: []
-
-        });
-        setMostrarCriarCurso(false);
-
-
     };
 
     return (
@@ -70,10 +38,7 @@ function CursoSetup() {
 
                     {mostrarCriarCurso && (
                         <ButtonNovoCurso
-                            curso={curso}
-                            atualizarCurso={atualizarCurso}
                             onClose={fecharCriadorCurso}
-                            onSave={salvarCurso}
                         /> 
                     )}
                 </div>

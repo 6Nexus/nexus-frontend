@@ -1,18 +1,22 @@
 import React from "react";
 import './Ajuda.css'
 import SideBar from "../../componentes/SideBar/SideBar";
-import HelpIcon from '@mui/icons-material/Help';
+import SupportAgentRoundedIcon from '@mui/icons-material/SupportAgentRounded';
 
 
 function Ajuda() {
     return (
         <>
             <SideBar />
-            <div className="container-ajuda">
+            <div className="header-titulo">
+                <p>Ajuda e Suporte</p>
+            </div>
+
+           
                 <div className="form-de-ajuda">
                     <form>
                         <div className="header-ajuda">
-                            <HelpIcon style={{ fontSize: '40px', color: '#94065E' }} /> <h3>Solicitar Ajuda</h3>
+                            <SupportAgentRoundedIcon style={{ fontSize: '30px', color: '#94065E' }} /> <h3>Abrir um chamado</h3>
                         </div>
                         <label htmlFor="">Confirmação de e-mail para<span style={{ color: 'red' }}>*</span></label>
                         <input type="text" />
@@ -49,7 +53,8 @@ function Ajuda() {
                         <button className="btn-enviar-solicitacao" >Enviar Solicitação</button>
                     </form>
                 </div>
-            </div>
+           
+
         </>
     )
 }

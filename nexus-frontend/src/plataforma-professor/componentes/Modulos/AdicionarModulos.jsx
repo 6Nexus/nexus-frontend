@@ -1,142 +1,98 @@
-import React, { useState } from 'react';
-import './AdicionarModulos.css';
-import AdicionarAula from '../Aulas/AdicionarAulas';
-import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
-import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
-import Questionario from '../Questionario/Questionario';
+    import React, { useState } from 'react';
+    import './AdicionarModulos.css';
+    import AdicionarAula from '../Aulas/AdicionarAulas';
+    import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+    import QuizRoundedIcon from '@mui/icons-material/QuizRounded';
+    import Questionario from '../Questionario/Questionario';
+    import api from '../../../api';
+    import { toast } from 'react-toastify';
+import ButtonNovoCurso from '../ButtonNovoCurso/ButtonNovoCurso';
+
+    function AdicionarModulos({ moduloIndex, modulo, atualizarModulo, atualizarAula, atualizarPergunta, atualizarResposta }) {
+        const handleModuloChange = (e) => {
+            const { name, value } = e.target;
+            atualizarModulo(moduloIndex, name, value)
+        };
+
+        const handleModuloRemove = () => {
+            atualizarModulo(moduloIndex, 'delete', '')
+        };
+
+        const handleAulaAdd = () => {
+            atualizarAula(moduloIndex, -1, '', '')
+        };
+
+        const [mostrarQuestionario, setMostrarQuestionario] = useState(true);
+
+        const toggleQuestionario = () => {
+            setMostrarQuestionario((prevMostrar) => !prevMostrar);
+        };
 
 
-function AdicionarModulos({ moduloIndex, atualizarModulo, removerModulo }) {
-    const [modulo, setModulo] = useState({
-        titulo: '',
-        descricao: '',
-        aulas: [],
-        questionario: []
-    });
+        return (
+            <div className="container-modulo">
+                <div className='container-header'>
+                    <h3>Módulo {moduloIndex + 1}</h3>
+                    <button className='btn-remover' onClick={handleModuloRemove}>
+                        <CloseRoundedIcon />
+                    </button>
+                </div>
 
-    const handleChangeModulo = (e) => {
-        const { name, value } = e.target;
-        setModulo((prevModulo) => {
-            const updatedModulo = { ...prevModulo, [name]: value };
-            atualizarModulo(moduloIndex, updatedModulo); 
-            return updatedModulo;
-        });
-    };
+                <div className="form-group">
+                    <label htmlFor="titulo">Título do Módulo<span style={{ color: 'red' }}>*</span></label>
+                    <input
+                        type="text"
+                        id="titulo"
+                        name='titulo'
+                        value={modulo.titulo}
+                        onChange={handleModuloChange}
+                        placeholder="Digite o título do módulo"
+                        className="input-field"
+                        style={{ width: '40%' }}
+                    />
+                </div>
 
-    const handleAddAula = () => {
-        const novaAula = { titulo: '', descricao: '' };
-        setModulo((prevModulo) => {
-            const updatedModulo = {
-                ...prevModulo,
-                aulas: [...prevModulo.aulas, novaAula]
-            };
-            atualizarModulo(moduloIndex, updatedModulo); 
-            return updatedModulo;
-        });
-    };
+                <div className="form-group">
+                    <label htmlFor="descricao">Descrição do Módulo<span style={{ color: 'red' }}>*</span></label>
+                    <input
+                        id="descricao"
+                        name='descricao'
+                        value={modulo.descricao}
+                        onChange={handleModuloChange}
+                        placeholder="Digite a descrição do módulo"
+                        className="input-descricao"
+                    />
+                </div>
 
-    const handleRemoverModulo = () => {
-        removerModulo(moduloIndex); 
-    };
-
-    const [mostrarQuestionario, setMostrarQuestionario] = useState(false);
-
-    const toggleQuestionario = () => {
-        setMostrarQuestionario((prevMostrar) => !prevMostrar);
-    };
-
-    const handleSalvarQuestionario = (questoes) => {
-        setModulo((prevModulo) => {
-            const updatedModulo = {
-                ...prevModulo,
-                questionario: questoes
-            };
-            atualizarModulo(moduloIndex, updatedModulo);
-            return updatedModulo;
-        });
-        setMostrarQuestionario(false);
-    };
-
-    return (
-        <div className="container-modulo">
-            <div className='container-header'>
-                <h3>Módulo {moduloIndex + 1}</h3>
-                <button className='btn-remover' onClick={handleRemoverModulo}>
-                    <CloseRoundedIcon />
+                <button type="button" className='btn-add-aula' onClick={handleAulaAdd} >
+                    + Aula
                 </button>
+
+                {modulo.aulas.map((aula, index) => (
+                    <AdicionarAula
+                        key={index}
+                        moduloIndex={moduloIndex}
+                        aulaIndex={index}
+                        aula={aula}
+                        atualizarAula={atualizarAula}
+                    />
+                ))}
+
+                <button type='button' className='criar-questionario' onClick={toggleQuestionario}>
+                    <QuizRoundedIcon /> Criar Questionário
+                </button>
+
+                {mostrarQuestionario &&
+                    <Questionario
+                        moduloIndex={moduloIndex}
+                        questionario={modulo.questionario}
+                        atualizarPergunta={atualizarPergunta}
+                        atualizarResposta={atualizarResposta}
+                        onClose={toggleQuestionario}
+                    />
+                }
             </div>
+        );
+    }
 
-            <div className="form-group">
-                <label htmlFor="titulo">Título do Módulo<span style={{ color: 'red' }}>*</span></label>
-                <input
-                    type="text"
-                    id="titulo"
-                    name='titulo'
-                    value={modulo.titulo}
-                    onChange={handleChangeModulo}
-                    placeholder="Digite o título do módulo"
-                    className="input-field"
-                    style={{ width: '40%' }}
-                    // required
-                />
-            </div>
-
-            <div className="form-group">
-                <label htmlFor="descricao">Descrição do Módulo<span style={{ color: 'red' }}>*</span></label>
-                <input
-                    id="descricao"
-                    name='descricao'
-                    value={modulo.descricao}
-                    onChange={handleChangeModulo}
-                    placeholder="Digite a descrição do módulo"
-                    className="input-descricao"
-                    // required
-                />
-            </div>
-
-            <button type="button" className='btn-add-aula' onClick={handleAddAula}>
-                + Aula
-            </button>
-
-            {modulo.aulas.map((aula, index) => (
-                <AdicionarAula
-                    key={index}
-                    aulaIndex={index + 1}
-                    aula={aula}
-                    AdicionarAula={(novaAula) => {
-                        const aulasAtualizadas = modulo.aulas.map((a, i) =>
-                            i === index ? novaAula : a
-                        );
-                        setModulo((prevModulo) => {
-                            const updatedModulo = {
-                                ...prevModulo,
-                                aulas: aulasAtualizadas
-                            };
-                            atualizarModulo(moduloIndex, updatedModulo);
-                            return updatedModulo;
-                        });
-                    }}
-                    removerAula={() => {
-                        const aulasAtualizadas = modulo.aulas.filter((_, i) => i !== index);
-                        setModulo((prevModulo) => {
-                            const updatedModulo = {
-                                ...prevModulo,
-                                aulas: aulasAtualizadas
-                            };
-                            atualizarModulo(moduloIndex, updatedModulo);
-                            return updatedModulo;
-                        });
-                    }}
-                />
-            ))}
-
-            <button type='button' className='criar-questionario' onClick={toggleQuestionario}>
-                <QuizRoundedIcon /> Criar Questionário
-            </button>
-
-            {mostrarQuestionario && <Questionario onClose={toggleQuestionario} onSave={handleSalvarQuestionario} />}
-        </div>
-    );
-}
-
-export default AdicionarModulos;
+    export default AdicionarModulos;

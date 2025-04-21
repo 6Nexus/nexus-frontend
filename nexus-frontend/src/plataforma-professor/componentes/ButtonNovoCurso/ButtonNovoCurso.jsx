@@ -1,144 +1,283 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import './ButtonNovoCurso.css';
 import SideBar from "../../componentes/SideBar/SideBar";
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import AdicionarModulos from "../Modulos/AdicionarModulos";
-import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
 import api from "../../../api.js";
+import { toast } from 'react-toastify';
+import { Navigate, useNavigate } from "react-router-dom";
 
-function ButtonNovoCurso({ onClose }) {
+function ButtonNovoCurso({ onClose, cursoAEditar }) {   
     const [curso, setCurso] = useState({
         titulo: '',
         descricao: '',
         imagem: null,
         categoria: '',
         modulos: []
-    });
-
-    const handleInputChange = (e) => {
-         const { name, value } = e.target;
-         setCurso((prevCurso) => ({ 
-            ...prevCurso, 
-            [name]: value 
-        })); 
-    };
-
-    const handleFileChange = (e) => {
-        setCurso((prevCurso) => ({
-            ...prevCurso,
-            imagem: e.target.files[0],
-        }));
-    };
-
-    const handleAddModulo = () => {
-        setCurso((prevCurso) => ({
-            ...prevCurso,
-            modulos: [...prevCurso.modulos, { titulo: '', descricao: '', aulas: [], questionario: [] }],
-        }));
-    };
-
+    }); 
 
     const navigate = useNavigate();
 
-    const handleSalvarCurso = (e) => {
-        e.preventDefault();
-        const { titulo, descricao, categoria, modulos } = curso;
+    useEffect(() => {
+        if (cursoAEditar) {
+            const mapearCursoExistente = async () => {
+                try {
+                    const moduloResposta = await api.get(`/modulos/curso/${cursoAEditar.id}`);
+                    const modulos = moduloResposta.data;
+                    
+                    if (modulos.length > 0) {
+                        cursoAEditar = { ...cursoAEditar, modulos };
 
-        
-        if (!titulo || !descricao || !categoria) {
-            toast.warning('Por favor, preencha todos os campos obrigatórios!')
-            return;
-        }
-
-        if (modulos.length === 0) {
-            toast.warning('Por favor, adicione pelo menos um módulo ao curso!');
-            return;
-        }
-
-        // Log para verificar o estado dos módulos
-        console.log("Módulos no momento da validação:", modulos);
-
-        // Validação dos módulos
-        for (let i = 0; i < modulos.length; i++) {
-            console.log("Validando módulo:", modulos[i]); // Log do módulo
-            if (!modulos[i].titulo || !modulos[i].descricao) {
-                toast.warning(`Por favor, preencha todos os campos do módulo ${i + 1}`);
-                return;
-            }
-
-            // Verificação das aulas
-            if (modulos[i].aulas.length === 0) {
-                toast.warning(`O módulo ${i + 1} não possui aulas. Por favor, adicione pelo menos uma aula!`);
-                return;
-            }
-
-            for (let j = 0; j < modulos[i].aulas.length; j++) {
-
-                console.log("Validando aula:", modulos[i].aulas[j]); // Log da aula 
-
-                if (!modulos[i].aulas[j].titulo || !modulos[i].aulas[j].descricao) {
-                    toast.warning(`Por favor, preencha todos os campos da aula ${j + 1} no módulo ${i + 1}`);
-                    return;
+                        for (const modulo of cursoAEditar.modulos) {
+                            try {
+                                const questionarioResposta = await api.get(`/questionarios/modulo/${modulo.id}`);
+                                const questionario = questionarioResposta.data;
+                                modulo.questionario = questionario;
+                            } catch (error) {
+                                // toast.error(error.message);
+                                modulo.questionario = { perguntas: [ { respostas: [] } ] };
+                            }
+                            
+                            const videoResposta = await api.get(`/videos/modulo/${modulo.id}`);
+                            const videos = videoResposta.data;
+                            modulo.aulas = videos ? videos : [];
+                        }
+                    }
+                    setCurso(cursoAEditar);
+                } catch (error) {
+                    toast.error(error.message);
+                    const modulos = [];
+                    cursoAEditar = { ...cursoAEditar, modulos }
                 }
-                
-                if(!modulos[i].aulas[j].conteudos.video){
-                    toast.warning(`A aula ${j + 1} não possui um vídeo. Adicione um conteúdo de vídeo!`)
-                }
-
-
             }
-
-            // Verificação se não tem questionário no módulo 
-            if (modulos[i].questionario.length === 0) {
-                toast.warning(`O módulo ${i + 1} não possui questionário. Por favor, adicione pelo menos uma questão!`);
-                return;
-            }   
+            mapearCursoExistente();
         }
+    }, [])
 
-        const cursoValues = {
-            titulo: curso.titulo,
-            descricao: curso.descricao,
-            categoria: curso.categoria,
-            modulos: curso.modulos, 
-        }
+    useEffect(() => {
+        console.log(curso);
+    }, [curso]);
 
-        api.post('/', curso, {
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        })
-
-        .then((response) => {
-            if (response.status === 201) {
-                toast.success('Curso criado com sucesso!');
-                console.log(cursoValues); 
-                resetForm(); 
-                navigate('/curso-setup'); 
-            } else {
-                throw new Error('Ops! Ocorreu um erro interno, tente mais tarde.');
-            }
-        })
-        .catch((error) => {
-            toast.error(error.message); 
-        })
-       
-        
-
-        console.log('Curso Criado', curso);
-        toast.success('Curso criado com sucesso!');
-        resetForm();
+    const atualizarCurso = (campo, valor) => {
+        setCurso((prevCurso) => ({
+            ...prevCurso,
+            [campo]: valor
+        }));
     };
 
-    const resetForm = () => {
-        setCurso({
-            titulo: '',
-            descricao: '',
-            imagem: null,
-            categoria: '',
-            modulos: []
+    const atualizarModulo = (indexModulo, campo, valor) => {
+        setCurso((prevCurso) => {
+            let novosModulos = [...prevCurso.modulos];
+
+            if (campo === 'delete') {
+                novosModulos = novosModulos.filter((_, index) => index !== indexModulo);
+
+            } else if (indexModulo === -1) {
+                novosModulos.push({ titulo: '', descricao: '', aulas: [], 
+                    questionario: { titulo: 'Questionário', descricao: 'Descrição do questionário', perguntas: [] }});
+
+            } else {
+                novosModulos[indexModulo] = {
+                    ...novosModulos[indexModulo],
+                    [campo]: valor
+                };
+            }
+
+            return {
+                ...prevCurso,
+                modulos: novosModulos
+            };
         });
     };
+
+    const atualizarAula = (indexModulo, indexAula, campo, valor) => {
+        setCurso((prevCurso) => {
+            let novosModulos = [...prevCurso.modulos];
+
+            if (campo === 'delete') {
+                novosModulos[indexModulo].aulas = novosModulos[indexModulo].aulas.filter((_, index) => index !== indexAula);
+
+            } else if (indexAula === -1) {
+                novosModulos[indexModulo].aulas.push({ titulo: '', descricao: '', video: '' });
+
+            } else {
+                novosModulos[indexModulo].aulas[indexAula] = {
+                    ...novosModulos[indexModulo].aulas[indexAula],
+                    [campo]: valor
+                };
+            }
+
+            return {
+                ...prevCurso,
+                modulos: novosModulos
+            };
+        });
+    };
+
+    const atualizarPergunta = (indexModulo, indexPergunta, campo, valor) => {
+        setCurso((prevCurso) => {
+            let novosModulos = [...prevCurso.modulos];
+
+            
+            if (campo === 'delete') {
+                novosModulos[indexModulo].questionario.perguntas = novosModulos[indexModulo].questionario.perguntas.filter((_, index) => index !== indexPergunta);
+
+            } else if (indexPergunta === -1) {
+                novosModulos[indexModulo].questionario.perguntas.push({ pergunta: '', respostas: [] });
+
+            } else {
+                novosModulos[indexModulo].questionario.perguntas[indexPergunta] = {
+                    ...novosModulos[indexModulo].questionario.perguntas[indexPergunta],
+                    [campo]: valor
+                };
+            }
+
+            return {
+                ...prevCurso,
+                modulos: novosModulos
+            };
+        });
+    };
+
+    const atualizarResposta = (indexModulo, indexPergunta, indexResposta, campo, valor, tipo) => {
+        setCurso((prevCurso) => {
+            let novosModulos = [...prevCurso.modulos];
+
+            if (campo === 'delete') {
+                novosModulos[indexModulo].questionario.perguntas[indexPergunta].respostas = novosModulos[indexModulo].questionario.perguntas[indexPergunta].respostas.filter((_, index) => index !== indexResposta);
+
+            } else if (indexResposta === -1) {
+                novosModulos[indexModulo].questionario.perguntas[indexPergunta].respostas.push({ resposta: '', respostaCerta: false });
+            
+            } else if (tipo === 'radio') {
+                novosModulos[indexModulo].questionario.perguntas[indexPergunta].respostas = novosModulos[indexModulo].questionario.perguntas[indexPergunta].respostas.map((resposta, index) => {
+                    return {
+                        ...resposta,
+                        respostaCerta: index === indexResposta
+                    };
+                });
+            
+            } else {
+                novosModulos[indexModulo].questionario.perguntas[indexPergunta].respostas[indexResposta] = {
+                    ...novosModulos[indexModulo].questionario.perguntas[indexPergunta].respostas[indexResposta],
+                    [campo]: valor
+                };
+            }
+
+            return {
+                ...prevCurso,
+                modulos: novosModulos
+            };
+        });
+    };
+    
+    const handleCursoChange = (e) => {
+        const { name, value } = e.target;
+        if (name == "imagem") {
+            atualizarCurso(name, e.target.files[0]);
+        } else {
+            atualizarCurso(name, value);
+        }
+    };
+
+    const handleModuloAdd = () => {
+        atualizarModulo(-1, '', '')
+    };
+
+    const onSave = async (e) => {
+        e.preventDefault();
+
+        try {
+            const cursoRequisicao = {
+                titulo: curso.titulo,
+                descricao: curso.descricao,
+                categoria: curso.categoria,
+                idProfessor: sessionStorage.getItem('userId')
+            };
+            const { imagem, modulos } = curso;
+
+            let idCurso;
+            if (curso.id) {
+                idCurso = curso.id;
+                await api.put(`/cursos/${idCurso}`, cursoRequisicao);
+                
+            } else {
+                const respostaCurso = await api.post('/cursos', cursoRequisicao);
+                idCurso = respostaCurso.data;
+                navigate('/meus-cursos')
+            }
+
+            if (imagem) {
+                const formData = new FormData();
+                formData.append('file', imagem); 
+              
+                await api.patch(`/cursos/capa/${idCurso}`, formData, {
+                  headers: {
+                    'Content-Type': 'multipart/form-data'
+                  }
+                });
+              }
+
+            for (const modulo of modulos) {
+                const { titulo, descricao } = modulo;
+                const moduloRequisicao = {
+                    titulo,
+                    descricao,
+                    ordem: modulos.indexOf(modulo) + 1,
+                    idCurso
+                };
+
+                let idModulo;
+                if (modulo.id) {
+                    idModulo = modulo.id;
+                    await api.put(`/modulos/${idModulo}`, moduloRequisicao);
+                } else {
+                    const respostaModulo = await api.post('/modulos', moduloRequisicao);
+                    idModulo = respostaModulo.data;
+                }
+
+
+                if (modulo.aulas.length > 0) {
+                    for (const aula of modulo.aulas) {
+                        const aulaRequisicao = {
+                            titulo: aula.titulo,
+                            descricao: aula.descricao,
+                        };
+
+                        if (aula.id) {
+                            const idAula = aula.id
+                            await api.put(`/videos/${idAula}`, aulaRequisicao);
+                        } else {
+                            aulaRequisicao.ordem = modulo.aulas.indexOf(aula) + 1;
+                            aulaRequisicao.idModulo = idModulo;
+
+                            const formDataAula = new FormData();
+                            formDataAula.append('json', JSON.stringify(aulaRequisicao));
+                            formDataAula.append('arquivo', aula.video);
+    
+                            api.post(`/videos`, formDataAula, {headers: {
+                                'Content-Type': 'multipart/form-data',
+                            }});
+                        }
+                    }
+                }
+
+                if (modulo.questionario.perguntas.length > 0 && !modulo.questionario.id) {
+                    const questionarioRequisicao = {
+                        titulo: "Título do Questionário",
+                        descricao: "Descrição do Questionário",
+                        idModulo,
+                        perguntas: modulo.questionario.perguntas
+                    };
+                    await api.post('/questionarios', questionarioRequisicao);
+                }
+            }
+            toast.success('Curso criado com sucesso!');           
+        } catch (error) {
+           // toast.error(error.message);
+            console.log(error.message)
+        }
+    }
 
     return (
         <>
@@ -150,42 +289,40 @@ function ButtonNovoCurso({ onClose }) {
                         <CloseRoundedIcon />
                     </button>
                 </div>
-                <form onSubmit={handleSalvarCurso} className="form-curso-criacao">
-                    <label>Título do Curso<span style={{color: 'red'}}>*</span></label>
+                <form onSubmit={onSave} className="form-curso-criacao">
+                    <label>Título do Curso<span style={{ color: 'red' }}>*</span></label>
                     <input
                         type="text"
                         name="titulo"
                         value={curso.titulo}
-                        onChange={handleInputChange}
+                        onChange={handleCursoChange}
                         placeholder="Digite o título do curso"
-                        // required
                         style={{ width: '40%' }}
                     />
 
-                    <label>Descrição do Curso<span style={{color: 'red'}}>*</span></label>
+                    <label>Descrição do Curso<span style={{ color: 'red' }}>*</span></label>
                     <input
                         name="descricao"
                         value={curso.descricao}
-                        onChange={handleInputChange}
+                        onChange={handleCursoChange}
                         placeholder="Digite a descrição do curso"
-                        // required
                         className="input-descricao"
                     />
 
                     <label>Imagem de Capa:</label>
                     <input
                         type="file"
-                        onChange={handleFileChange}
+                        name="imagem"
+                        onChange={handleCursoChange}
                         accept="image/*"
                         className="file-imagem-capa"
                     />
 
-                    <label>Categoria<span style={{color: 'red'}}>*</span></label>
+                    <label>Categoria<span style={{ color: 'red' }}>*</span></label>
                     <select
                         name="categoria"
                         value={curso.categoria}
-                        onChange={handleInputChange}
-                        // required
+                        onChange={handleCursoChange}
                     >
                         <option value="">Selecione uma categoria</option>
                         <option value="Cidadania">Cidadania</option>
@@ -200,32 +337,22 @@ function ButtonNovoCurso({ onClose }) {
                     <button
                         type="button"
                         className="btn-add-modulo"
-                        onClick={handleAddModulo}
+                        onClick={handleModuloAdd}
                     >
                         + Módulo
                     </button>
 
-                    {curso.modulos.map((modulo, index) => (
+                    {
+                    curso.modulos.map((modulo, index) => (
                         <AdicionarModulos
-                        key={index}
-                        moduloIndex={index}
-                        atualizarModulo={(moduloIndex, updatedModulo) => {
-                            const modulosAtualizados = curso.modulos.map((m, i) =>
-                                i === moduloIndex ? updatedModulo : m
-                            );
-                            setCurso((prevCurso) => ({
-                                ...prevCurso,
-                                modulos: modulosAtualizados,
-                            }));
-                        }}
-                        removerModulo={() => {
-                            const modulosAtualizados = curso.modulos.filter((_, i) => i !== index);
-                            setCurso((prevCurso) => ({
-                                ...prevCurso,
-                                modulos: modulosAtualizados,
-                            }));
-                        }}
-                    />                    
+                            key={index}
+                            moduloIndex={index}
+                            modulo={modulo}
+                            atualizarModulo={atualizarModulo}
+                            atualizarAula={atualizarAula}
+                            atualizarPergunta={atualizarPergunta}
+                            atualizarResposta={atualizarResposta}
+                        />
                     ))}
 
                     <button type="submit" className="btn-submit">Salvar Curso</button>

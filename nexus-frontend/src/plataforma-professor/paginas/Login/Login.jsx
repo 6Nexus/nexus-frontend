@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom'; 
 import api from "../../../api.js";
 
 
@@ -45,7 +45,7 @@ function Login() {
 
     const handleSubmit = (values) => {
 
-        api.post('/professores/login', {
+        api.post('/professores/login', { 
             email: values.email,
             senha: values.senha
         }, {
@@ -55,9 +55,9 @@ function Login() {
         })
             .then(response => {
                 if (response.status === 200 && response.data?.token) {
-                    sessionStorage.setItem('authToken', response.data.token);
-                    sessionStorage.setItem('usuario', response.data.nome);
-                    sessionStorage.setItem('userId', response.data.userId)
+                    sessionStorage.setItem('username', response.data.nome)
+                    sessionStorage.setItem('authToken', response.data.token)
+                    sessionStorage.setItem('userId', response.data.userId) 
 
                     // alert("Login sucess")
                     toast.success('Login realizado com sucesso!');
@@ -82,7 +82,7 @@ function Login() {
             <div className="box-login">
 
                 <img className="logo" src={logo} alt="logo nexus" />
-                <Formik
+                <Formik 
                     initialValues={{ email: '', senha: '' }} 
                     validationSchema={validationSchema}
                     onSubmit={handleSubmit}

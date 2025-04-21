@@ -3,83 +3,70 @@ import './Questionario.css';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import { toast } from 'react-toastify';
 
-
-function Questao({ questao, atualizarQuestao, deletarQuestao, index }) {
-    const [texto, setTexto] = useState(questao.texto || '');
-    const [alternativas, setAlternativas] = useState(questao.alternativas || []);
-
-    const handleTextoChange = (e) => {
-        const novoTexto = e.target.value;
-        setTexto(novoTexto);
-        atualizarQuestao({ ...questao, texto: novoTexto });
+function Questao({ moduloIndex, perguntaIndex, pergunta, atualizarPergunta, atualizarResposta }) {
+    const handlePerguntaChange = (e) => {
+        const { name, value } = e.target;
+        atualizarPergunta(moduloIndex, perguntaIndex, name, value);
     };
 
-    const addAlternativa = () => {
-        if (alternativas.length >= 4) return;
-        const novaAlternativa = { id: Date.now(), texto: '', correta: false };
-        const novasAlternativas = [...alternativas, novaAlternativa];
-        setAlternativas(novasAlternativas);
-        atualizarQuestao({ ...questao, alternativas: novasAlternativas });
+    const handlePerguntaRemove = () => {
+        atualizarPergunta(moduloIndex, perguntaIndex, 'delete', '');
     };
 
-    const atualizarAlternativa = (id, novoTexto) => {
-        const novasAlternativas = alternativas.map(alt =>
-            alt.id === id ? { ...alt, texto: novoTexto } : alt
-        );
-        setAlternativas(novasAlternativas);
-        atualizarQuestao({ ...questao, alternativas: novasAlternativas });
+    const handleRepostaAdd = () => {
+        atualizarResposta(moduloIndex, perguntaIndex, -1, '', '');
     };
 
-    const setAlternativaCorreta = (id) => {
-        const novasAlternativas = alternativas.map(alt => ({
-            ...alt,
-            correta: alt.id === id,
-        }));
-        setAlternativas(novasAlternativas);
-        atualizarQuestao({ ...questao, alternativas: novasAlternativas });
+    const handleRespostaChange = (respostaIndex, e) => {
+        const { name, value, type } = e.target;
+        atualizarResposta(moduloIndex, perguntaIndex, respostaIndex, name, value, type);
     };
 
+    const handleRepostaRemove = (respostaIndex) => {
+        atualizarResposta(moduloIndex, perguntaIndex, respostaIndex, 'delete', '', '');
+    };
 
 
     return (
         <div className="question-container">
             <div className='header-questao'>
-                <h4>Questão {index + 1}</h4>
+                <h4>Questão {perguntaIndex + 1}</h4>
 
-                <button className="btn-remover" type="button" onClick={deletarQuestao}>
+                <button className="btn-remover" type="button" onClick={handlePerguntaRemove}>
                     <CloseRoundedIcon />
                 </button>
             </div>
             <input
                 type="text"
                 className="question-input"
-                value={texto}
-                onChange={handleTextoChange}
+                name="pergunta"
+                value={pergunta.pergunta}
+                onChange={handlePerguntaChange}
                 placeholder="Digite a pergunta"
             />
-            <button className="btn-add-alternativa" type="button" onClick={addAlternativa}>
+            <button className="btn-add-alternativa" type="button" onClick={handleRepostaAdd}>
                 + Alternativa
             </button>
-            {alternativas.map((alt) => (
-                <div key={alt.id} className="container-alternativa">
+            {pergunta.respostas.map((resposta, index) => (
+                <div key={index} className="container-alternativa">
                     <input
                         type="text"
                         className="alternative-input"
-                        value={alt.texto}
-                        onChange={(e) => atualizarAlternativa(alt.id, e.target.value)}
+                        name="resposta"
+                        value={resposta.resposta}
+                        onChange={(e) => (handleRespostaChange(index, e))}
                         placeholder="Digite a alternativa"
                     />
 
                     <input
                         type="radio"
-                        name={`correta-${questao.id}`}
-                        checked={alt.correta}
-                        onChange={() => setAlternativaCorreta(alt.id)}
+                        name="respostaCerta"
+                        value={true}
+                        checked={resposta.respostaCerta}
+                        onChange={(e) => (handleRespostaChange(index, e))}
                     /> Correta
 
-                    <button className="btn-remover" type="button" onClick={() => {
-                        setAlternativas(alternativas.filter((item) => item.id !== alt.id));
-                    }}>
+                    <button className="btn-remover" type="button" onClick={() => handleRepostaRemove(index)}>
                         <CloseRoundedIcon />
                     </button>
 
@@ -90,50 +77,9 @@ function Questao({ questao, atualizarQuestao, deletarQuestao, index }) {
     );
 }
 
-function Questionario({ onClose, onSave }) {
-    const [questoes, setQuestoes] = useState([]);
-
-    const handleAddQuestao = () => {
-        setQuestoes([...questoes, { id: Date.now(), texto: '', alternativas: [] }]);
-    };
-
-    const handleSalvarQuestionario = () => {
-        if (questoes.length === 0) {
-            toast.warning('Adicione pelo menos uma questão antes de salvar.');
-            return;
-        }
-
-        for (const [index, questao] of questoes.entries()) {
-            if (!questao.texto) {
-                toast.warning(`A questão "${index + 1}" precisa ter um texto!`);
-                return;
-            }
-
-            if (questao.alternativas.length === 0) {
-                toast.warning(`A questão "${index + 1}" não possui alternativas. Adicione pelo menos uma alternativa!`);
-                return;
-            }
-
-
-            for (const alternativa of questao.alternativas) {
-                if (!alternativa.texto) {
-                    toast.warning(`A alternativa da questão "${index + 1}" está vazia!`);
-                    return;
-                }
-            }
-
-
-            const alternativaCorreta = questao.alternativas.find(alt => alt.correta);
-            if (!alternativaCorreta) {
-                toast.warning(`A questão "${index + 1}" precisa de uma alternativa correta!`);
-                return;
-            }
-        }
-
-
-        onSave(questoes);
-        console.log('Questionário Salvo', questoes)
-        toast.success('Questionário Salvo!')
+function Questionario({ moduloIndex, questionario, atualizarPergunta, atualizarResposta, onClose }) {
+    const handlePerguntaAdd = () => {
+        atualizarPergunta(moduloIndex, -1, '', '')
     };
 
     return (
@@ -146,25 +92,18 @@ function Questionario({ onClose, onSave }) {
                         <CloseRoundedIcon />
                     </button>
                 </div>
-                {questoes.map((questao, index) => (
+                {questionario.perguntas.map((pergunta, index) => (
                     <Questao
-                        key={questao.id}
-                        questao={questao}
-                        index={index}
-                        atualizarQuestao={(atualizada) => {
-                            const novasQuestoes = questoes.map(q =>
-                                q.id === atualizada.id ? atualizada : q
-                            );
-                            setQuestoes(novasQuestoes);
-                        }}
-                        deletarQuestao={() => {
-                            setQuestoes(questoes.filter(q => q.id !== questao.id));
-                        }}
+                        key={index}
+                        moduloIndex={moduloIndex}
+                        perguntaIndex={index}
+                        pergunta={pergunta}
+                        atualizarPergunta={atualizarPergunta}
+                        atualizarResposta={atualizarResposta}
                     />
                 ))}
-                <button type="button" className='btn-add-questao' onClick={handleAddQuestao}>Adicionar Questão</button>
-                <button type="button" className='btn-salvar-questionario' onClick={handleSalvarQuestionario}>Salvar Questionário</button>
-
+                
+                <button type="button" className='btn-add-questao' onClick={handlePerguntaAdd}>Adicionar Questão</button>
             </div>
         </div>
     );
