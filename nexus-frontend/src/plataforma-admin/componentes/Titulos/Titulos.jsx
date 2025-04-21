@@ -30,17 +30,18 @@ function Titulos({ tipo, mostrarCards }) {
                 {tipo.includes('professor') && (
                     <>
                         <div className={stylesTitulos.titulos}>
-                            <div className={stylesTitulos.subItem} onClick={() => handleTituloClick('emAprovacao-professor')}>
-                                <p style={{ color: tituloAtivo === 'emAprovacao-professor' ? '#66AF53' : '#000' }}>Em Aprovação</p>
-                                <div className={stylesTitulos.divVerde}></div>
-                            </div>
+
                             <div className={stylesTitulos.subItem} onClick={() => handleTituloClick('aprovados-professor')}>
-                                <p style={{ color: tituloAtivo === 'aprovados-professor' ? '#66AF53' : '#000' }}>Aprovados</p>
+                                <p style={{ color: tituloAtivo === 'aprovados-professor' ? '#66AF53' : '#000' }}>Ativos</p>
                                 <div className={stylesTitulos.divVerde}></div>
                             </div>
-                            <div className={stylesTitulos.subItem} onClick={() => handleTituloClick('bloqueados-professor')}>
-                                <p style={{ color: tituloAtivo === 'bloqueados-professor' ? '#66AF53' : '#000' }}>Bloqueados</p>
+                            <div className={stylesTitulos.subItem} onClick={() => handleTituloClick('emAprovacao-professor')}>
+                                <p style={{ color: tituloAtivo === 'emAprovacao-professor' ? '#66AF53' : '#000' }}>Bloqueados</p>
+                                {/* <div className={stylesTitulos.divVerde}></div> */}
                             </div>
+                            {/* <div className={stylesTitulos.subItem} onClick={() => handleTituloClick('bloqueados-professor')}>
+                                <p style={{ color: tituloAtivo === 'bloqueados-professor' ? '#66AF53' : '#000' }}>Bloqueados</p>
+                            </div> */}
                         </div>
                         
                     </>
