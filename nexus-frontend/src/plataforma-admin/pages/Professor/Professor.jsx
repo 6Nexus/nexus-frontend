@@ -6,6 +6,7 @@ import Titulos from '../../componentes/Titulos/Titulos';
 import Card from '../../componentes/Card/Card';
 import styles from '../Pages.module.css';
 import Pagination from '@mui/material/Pagination';
+import api from '../../../api';
 
 function Professor() {
     const [dados, setDados] = useState([]);

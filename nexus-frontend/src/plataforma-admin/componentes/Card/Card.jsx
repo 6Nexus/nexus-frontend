@@ -22,23 +22,36 @@ function Card({ dados, tipoSelecionado }) {
 		setAnchorEl(null);
 	};
 
-	const handleAprovar = async (id) => {
+	const handleAprovar = async (id, tipo) => {
+        console.log("click ", tipo)
 		try {
-			await axios.put(`http://localhost:8080/administradores/professor/aprovar/${id}`);
-			alert("Professor aprovado com sucesso!");
+            if (tipo == "professor"){
+                await axios.put(`http://localhost:8080/administradores/professor/aprovar/${id}`);
+                alert("Professor aprovado com sucesso!");
+            }else if(tipo == "aluno"){
+                await axios.put(`http://localhost:8080/administradores/associados/aprovar/${id}`);
+                alert("Aluno aprovado com sucesso!");
+            }
+
 		} catch (error) {
-			console.error("Erro ao aprovar o professor:", error);
-			alert("Ocorreu um erro ao tentar aprovar o professor.");
+			console.error(`Erro ao aprovar o ${tipo}:`, error);
+			alert(`Erro ao aprovar o ${tipo}:`);
 		}
 	};
 
-	const handleBloquear = async (id) => {
-		try {
-			await axios.put(`http://localhost:8080/administradores/professor/bloquear/${id}`);
-			alert("Professor bloqueado com sucesso!");
+	const handleBloquear = async (id,tipo) => {
+        try {
+            if (tipo == "professor"){
+                await axios.put(`http://localhost:8080/administradores/professor/bloquear/${id}`);
+                alert("Professor bloqueado com sucesso!");
+            }else if(tipo == "aluno"){
+                await axios.put(`http://localhost:8080/administradores/associados/bloquear/${id}`);
+                alert("Aluno bloqueado com sucesso!");
+            }
+
 		} catch (error) {
-			console.error("Erro ao bloquear o professor:", error);
-			alert("Ocorreu um erro ao tentar bloquear o professor.");
+			console.error(`Erro ao aprovar o ${tipo}:`, error);
+			alert(`Erro ao aprovar o ${tipo}:`);
 		}
 	};
 
@@ -129,13 +142,13 @@ function renderBotao(tipoSelecionado, id, handleAprovar, handleBloquear, handleE
 	switch (tipoSelecionado) {
 		case 'emAprovacao-professor':
 			return (
-				<button className={styles.btn} onClick={() => handleAprovar(id)}>
+				<button className={styles.btn} onClick={() => handleAprovar(id,'professor')}>
 					Aprovar
 				</button>
 			);
 		case 'aprovados-professor':
 			return (
-				<button className={styles.btnBloq} onClick={() => handleBloquear(id)}>
+				<button className={styles.btnBloq} onClick={() => handleBloquear(id,'professor')}>
 					Bloquear
 				</button>
 			);
@@ -143,13 +156,13 @@ function renderBotao(tipoSelecionado, id, handleAprovar, handleBloquear, handleE
 			return (
 				<>
 					{/* <button className={styles.btnBloq} onClick={() => handleExcluir(id)}>Aprovar</button> */}
-                    <button className={styles.btnBloq} onClick={() => handleExcluir(id)}>Bloquear</button>
+                    <button className={styles.btnBloq} onClick={() => handleBloquear(id,"aluno")}>Bloquear</button>
 				</>
 			);
         case 'bloqueados-aluno':
             return (
 				<>
-					<button className={styles.btn} onClick={() => handleExcluir(id)}>Aprovar</button>
+					<button className={styles.btn} onClick={() => handleAprovar(id,"aluno")}>Aprovar</button>
                     {/* <button className={styles.btnBloq} onClick={() => handleExcluir(id)}>Bloquear</button> */}
 				</>
 			);

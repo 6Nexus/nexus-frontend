@@ -6,6 +6,7 @@ import Titulos from '../../componentes/Titulos/Titulos';
 import Card from '../../componentes/Card/Card';
 import Pagination from '@mui/material/Pagination';
 import styles from '../Pages.module.css';
+import api from '../../../api';
 
 function Mae() {
     const [dados, setDados] = useState([]);
@@ -15,15 +16,37 @@ function Mae() {
     const cardsPerPage = 6;
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
-    const currentCards = dados.slice(indexOfFirstCard, indexOfLastCard);
+
+    const currentCards = Array.isArray(dados)
+        ? dados.slice(indexOfFirstCard, indexOfLastCard)
+        : [];
 
     // Função para buscar dados da API
     const fetchDados = async (tipo) => {
+        let url = '';
+        if (tipo === 'ativos-aluno') {
+            url = 'http://localhost:8080/administradores/associados/aprovadoTrue';
+        } else if (tipo === 'bloqueados-aluno') {
+            url = 'http://localhost:8080/administradores/associados/aprovadoFalse';
+        }
+
+        console.log(`Buscando dados da URL: ${url}`);
+
         try {
-            const response = await axios.get(`http://localhost:8080/associados?tipo=${tipo}`);
-            setDados(response.data);
+            const response = await axios.get(url);
+            console.log('Resposta da API:', response.data);
+
+            // Ajuste aqui, dependendo da estrutura do retorno da sua API
+            const dadosRecebidos = Array.isArray(response.data.dados)
+                ? response.data.dados
+                : Array.isArray(response.data)
+                ? response.data
+                : [];
+
+            setDados(dadosRecebidos);
         } catch (error) {
             console.error('Erro ao carregar os dados:', error);
+            setDados([]); // garante que não quebre se houver erro
         }
     };
 
@@ -37,8 +60,8 @@ function Mae() {
     };
 
     const mostrarCards = (tipo) => {
-        setTipoSelecionado(tipo); // Isso acionará o useEffect para buscar os dados
-        setTitulo('Mães'); // Mantém o título fixo como 'Mães'
+        setTipoSelecionado(tipo);
+        setTitulo('Mães');
     };
 
     return (
@@ -55,7 +78,7 @@ function Mae() {
                 <Card dados={currentCards} tipoSelecionado={tipoSelecionado} />
                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
                     <Pagination
-                        count={Math.ceil(dados.length / cardsPerPage)}
+                        count={Math.ceil((dados?.length || 0) / cardsPerPage)}
                         page={currentPage}
                         onChange={handleChange}
                         variant="outlined"
