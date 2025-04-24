@@ -27,10 +27,12 @@ const Home = () => {
                 <div className={styles.navLinks}>
                     <ul>
                         <li><a className={styles.principal} href="#home">Home</a></li>
-                        <li><a href="#historia">História</a></li>
+                        {/* <li><a href="#historia">História</a></li> */}
                         <li><a href="#sobreNos">Conheça a ONG</a></li>
                         <li onClick={() => handleNavigation('login', '/login')}><a href="#login">Login</a></li>
                         <li><a href="#contato">Contate-nos</a></li>
+                        <li onClick={() => handleNavigation('login-professor', '/login-professor')}><a>Plataforma Professor</a></li>
+
                     </ul>
                 </div>
             </nav>
@@ -208,6 +210,8 @@ const Home = () => {
 
                 <div className={styles.DiretrizesFooter}>
                     <h4>Copyright © 2024 Mel Inc. Todos os direitos reservados. Mulheres em Luta Ltda. CNPJ: 00.000.000/0000-00</h4>
+                            
+                    <h4 onClick={() => handleNavigation('plataforma-admin', '/admin/professores')}> Plataforma administradores</h4>
                 </div>
 
             </section>

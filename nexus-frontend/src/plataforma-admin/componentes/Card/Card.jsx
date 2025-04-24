@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../../api"; // <- aqui
 import styles from './Card.module.css';
 import foto from '../../../utils/assets/foto-perfil.png';
 import BlockIcon from '@mui/icons-material/Block';
@@ -7,6 +7,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+
 
 function Card({ dados, tipoSelecionado }) {
 	const isCurso = tipoSelecionado.includes('curso');
@@ -23,41 +24,38 @@ function Card({ dados, tipoSelecionado }) {
 	};
 
 	const handleAprovar = async (id, tipo) => {
-        console.log("click ", tipo)
 		try {
-            if (tipo == "professor"){
-                await axios.put(`http://localhost:8080/administradores/professor/aprovar/${id}`);
-                alert("Professor aprovado com sucesso!");
-            }else if(tipo == "aluno"){
-                await axios.put(`http://localhost:8080/administradores/associados/aprovar/${id}`);
-                alert("Aluno aprovado com sucesso!");
-            }
-
+			if (tipo === "professor") {
+				await api.put(`/administradores/professor/aprovar/${id}`);
+				alert("Professor aprovado com sucesso!");
+			} else if (tipo === "aluno") {
+				await api.put(`/administradores/associados/aprovar/${id}`);
+				alert("Aluno aprovado com sucesso!");
+			}
 		} catch (error) {
 			console.error(`Erro ao aprovar o ${tipo}:`, error);
 			alert(`Erro ao aprovar o ${tipo}:`);
 		}
 	};
 
-	const handleBloquear = async (id,tipo) => {
-        try {
-            if (tipo == "professor"){
-                await axios.put(`http://localhost:8080/administradores/professor/bloquear/${id}`);
-                alert("Professor bloqueado com sucesso!");
-            }else if(tipo == "aluno"){
-                await axios.put(`http://localhost:8080/administradores/associados/bloquear/${id}`);
-                alert("Aluno bloqueado com sucesso!");
-            }
-
+	const handleBloquear = async (id, tipo) => {
+		try {
+			if (tipo === "professor") {
+				await api.put(`/administradores/professor/bloquear/${id}`);
+				alert("Professor bloqueado com sucesso!");
+			} else if (tipo === "aluno") {
+				await api.put(`/administradores/associados/bloquear/${id}`);
+				alert("Aluno bloqueado com sucesso!");
+			}
 		} catch (error) {
-			console.error(`Erro ao aprovar o ${tipo}:`, error);
-			alert(`Erro ao aprovar o ${tipo}:`);
+			console.error(`Erro ao bloquear o ${tipo}:`, error);
+			alert(`Erro ao bloquear o ${tipo}:`);
 		}
 	};
 
 	const handleExcluir = async (id) => {
 		try {
-			await axios.delete(`http://localhost:8080/associados/${id}`);
+			await api.delete(`/associados/${id}`);
 			alert("Associado excluído com sucesso!");
 		} catch (error) {
 			console.error("Erro ao excluir o associado:", error);
