@@ -16,14 +16,13 @@ const Login = () => {
         setSenhaVisivel(!senhaVisivel);
     };
 
-    
     const navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-  
+
     const handleSubmit = (e) => {
       e.preventDefault();
-  
+
       api.post('/associados/login', {
         email: email,
         senha: password
@@ -32,9 +31,9 @@ const Login = () => {
           if (response.status === 200 && response.data?.token) {
             sessionStorage.setItem('authToken', response.data.token);
             sessionStorage.setItem('usuario', response.data.nome);
-            sessionStorage.setItem('userId',response.data.userId)
-            sessionStorage.setItem('email',response.data.email)
-  
+            sessionStorage.setItem('userId', response.data.userId);
+            sessionStorage.setItem('email', response.data.email);
+
             toast.success('Login realizado com sucesso!');
             navigate('/aluno/inicio');
           } else {
@@ -42,12 +41,18 @@ const Login = () => {
           }
         })
         .catch(error => {
-          toast.error(error.message);
-        alert(error.message)
-
+          if (error.response && error.response.status === 403) {
+            toast.error('Acesso negado! Aguarde sua conta ser aprovado pelo administrador do sistema');
+          } else if(error.response && error.response.status === 401){
+            toast.error('E-mail ou senha incorretos! Tente novamente');
+          }
+          else {
+            toast.error(error.message);
+            alert(error.message);
+          }
         });
     };
-  
+
     const handleNavigation = (item, route) => {
         navigate(route);
     };
@@ -111,7 +116,7 @@ const Login = () => {
                             <button type="submit" className={styles.botaoLogin}>Login</button>
                         </div>
 
-                        <p className={styles.cadastro} >
+                        <p className={styles.cadastro}>
                             Não tem uma conta? <a href="#" className={styles.linkCadastro} onClick={() => handleNavigation('cadastro', '/cadastro')}>Inscreva-se</a>
                         </p>
                     </form>
