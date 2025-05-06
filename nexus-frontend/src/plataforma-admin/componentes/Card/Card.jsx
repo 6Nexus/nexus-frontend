@@ -7,6 +7,7 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import IconButton from '@mui/material/IconButton';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
+import { toast } from "react-toastify";
 
 
 function Card({ dados, tipoSelecionado }) {
@@ -27,14 +28,17 @@ function Card({ dados, tipoSelecionado }) {
 		try {
 			if (tipo === "professor") {
 				await api.put(`/administradores/professor/aprovar/${id}`);
-				alert("Professor aprovado com sucesso!");
+				// alert("Professor aprovado com sucesso!");
+				toast.success("Professor aprovado com sucesso!")
 			} else if (tipo === "aluno") {
 				await api.put(`/administradores/associados/aprovar/${id}`);
-				alert("Aluno aprovado com sucesso!");
+				// alert("Aluno aprovado com sucesso!");
+				toast.success("Aluno aprovado com sucesso!")
 			}
 		} catch (error) {
 			console.error(`Erro ao aprovar o ${tipo}:`, error);
-			alert(`Erro ao aprovar o ${tipo}:`);
+			// alert(`Erro ao aprovar o ${tipo}:`);
+			toast.error(`Erro ao aprovar o ${tipo}:`)
 		}
 	};
 
@@ -42,21 +46,25 @@ function Card({ dados, tipoSelecionado }) {
 		try {
 			if (tipo === "professor") {
 				await api.put(`/administradores/professor/bloquear/${id}`);
-				alert("Professor bloqueado com sucesso!");
+				// alert("Professor bloqueado com sucesso!");
+				toast.success("Professor bloqueado com sucesso!")
 			} else if (tipo === "aluno") {
 				await api.put(`/administradores/associados/bloquear/${id}`);
-				alert("Aluno bloqueado com sucesso!");
+				// alert("Aluno bloqueado com sucesso!");
+				toast.success("Aluno bloqueado com sucesso!")
 			}
 		} catch (error) {
 			console.error(`Erro ao bloquear o ${tipo}:`, error);
-			alert(`Erro ao bloquear o ${tipo}:`);
+			// alert(`Erro ao bloquear o ${tipo}:`);
+			toast.error(`Erro ao bloquear o ${tipo}:`)
 		}
 	};
 
 	const handleExcluir = async (id) => {
 		try {
 			await api.delete(`/associados/${id}`);
-			alert("Associado excluído com sucesso!");
+			// alert("Associado excluído com sucesso!");
+						toast.success('Associado excluído com sucesso!');
 		} catch (error) {
 			console.error("Erro ao excluir o associado:", error);
 			alert("Ocorreu um erro ao tentar excluir o associado.");

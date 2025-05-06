@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ToastContainer } from 'react-toastify';
 
 import HomeSite from "./site-institucional/page/Home/Home";
 import Login from "./site-institucional/page/Login/Login";
@@ -29,10 +30,20 @@ import Ajuda from "./plataforma-professor/paginas/Ajuda/Ajuda";
 
 function Rotas() {
 
-    
+
 
     return (
         <BrowserRouter>
+            <ToastContainer
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+            />
             <Routes>
                 {/* site-institucional */}
                 <Route path="/" element={<HomeSite />} />
@@ -56,12 +67,12 @@ function Rotas() {
                 <Route path="/admin/cursos" element={<Curso />} />
 
                 {/* plataforma-professor */}
-                <Route path="/perfil-professor" element={<Perfil/>}/>
-                <Route path="/login-professor" element={<LoginProfessor/>}/>
-                <Route path="/cadastro-professor" element={<CadastroProfessor/>}/>
-                <Route path="/curso-setup" element={<CursoSetup/>}/>
-                <Route path="/meus-cursos" element={<MeusCursos/>}/>
-                <Route path="/ajuda" element={<Ajuda/>}/>
+                <Route path="/perfil-professor" element={<Perfil />} />
+                <Route path="/login-professor" element={<LoginProfessor />} />
+                <Route path="/cadastro-professor" element={<CadastroProfessor />} />
+                <Route path="/curso-setup" element={<CursoSetup />} />
+                <Route path="/meus-cursos" element={<MeusCursos />} />
+                <Route path="/ajuda" element={<Ajuda />} />
             </Routes>
         </BrowserRouter>
     );

@@ -69,9 +69,12 @@ function Login() {
                 }
             })
             .catch(error => {
+                if (error.response && error.response.status === 403) {
+                            toast.error('Acesso negado! Aguarde sua conta ser aprovado pelo administrador do sistema');
+                }else{
                 toast.error('Ops! Ocorreu um erro interno.');
                 // alert(error.message)
-
+                }
             });
     };
 
