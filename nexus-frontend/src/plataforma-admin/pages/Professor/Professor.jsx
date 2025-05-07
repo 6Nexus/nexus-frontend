@@ -7,6 +7,7 @@ import Card from '../../componentes/Card/Card';
 import styles from '../Pages.module.css';
 import Pagination from '@mui/material/Pagination';
 import api from '../../../api';
+import { toast } from 'react-toastify';
 
 function Professor() {
     const [dados, setDados] = useState([]);
@@ -25,26 +26,29 @@ function Professor() {
     }, [tipoSelecionado]);
 
     const buscarDados = async (tipo) => {
-        let url = '';
+        let endpoint = '';
+    
         if (tipo === 'emAprovacao-professor') {
-            url = 'http://localhost:8080/administradores/professor/aprovadoFalse';
+            endpoint = '/administradores/professor/aprovadoFalse';
         } else if (tipo === 'aprovados-professor') {
-            url = 'http://localhost:8080/administradores/professor/aprovadoTrue';
+            endpoint = '/administradores/professor/aprovadoTrue';
         } else if (tipo === 'bloqueados-professor') {
-            url = 'http://localhost:8080/administradores/professor/aprovadoFalse';
+            endpoint = '/administradores/professor/aprovadoFalse'; 
         }
     
-        console.log(`Buscando dados da URL: ${url}`);  // Verifique a URL no console
+        console.log(`Buscando dados do endpoint: ${endpoint}`);
     
         try {
-            const response = await axios.get(url);
-            console.log('Resposta da API:', response.data);  // Verifique a resposta da API
+            const response = await api.get(endpoint);
+            console.log('Resposta da API:', response.data);
             setDados(response.data);
         } catch (error) {
             console.error('Erro ao buscar dados:', error.message);
             console.log('Detalhes do erro:', error);
+            toast.error('Erro ao buscar dados!'); 
         }
     };
+    
     
 
     const handleChange = (event, value) => {

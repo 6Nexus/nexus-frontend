@@ -7,6 +7,7 @@ import Card from '../../componentes/Card/Card';
 import Pagination from '@mui/material/Pagination';
 import styles from '../Pages.module.css';
 import api from '../../../api';
+import { toast } from 'react-toastify';
 
 function Mae() {
     const [dados, setDados] = useState([]);
@@ -23,32 +24,34 @@ function Mae() {
 
     // Função para buscar dados da API
     const fetchDados = async (tipo) => {
-        let url = '';
+        let endpoint = '';
+    
         if (tipo === 'ativos-aluno') {
-            url = 'http://localhost:8080/administradores/associados/aprovadoTrue';
+            endpoint = '/administradores/associados/aprovadoTrue';
         } else if (tipo === 'bloqueados-aluno') {
-            url = 'http://localhost:8080/administradores/associados/aprovadoFalse';
+            endpoint = '/administradores/associados/aprovadoFalse';
         }
-
-        console.log(`Buscando dados da URL: ${url}`);
-
+    
+        console.log(`Buscando dados do endpoint: ${endpoint}`);
+    
         try {
-            const response = await axios.get(url);
+            const response = await api.get(endpoint);
             console.log('Resposta da API:', response.data);
-
-            // Ajuste aqui, dependendo da estrutura do retorno da sua API
+    
             const dadosRecebidos = Array.isArray(response.data.dados)
                 ? response.data.dados
                 : Array.isArray(response.data)
                 ? response.data
                 : [];
-
+    
             setDados(dadosRecebidos);
         } catch (error) {
             console.error('Erro ao carregar os dados:', error);
-            setDados([]); // garante que não quebre se houver erro
+            setDados([]);
+            toast.error('Erro ao carregar os dados!'); 
         }
     };
+    
 
     // Inicializa os dados com o tipo padrão
     useEffect(() => {
