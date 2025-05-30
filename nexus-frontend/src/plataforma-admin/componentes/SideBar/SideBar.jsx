@@ -99,15 +99,15 @@ const SideBar = ({ backgroundColor }) => {
                             {isExpanded && <span className={styles["menuOptions__item__text"]}>Cursos</span>}
                         </div> */}
                     </div>
+{/* 
+                    <div className={styles["menuOptions__line"]}></div> */}
 
-                    <div className={styles["menuOptions__line"]}></div>
-
-                    <div className={styles["menuOptions__secondary"]}>
+                    {/* <div className={styles["menuOptions__secondary"]}>
                         <div className={styles["menuOptions__item"]} onClick={handleDownload}>
                             <UploadFileIcon sx={{ fontSize: 32, color: '#fff' }} className={`${activeItem === 'metrica' ? styles["active"] : ""}`} />
                             {isExpanded && <span className={styles["menuOptions__item__text"]}>Métricas</span>}
                         </div>
-                    </div>
+                    </div> */}
                 </div>
 
                 <div className={styles["menuIconLogout"]}>

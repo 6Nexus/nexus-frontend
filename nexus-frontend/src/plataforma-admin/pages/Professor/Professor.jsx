@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import SideBar from '../../componentes/SideBar/SideBar';
 import NavBar from '../../componentes/NavBar/NavBar';
 import Titulos from '../../componentes/Titulos/Titulos';
@@ -27,29 +26,32 @@ function Professor() {
 
     const buscarDados = async (tipo) => {
         let endpoint = '';
-    
+
         if (tipo === 'emAprovacao-professor') {
             endpoint = '/administradores/professor/aprovadoFalse';
         } else if (tipo === 'aprovados-professor') {
             endpoint = '/administradores/professor/aprovadoTrue';
         } else if (tipo === 'bloqueados-professor') {
-            endpoint = '/administradores/professor/aprovadoFalse'; 
+            endpoint = '/administradores/professor/aprovadoFalse';
         }
-    
+
         console.log(`Buscando dados do endpoint: ${endpoint}`);
-    
+
+        setLoading(true);
         try {
             const response = await api.get(endpoint);
             console.log('Resposta da API:', response.data);
-            setDados(response.data);
+            // Garantindo que dados seja sempre array
+            setDados(Array.isArray(response.data) ? response.data : []);
         } catch (error) {
             console.error('Erro ao buscar dados:', error.message);
             console.log('Detalhes do erro:', error);
-            toast.error('Erro ao buscar dados!'); 
+            toast.error('Erro ao buscar dados!');
+            setDados([]); // Para garantir que dados seja array mesmo após erro
+        } finally {
+            setLoading(false);
         }
     };
-    
-    
 
     const handleChange = (event, value) => {
         setCurrentPage(value);
@@ -75,6 +77,7 @@ function Professor() {
                 {loading ? (
                     <p style={{ textAlign: 'center' }}>Carregando...</p>
                 ) : (
+                    // Passando currentCards que sempre será um array por slice em dados[]
                     <Card dados={currentCards} tipoSelecionado={tipoSelecionado} />
                 )}
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import SideBar from '../../componentes/SideBar/SideBar';
 import NavBar from '../../componentes/NavBar/NavBar';
 import Titulos from '../../componentes/Titulos/Titulos';
@@ -14,7 +13,9 @@ function Mae() {
     const [titulo, setTitulo] = useState('Mães');
     const [tipoSelecionado, setTipoSelecionado] = useState('ativos-aluno');
     const [currentPage, setCurrentPage] = useState(1);
+    const [loading, setLoading] = useState(false);
     const cardsPerPage = 6;
+
     const indexOfLastCard = currentPage * cardsPerPage;
     const indexOfFirstCard = indexOfLastCard - cardsPerPage;
 
@@ -22,41 +23,43 @@ function Mae() {
         ? dados.slice(indexOfFirstCard, indexOfLastCard)
         : [];
 
-    // Função para buscar dados da API
+    useEffect(() => {
+        setCurrentPage(1);
+        fetchDados(tipoSelecionado);
+    }, [tipoSelecionado]);
+
     const fetchDados = async (tipo) => {
         let endpoint = '';
-    
+
         if (tipo === 'ativos-aluno') {
             endpoint = '/administradores/associados/aprovadoTrue';
         } else if (tipo === 'bloqueados-aluno') {
             endpoint = '/administradores/associados/aprovadoFalse';
         }
-    
+
         console.log(`Buscando dados do endpoint: ${endpoint}`);
-    
+
+        setLoading(true);
         try {
             const response = await api.get(endpoint);
             console.log('Resposta da API:', response.data);
-    
+
+            // Pode vir dentro de data.dados ou só data, garantir sempre array
             const dadosRecebidos = Array.isArray(response.data.dados)
                 ? response.data.dados
                 : Array.isArray(response.data)
                 ? response.data
                 : [];
-    
+
             setDados(dadosRecebidos);
         } catch (error) {
             console.error('Erro ao carregar os dados:', error);
-            setDados([]);
-            toast.error('Erro ao carregar os dados!'); 
+            toast.error('Erro ao carregar os dados!');
+            setDados([]); // garantir array mesmo em erro
+        } finally {
+            setLoading(false);
         }
     };
-    
-
-    // Inicializa os dados com o tipo padrão
-    useEffect(() => {
-        fetchDados(tipoSelecionado);
-    }, [tipoSelecionado]);
 
     const handleChange = (event, value) => {
         setCurrentPage(value);
@@ -78,10 +81,16 @@ function Mae() {
             <div className={styles.content}>
                 <h1 className={styles.titulo}>{titulo}</h1>
                 <Titulos tipo={tipoSelecionado} mostrarCards={mostrarCards} />
-                <Card dados={currentCards} tipoSelecionado={tipoSelecionado} />
+
+                {loading ? (
+                    <p style={{ textAlign: 'center' }}>Carregando...</p>
+                ) : (
+                    <Card dados={currentCards} tipoSelecionado={tipoSelecionado} />
+                )}
+
                 <div style={{ display: 'flex', justifyContent: 'center', marginTop: '16px' }}>
                     <Pagination
-                        count={Math.ceil((dados?.length || 0) / cardsPerPage)}
+                        count={Math.ceil(dados.length / cardsPerPage)}
                         page={currentPage}
                         onChange={handleChange}
                         variant="outlined"

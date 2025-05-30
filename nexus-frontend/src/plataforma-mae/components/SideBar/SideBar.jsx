@@ -112,10 +112,10 @@ const SideBar = ({backgroundColor}) => {
                     <div className={styles["menuOptions__line"]}></div>
 
                     <div className={styles["menuOptions__secondary"]}>
-                        <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('certificates', '/aluno/certificados')}>
+                        {/* <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('certificates', '/aluno/certificados')}>
                             <WorkspacePremiumIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'certificates' ? styles["active"] : ""}`}/>
                             {isExpanded && <span className={styles["menuOptions__item__text"]}>Certificados</span>}
-                        </div>
+                        </div> */}
 
                         <div className={styles["menuOptions__item"]} onClick={() => handleNavigation('saved', '/aluno/cursos-salvos')}>
                             <BookmarkAddedIcon sx={{ fontSize: 32, color: '#fff'}} className={`${activeItem === 'saved' ? styles["active"] : ""}`}/>

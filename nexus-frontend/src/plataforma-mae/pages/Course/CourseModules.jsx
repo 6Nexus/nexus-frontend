@@ -5,7 +5,7 @@ import styles from './CourseModules.module.css';
 import Main from "../Main/Main";
 import CardModules from "../../components/CardModules/CardModules";
 import BannerInfoCourse from "../../components/BannerInfoCourse/BannerInfoCourse";
-import { toast, ToastContainer} from 'react-toastify';
+import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigation } from "../../../NavigationContext";
 
@@ -33,14 +33,20 @@ const CourseModules = () => {
 
     const buscarModulos = () => {
         api.get(`/modulos/curso/${idCurso}`)
-            .then(({ data }) => setModules(data))
+            .then(({ data }) => {
+                console.log('Dados módulos:', data);
+                // Ajuste aqui se 'data' for um objeto contendo array em outra propriedade
+                // Exemplo comum: setModules(data.modulos)
+                // Se data já for array, pode usar direto:
+                setModules(Array.isArray(data) ? data : []);
+            })
             .catch((e) => console.log("Erro ao buscar módulos:", e));
     };
 
     const verificarMatricula = () => {
         api.get(`/matriculas/${id}/${idCurso}`)
             .then(({ status }) => {
-                if (status == 200) {
+                if (status === 200) {
                     setRegistration(true);
                 }
             })
@@ -71,7 +77,7 @@ const CourseModules = () => {
     return (
         <Main enableReturnPages={true}>
             <div className={styles["info"]}>
-                <ToastContainer/>
+                <ToastContainer />
                 <BannerInfoCourse
                     courseName={course.titulo}
                     teacherName={course.professorNome}
@@ -83,7 +89,7 @@ const CourseModules = () => {
 
             <div className={styles['modulesList']}>
                 <p className={styles["title"]}>Módulos</p>
-                {modules.map((module) => (
+                {Array.isArray(modules) && modules.map((module) => (
                     <CardModules
                         key={module.id}
                         idModule={module.id}
