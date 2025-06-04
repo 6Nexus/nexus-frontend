@@ -1,0 +1,1 @@
+window.REVERSE_PROXY_URL = 'http://$IP:8080/api'
