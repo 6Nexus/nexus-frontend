@@ -8,6 +8,7 @@ import Groups2RoundedIcon from '@mui/icons-material/Groups2Rounded';
 import SchoolIcon from '@mui/icons-material/School';
 import LogoutIcon from '@mui/icons-material/Logout';
 import UploadFileIcon from '@mui/icons-material/UploadFile';
+import Swal from 'sweetalert2';
 
 import { useNavigate, useLocation } from 'react-router-dom';
 import axios from 'axios';
@@ -21,6 +22,29 @@ const SideBar = ({ backgroundColor }) => {
     const toggleMenu = () => {
         setExpanded(!isExpanded);
     };
+
+    
+        const logout = () => {
+            Swal.fire({
+                title: "Confirmar saída",
+                text: "Deseja sair de sua conta?",
+                icon: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#3B9D3B",
+                cancelButtonColor: "#dadada",
+                cancelTextColor: "#00000",
+                cancelButtonText: "Cancelar",
+                confirmButtonText: "Sair",
+            }).then((result) => {
+    
+                if(result.value == true) {
+                    sessionStorage.clear();
+                    window.location.href = '/';
+                }
+                
+            
+            });
+        }
 
     useEffect(() => {
         const currentPath = location.pathname;
@@ -111,7 +135,7 @@ const SideBar = ({ backgroundColor }) => {
                 </div>
 
                 <div className={styles["menuIconLogout"]}>
-                    <div className={styles["menuOptions__item"]}>
+                    <div className={styles["menuOptions__item"]} onClick={() => logout()}>
                         <LogoutIcon sx={{ fontSize: 32, color: '#fff' }} />
                         {isExpanded && <span className={styles["menuOptions__item__text"]}>Sair</span>}
                     </div>
